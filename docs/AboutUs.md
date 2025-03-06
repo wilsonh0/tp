@@ -52,5 +52,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/Aaron_photo.png" width="200px">
 
+[[github](http://github.com/aaronlim02)]
+[[portfolio](team/johndoe.md)]
+
 * Role: Developer
 * Responsibilities: UI
