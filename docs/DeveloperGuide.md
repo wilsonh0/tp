@@ -260,16 +260,23 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target User Profile**: HR Lead or Business Owner of an SME **without a dedicated HR team**, who:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+- Manages hiring, employee tracking, and HR admin alongside other business tasks.
+- Needs a simple, **low-maintenance** tool for keeping employee records.
+- **Lacks time** to learn or manage complex HR software.
+- Prefers a **keyboard-driven desktop app** for speed and efficiency.
+- Is comfortable with **CLI-based** interactions.
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value Proposition**:
 
+- **All-in-one** lightweight employee tracking tool for SMEs without full HR teams.
+- **Centralized** employee records: work hours, performance, skills, leave, and other key details.
+- **Quick search & filtering**: find employees by name, department, location, or job role.
+- **Tagging system**: categorize employees (e.g., “Risk Analyst,” “Loan Specialist”).
+- **No unnecessary features**—focused on SME needs without enterprise complexity.
+- **Scalable**: easy transition to a full HR system when the business grows.
+- **Cost-effective** alternative to expensive HR software.
 
 ### User stories
 
