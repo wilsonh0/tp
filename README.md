@@ -1,15 +1,30 @@
 [![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
 [![codecov](https://codecov.io/gh/nus-cs2103-AY2425S2/tp/branch/AY2425S2-CS2103-F15-3%2Ftp%3Amaster/graph/badge.svg?token=WSB76KOM78)](https://codecov.io/gh/nus-cs2103-AY2425S2/tp)
 
+# HR Nexus
 ![Ui](docs/images/Ui.png)
 
-* This is **a sample project for Software Engineering (SE) students**.<br>
-  Example usages:
-  * as a starting point of a course project (as opposed to writing everything from scratch)
-  * as a case study
-* The project simulates an ongoing software project for a desktop application (called _AddressBook_) used for managing contact details.
-  * It is **written in OOP fashion**. It provides a **reasonably well-written** code base **bigger** (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
-  * It comes with a **reasonable level of user and developer documentation**.
-* It is named `AddressBook Level 3` (`AB3` for short) because it was initially created as a part of a series of `AddressBook` projects (`Level 1`, `Level 2`, `Level 3` ...).
-* For the detailed documentation of this project, see the **[Address Book Product Website](https://se-education.org/addressbook-level3)**.
-* This project is a **part of the se-education.org** initiative. If you would like to contribute code to this project, see [se-education.org](https://se-education.org/#contributing-to-se-edu) for more info.
+**A lightweight HR management system designed for small businesses.**
+
+## Overview
+Small businesses often struggle with managing employee records efficiently, especially without a dedicated HR team. SME HR Tracker is a simple, no-frills employee management system that helps SMEs keep track of employees without the overhead of complex, expensive software.
+
+This system acts as a stepping stone, allowing businesses to transition easily to a more structured HR system in the future.
+
+## Features
+- **Employee Database** – Store basic employee details (name, role, department, start date, contact info, etc.)
+- **Attendance Tracking** – Log working days, absences, and leaves
+- **Role & Department Management** – Assign employees to departments and roles
+
+## Who is this for?
+This is designed specifically for small and medium-sized enterprises (SMEs) that:
+- Have limited or no dedicated HR personnel
+- Are looking for a simple, cost-effective way to manage employee records
+- Want to transition to a more structured HR system in the future
+
+## Quick Links
+- [User Guide](https://ay2425s2-cs2103t-t15-3.github.io/tp/UserGuide.html)
+- [Developer Guide](https://ay2425s2-cs2103t-t15-3.github.io/tp/DeveloperGuide.html)
+
+## Acknowledgements
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
