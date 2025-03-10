@@ -295,16 +295,98 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `HRNexus` and the **Actor** is the `user`, unless specified otherwise)
+
+**Use case: Add an employee**
+
+**MSS**
+
+1.  User requests to add an employee and keys in the details.
+2.  HRNexus shows the employee added and confirms the successful addition.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. If any required field is missing or invalid, 
+the system prompts the user to correct the input and prevents submission.
+
+  Use case resumes at step 1.
+
+**Use case: Edit employee’s information**
+
+**MSS**
+
+1.  User requests to list employees.
+2.  HRNexus shows a list of employees.
+3.  User requests to edit an employee and keys in the details.
+4.  HRNexus shows the edited employee's fields and confirms the successful edit.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. If any required field is missing or invalid,
+  the system prompts the user to correct the input and prevents submission.
+
+  Use case resumes at step 2.
+
+**Use case: List employee with specific field**
+
+**MSS**
+
+1.  User requests to list all employees and keys in a specific field.
+2.  HRNexus shows all employees who have said field.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+
+  Use case ends.
+
+* 1a. The given field is invalid.
+
+    * 1a1. HRNexus shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: Add tags to employees**
+
+**MSS**
+
+1.  User requests to list employees.
+2.  HRNexus shows a list of employees.
+3.  User requests to add a tag to a specific employee in the list.
+4.  HRNexus adds the tag to the employee and confirms the successful addition of the tag.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given tag is invalid.
+
+    * 3a1. HRNexus shows an error message.
+
+      Use case resumes at step 2.
 
 **Use case: Delete a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list employees.
+2.  HRNexus shows a list of employees.
+3.  User requests to delete a specific employee in the list.
+4.  HRNexus deletes the person and confirms the successful deletion.
 
     Use case ends.
 
@@ -316,11 +398,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. HRNexus shows an error message.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: View Employee Details**
+
+**MSS**
+
+1.  User requests to list employees.
+2.  HRNexus shows a list of employees.
+3.  User requests to view a specific employee's details.
+4.  HRNexus shows employee's details.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. HRNexus shows an error message.
+
+      Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
