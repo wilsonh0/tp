@@ -325,16 +325,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 persons without a _noticeable sluggishness_ in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
+4.  Should consume less than 1GB of RAM under normal usage conditions.
+5.  Should provide error messages to guide users when users make mistakes.
+6.  Should launch and be fully responsive within 10 seconds on a typical modern computer.
 *{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **SME**: Small and Medium-sized Enterprises (typically <200 employees)
+* **Noticeable Sluggishness**: Response time of more than 200ms for 50% of user interactions
+* **
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
