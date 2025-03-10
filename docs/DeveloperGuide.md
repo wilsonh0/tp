@@ -282,16 +282,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​  | I want to …​                       | So that I can…​                                    |
-|----------|----------|------------------------------------|----------------------------------------------------|
-| `* * *`  | user     | add a new employee                 | maintain an up-to-date record of all employees     |
-| `* * *`  | user     | delete an employee                 | ensure the records reflect only current employees  |
-| `* * *`  | user     | view all employees details at once | quickly review the current workforce               |
-| `* * *`  | user     | monitor employee leave             | ensure adequate workforce availability             |
-| `* *`    | user     | update employee details            | keep employee information accurate and up to date  |
-| `* *`    | user     | tag employees with specific skills | quickly identify employees with specific expertise |
-| `*`      | user     | filter employees by skills         | easily find the right employee for a specific task |
-| `*`      | user     | search for an employee             | quickly find an employee by name or ID             |
+| Priority | As a …​ | I want to …​                       | So that I can…​                                    |
+|:--------:|:-------:|:-----------------------------------|:---------------------------------------------------|
+| `* * *`  |  user   | add a new employee                 | maintain an up-to-date record of all employees     |
+| `* * *`  |  user   | delete an employee                 | ensure the records reflect only current employees  |
+| `* * *`  |  user   | view all employees details at once | quickly review the current workforce               |
+| `* * *`  |  user   | monitor employee leave             | ensure adequate workforce availability             |
+|  `* *`   |  user   | update employee details            | keep employee information accurate and up to date  |
+|  `* *`   |  user   | tag employees with specific skills | quickly identify employees with specific expertise |
+|   `*`    |  user   | filter employees by skils          | easily find the right employee for a specific task |
+|   `*`    |  user   | search for an employee             | quickly find an employee by name or ID             |
+
 *{More to be added}*
 
 ### Use cases
