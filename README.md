@@ -1,4 +1,4 @@
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
+[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/AY2425S2-CS2103T-T15-3/tp/actions)
 [![codecov](https://codecov.io/gh/nus-cs2103-AY2425S2/tp/branch/AY2425S2-CS2103-F15-3%2Ftp%3Amaster/graph/badge.svg?token=WSB76KOM78)](https://codecov.io/gh/nus-cs2103-AY2425S2/tp)
 
 # HR Nexus
