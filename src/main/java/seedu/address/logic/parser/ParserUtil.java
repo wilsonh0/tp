@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Hire;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
@@ -52,15 +53,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String nric} into an {@code Nric}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @param nric The input NRIC string.
+     * @return A valid {@code Nric} object.
+     * @throws ParseException if the given {@code nric} does not meet the NRIC format constraints.
      */
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
-        if (!Name.isValidName(trimmedNric)) {
+        if (!Nric.isValidNric(trimmedNric)) {
             throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }
         return new Nric(trimmedNric);
@@ -109,6 +112,23 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String hire} into a {@code Hire}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param hire The input hire date string in YYYY-MM-DD format.
+     * @return A valid {@code Hire} object.
+     * @throws ParseException if the given {@code hire} does not match the expected date format.
+     */
+    public static Hire parseHire(String hire) throws ParseException {
+        requireNonNull(hire);
+        String trimmedHire = hire.trim();
+        if (!Hire.isValidHire(trimmedHire)) {
+            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+        }
+        return new Hire(trimmedHire);
     }
 
     /**

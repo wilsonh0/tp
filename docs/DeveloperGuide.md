@@ -443,7 +443,7 @@ the system prompts the user to correct the input and prevents submission.
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **SME**: Small and Medium-sized Enterprises (typically <200 employees)
 * **Noticeable Sluggishness**: Response time of more than 200ms for 50% of user interactions
-* **
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
