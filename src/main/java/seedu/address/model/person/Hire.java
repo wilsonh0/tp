@@ -18,7 +18,7 @@ public class Hire {
      */
     public static final String VALIDATION_REGEX = "^[0-9-]+$";
 
-    public final String hire;
+    public final String date;
 
     /**
      * Constructs a {@code Hire}.
@@ -28,7 +28,7 @@ public class Hire {
     public Hire(String hire) {
         requireNonNull(hire);
         checkArgument(isValidHire(hire), MESSAGE_CONSTRAINTS);
-        this.hire = hire;
+        this.date = hire;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Hire {
 
     @Override
     public String toString() {
-        return hire;
+        return date;
     }
 
     @Override
@@ -56,12 +56,12 @@ public class Hire {
         }
 
         Hire otherHire = (Hire) other;
-        return hire.equals(otherHire.hire);
+        return date.equals(otherHire.date);
     }
 
     @Override
     public int hashCode() {
-        return hire.hashCode();
+        return date.hashCode();
     }
 
 }
