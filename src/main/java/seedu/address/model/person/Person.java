@@ -18,27 +18,35 @@ public class Person {
 
     // Identity fields
     private final Name name;
+    private final Nric nric;
     private final Phone phone;
     private final Email email;
 
     // Data fields
     private final Address address;
+    private final Hire hire;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, Set<Tag> tags) {
+        requireAllNonNull(name, nric, phone, email, address, hire, tags);
         this.name = name;
+        this.nric = nric;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.hire = hire;
         this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Nric getNric() {
+        return nric;
     }
 
     public Phone getPhone() {
@@ -51,6 +59,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Hire getHire() {
+        return hire;
     }
 
     /**
@@ -91,25 +103,29 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
+                && nric.equals(otherPerson.nric)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && hire.equals(otherPerson.hire)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, nric, phone, email, address, hire, tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
+                .add("nric", nric)
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("hire", hire)
                 .add("tags", tags)
                 .toString();
     }
