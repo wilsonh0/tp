@@ -4,21 +4,24 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Person's date of hire in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidHire(String)}
  */
 public class Hire {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Hire date must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Regex to ensure the date follows the YYYY-MM-DD format and
+     * the first character of the address must not be a whitespace.
+     * - (?:19|20)\d{2} ensures a valid year between 1900-2099.
+     * - (0[1-9]|1[0-2]) ensures a valid month (01-12).
+     * - (0[1-9]|[12][0-9]|3[01]) ensures a valid day (01-31).
      */
-    public static final String VALIDATION_REGEX = "^[0-9-]+$";
+    public static final String VALIDATION_REGEX = "^(?:19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
 
-    public final String date;
+    public final String hire;
 
     /**
      * Constructs a {@code Hire}.
@@ -28,7 +31,7 @@ public class Hire {
     public Hire(String hire) {
         requireNonNull(hire);
         checkArgument(isValidHire(hire), MESSAGE_CONSTRAINTS);
-        this.date = hire;
+        this.hire = hire;
     }
 
     /**
@@ -41,7 +44,7 @@ public class Hire {
 
     @Override
     public String toString() {
-        return date;
+        return hire;
     }
 
     @Override
@@ -56,12 +59,12 @@ public class Hire {
         }
 
         Hire otherHire = (Hire) other;
-        return date.equals(otherHire.date);
+        return hire.equals(otherHire.hire);
     }
 
     @Override
     public int hashCode() {
-        return date.hashCode();
+        return hire.hashCode();
     }
 
 }

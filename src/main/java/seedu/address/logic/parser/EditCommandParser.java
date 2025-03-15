@@ -65,7 +65,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_HIRE).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_HIRE).get()));
+            editPersonDescriptor.setHire(ParserUtil.parseHire(argMultimap.getValue(PREFIX_HIRE).get()));
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {

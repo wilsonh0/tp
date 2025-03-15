@@ -9,14 +9,20 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Nric {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Nrics should only contain alphanumeric characters and spaces, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "NRIC should begin with either 'S' or 'T', "
+            + "followed by 7 numerical characters, "
+            + "and end with 1 uppercase alphabetical character (e.g., S7654321A). "
+            + "It should not be blank.";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+    /**
+     * Regex to validate a Singapore NRIC.
+     * - The first character must be 'S' or 'T', representing the issuance year.
+     * - Followed by exactly 7 numerical digits.
+     * - Ends with a single uppercase alphabetical character .
+     * - Ensures no leading or trailing spaces.
+     * - Example of a valid NRIC: "S1234567A".
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "^[ST]\\d{7}[A-Z]$";
 
     public final String nric;
 

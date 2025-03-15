@@ -7,10 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HIRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-<<<<<<< HEAD
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HIRE;
-=======
->>>>>>> e14e9aab4bdb5c9214a7908cc1c0035d014e5544
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -49,11 +45,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-<<<<<<< HEAD
-            + "[" + PREFIX_HIRE + "TAG]...\n"
-=======
             + "[" + PREFIX_HIRE + "HIRE]...\n"
->>>>>>> e14e9aab4bdb5c9214a7908cc1c0035d014e5544
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";

@@ -44,12 +44,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Nric nric = new Nric(""); // placeholder else cannot compile,
+        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-
-        Hire hire = new Hire(""); // placeholder else cannot compile
+        Hire hire = ParserUtil.parseHire(argMultimap.getValue(PREFIX_HIRE).get());
         Set<Tag> tagList = new HashSet<>(); // placeholder else cannot compile
         Person person = new Person(name, nric, phone, email, address, hire, tagList);
 
