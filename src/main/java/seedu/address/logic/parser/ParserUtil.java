@@ -53,10 +53,12 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String nric} into an {@code Nric}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @param nric The input NRIC string.
+     * @return A valid {@code Nric} object.
+     * @throws ParseException if the given {@code nric} does not meet the NRIC format constraints.
      */
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
@@ -112,6 +114,14 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    /**
+     * Parses a {@code String hire} into a {@code Hire}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param hire The input hire date string in YYYY-MM-DD format.
+     * @return A valid {@code Hire} object.
+     * @throws ParseException if the given {@code hire} does not match the expected date format.
+     */
     public static Hire parseHire(String hire) throws ParseException {
         requireNonNull(hire);
         String trimmedHire = hire.trim();
