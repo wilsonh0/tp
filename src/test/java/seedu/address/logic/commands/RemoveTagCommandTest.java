@@ -35,7 +35,7 @@ public class RemoveTagCommandTest {
 
         // Prepare the expected person with the tag removed
         Set<Tag> newTags = new HashSet<>(personToEdit.getTags().getTags());
-        newTags.remove(tagToRemove);  // Remove the tag
+        newTags.remove(tagToRemove); // Remove the tag
         TagSet updatedTags = new TagSet(newTags);
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getNric(),
             personToEdit.getPhone(), personToEdit.getEmail(),
