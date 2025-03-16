@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Hire;
@@ -156,5 +157,25 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String leaveStart} and {@code String leaveEnd} into a {@code Leave}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param leaveStart The input leave start date string in YYYY-MM-DD format.
+     * @param leaveEnd The input leave end date string in YYYY-MM-DD format.
+     * @param reason The input reason for leave.
+     * @return A valid {@code Leave} object.
+     * @throws ParseException if the given {@code leaveStart}, {@code leaveEnd} or {@code reason} does not match format.
+     */
+    public static Leave parseLeave(String leaveStart, String leaveEnd, String reason) throws ParseException {
+        requireNonNull(leaveStart);
+        requireNonNull(leaveEnd);
+        requireNonNull(reason);
+        if (!Leave.isValidLeave(leaveStart, leaveEnd, reason)) {
+            throw new ParseException(Leave.MESSAGE_CONSTRAINTS);
+        }
+        return new Leave(leaveStart, leaveEnd, reason);
     }
 }

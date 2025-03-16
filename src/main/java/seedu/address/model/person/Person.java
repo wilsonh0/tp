@@ -2,12 +2,15 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.leave.Leave;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,11 +29,13 @@ public class Person {
     private final Address address;
     private final Hire hire;
     private final Set<Tag> tags = new HashSet<>();
+    private final List<Leave> leaves = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, Set<Tag> tags) {
+    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, Set<Tag> tags,
+                  List<Leave> leaves) {
         requireAllNonNull(name, nric, phone, email, address, hire, tags);
         this.name = name;
         this.nric = nric;
@@ -39,6 +44,7 @@ public class Person {
         this.address = address;
         this.hire = hire;
         this.tags.addAll(tags);
+        this.leaves.addAll(leaves);
     }
 
     public Name getName() {
@@ -71,6 +77,21 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable leave list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Leave> getLeaves() {
+        return Collections.unmodifiableList(leaves);
+    }
+
+    /**
+     * Adds a leave to the person's list of leaves.
+     */
+    public void addLeave(Leave leave) {
+        leaves.add(leave);
     }
 
     /**

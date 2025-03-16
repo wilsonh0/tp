@@ -12,5 +12,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL = new Prefix("/email");
     public static final Prefix PREFIX_ADDRESS = new Prefix("/address");
     public static final Prefix PREFIX_HIRE = new Prefix("/hire");
-
+    /* For Leave Command */
+    public static final Prefix PREFIX_LEAVE_START = new Prefix("/start");
+    public static final Prefix PREFIX_LEAVE_END = new Prefix("/end");
+    public static final Prefix PREFIX_REASON = new Prefix("/reason");
 }
