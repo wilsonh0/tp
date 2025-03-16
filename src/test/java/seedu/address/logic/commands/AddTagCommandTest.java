@@ -2,20 +2,18 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -50,7 +48,8 @@ public class AddTagCommandTest {
         expectedModel.setPerson(personToEdit, editedPerson);
 
         // Adjust the expected success message to use only the name, as per your current implementation
-        String expectedMessage = String.format("Tag \"%s\" added successfully to %s.", validTag, personToEdit.getName());
+        String expectedMessage = String.format("Tag \"%s\" added successfully to %s.", validTag,
+                                                personToEdit.getName());
 
         // Execute and assert success
         assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);

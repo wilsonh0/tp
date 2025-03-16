@@ -1,6 +1,14 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Hire;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TagSet;
+
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -33,7 +41,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        hire = new Hire(DEFAULT_HIRE);  // Assuming Hire is a class with a constructor accepting a date string
+        hire = new Hire(DEFAULT_HIRE); // Assuming Hire is a class with a constructor accepting a date string
         tags = SampleDataUtil.getTagSet(DEFAULT_TAG);
     }
 
@@ -50,41 +58,67 @@ public class PersonBuilder {
         tags = personToCopy.getTags();
     }
 
+    /**
+     * Sets the {@code Name} of the {@code Person} that we are building.
+     */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
 
+    /**
+     * Sets the {@code Nric} of the {@code Person} that we are building.
+     * @param nric
+     * @return
+     */
     public PersonBuilder withNric(String nric) {
         this.nric = new Nric(nric);
         return this;
     }
 
+    /**
+     * Sets the {@code Phone} of the {@code Person} that we are building.
+     */
     public PersonBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
 
+    /**
+     * Sets the {@code Email} of the {@code Person} that we are building.
+     */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
+    /**
+     * Sets the {@code Address} of the {@code Person} that we are building.
+     */
     public PersonBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
 
+    /**
+     * Sets the {@code Hire} of the {@code Person} that we are building.
+     */
     public PersonBuilder withHire(String hire) {
-        this.hire = new Hire(hire);  // Assuming Hire class
+        this.hire = new Hire(hire);
         return this;
     }
 
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     */
     public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
+    /**
+     * Builds a Person object with the given attributes.
+     */
     public Person build() {
         return new Person(name, nric, phone, email, address, hire, tags);
     }

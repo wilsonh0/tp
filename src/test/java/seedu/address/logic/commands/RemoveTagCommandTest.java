@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -30,7 +31,7 @@ public class RemoveTagCommandTest {
         // Setup
         Index index = INDEX_FIRST_PERSON;
         Person personToEdit = model.getFilteredPersonList().get(index.getZeroBased());
-        Tag tagToRemove = new Tag("friends");  // Assuming 'friend' is a tag that exists for the person
+        Tag tagToRemove = new Tag("friends"); // Assuming 'friend' is a tag that exists for the person
 
         // Prepare the expected person with the tag removed
         Set<Tag> newTags = new HashSet<>(personToEdit.getTags().getTags());
@@ -48,7 +49,8 @@ public class RemoveTagCommandTest {
         expectedModel.setPerson(personToEdit, editedPerson);
 
         // Adjust the expected success message
-        String expectedMessage = String.format("Tag \"%s\" removed successfully from %s.", tagToRemove, personToEdit.getName());
+        String expectedMessage = String.format("Tag \"%s\" removed successfully from %s.",
+                                                tagToRemove, personToEdit.getName());
 
         // Execute and assert success
         assertCommandSuccess(removeTagCommand, model, expectedMessage, expectedModel);
