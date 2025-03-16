@@ -2,13 +2,9 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -25,12 +21,12 @@ public class Person {
     // Data fields
     private final Address address;
     private final Hire hire;
-    private final Set<Tag> tags = new HashSet<>();
+    private final TagSet tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, Set<Tag> tags) {
+    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, TagSet tags) {
         requireAllNonNull(name, nric, phone, email, address, hire, tags);
         this.name = name;
         this.nric = nric;
@@ -38,7 +34,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.hire = hire;
-        this.tags.addAll(tags);
+        this.tags = tags;
     }
 
     public Name getName() {
@@ -65,12 +61,8 @@ public class Person {
         return hire;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public TagSet getTags() {
+        return tags;
     }
 
     /**
@@ -83,7 +75,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+            && otherPerson.getName().equals(getName());
     }
 
     /**
@@ -103,31 +95,29 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
-                && nric.equals(otherPerson.nric)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && hire.equals(otherPerson.hire)
-                && tags.equals(otherPerson.tags);
+            && nric.equals(otherPerson.nric)
+            && phone.equals(otherPerson.phone)
+            && email.equals(otherPerson.email)
+            && address.equals(otherPerson.address)
+            && hire.equals(otherPerson.hire)
+            && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, nric, phone, email, address, hire, tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("nric", nric)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
-                .add("hire", hire)
-                .add("tags", tags)
-                .toString();
+            .add("name", name)
+            .add("nric", nric)
+            .add("phone", phone)
+            .add("email", email)
+            .add("address", address)
+            .add("hire", hire)
+            .add("tags", tags)
+            .toString();
     }
-
 }
