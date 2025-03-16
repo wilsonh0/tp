@@ -66,8 +66,9 @@ public class RemoveTagCommand extends Command {
 
         // Check if the tag exists for the person
         if (existingTags.getTags().stream().noneMatch(tag -> tag.tagName.equalsIgnoreCase(normalizedTagName))) {
-            return new CommandResult(String.format(MESSAGE_TAG_NOT_FOUND, tagToRemove, personToEdit.getName()));
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToRemove, personToEdit.getName()));
         }
+
 
         // Create a new set with the existing tags and remove the tag
         Set<Tag> updatedTagsSet = new HashSet<>(existingTags.getTags());
