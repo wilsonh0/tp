@@ -9,11 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric, " +
-                                                    "non-empty, and can include spaces and punctuation like .,'-";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric, "
+                                                    + "non-empty, and can include spaces and punctuation like .,'-";
 
     /*
-     * The tag name should contain only alphanumeric characters, spaces, and punctuation like .,'- and must not be blank.
+     * The tag name should contain only alphanumeric characters, spaces,
+     * and punctuation like .,'- and must not be blank.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum} .,'-]+";
 
