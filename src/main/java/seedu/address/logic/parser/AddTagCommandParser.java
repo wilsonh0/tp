@@ -47,4 +47,5 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
             throw new ParseException(AddTagCommand.MESSAGE_INVALID_INDEX);
         }
     }
+
 }
