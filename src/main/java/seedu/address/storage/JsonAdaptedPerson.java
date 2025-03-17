@@ -90,6 +90,8 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
+        final TagSet modelTags = new TagSet(personTags);
+
         final List<Leave> personLeaves = new ArrayList<>();
         for (JsonAdaptedLeave leave : leaves) {
             personLeaves.add(leave.toModelType());
@@ -107,7 +109,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
         if (!Nric.isValidNric(nric)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
         }
         final Nric modelNric = new Nric(nric);
 
@@ -143,7 +145,6 @@ class JsonAdaptedPerson {
         }
         final Hire modelHire = new Hire(hire);
 
-        final TagSet modelTags = new TagSet(personTags);
         return new Person(modelName, modelNric, modelPhone, modelEmail,
                 modelAddress, modelHire, modelTags, personLeaves);
     }
