@@ -39,7 +39,8 @@ public class RemoveTagCommandTest {
         TagSet updatedTags = new TagSet(newTags);
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getNric(),
             personToEdit.getPhone(), personToEdit.getEmail(),
-            personToEdit.getAddress(), personToEdit.getHire(), updatedTags);
+            personToEdit.getAddress(), personToEdit.getHire(),
+            updatedTags, personToEdit.getLeaves());
 
         // Create the RemoveTagCommand
         RemoveTagCommand removeTagCommand = new RemoveTagCommand(index, tagToRemove);

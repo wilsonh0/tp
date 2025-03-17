@@ -37,8 +37,9 @@ public class AddTagCommandTest {
         newTags.add(validTag);
         TagSet updatedTags = new TagSet(newTags);
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getNric(),
-            personToEdit.getPhone(), personToEdit.getEmail(),
-            personToEdit.getAddress(), personToEdit.getHire(), updatedTags);
+                personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), personToEdit.getHire(),
+                updatedTags, personToEdit.getLeaves());
 
         // Create the AddTagCommand
         AddTagCommand addTagCommand = new AddTagCommand(index, validTag);
