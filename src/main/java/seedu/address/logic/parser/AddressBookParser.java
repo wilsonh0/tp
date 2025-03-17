@@ -82,7 +82,7 @@ public class AddressBookParser {
 
         case LeaveCommand.COMMAND_WORD:
             return new LeaveCommandParser().parse(arguments);
-            
+
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
 
@@ -94,5 +94,4 @@ public class AddressBookParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }
