@@ -12,7 +12,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -28,7 +27,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.TagSet;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -104,7 +103,7 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Hire updatedHire = editPersonDescriptor.getHire().orElse(personToEdit.getHire());
-        Set<Tag> updatedTags = personToEdit.getTags();
+        TagSet updatedTags = personToEdit.getTags();
         List<Leave> unchangedLeaves = personToEdit.getLeaves();
 
         return new Person(updatedName, updatedNric, updatedPhone, updatedEmail, updatedAddress, updatedHire,
