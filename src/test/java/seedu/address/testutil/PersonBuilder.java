@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.model.leave.Leave;
@@ -26,7 +27,6 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_HIRE = "2023-01-01"; // Example hire date
-    public static final String DEFAULT_TAG = "friends";
 
     private Name name;
     private Nric nric;
@@ -47,7 +47,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         hire = new Hire(DEFAULT_HIRE);
-        tags = SampleDataUtil.getTagSet(DEFAULT_TAG);
+        tags = new TagSet(new HashSet<>()); // Empty set instead of having a tag by default
         leaves = new ArrayList<>();
     }
 
@@ -126,7 +126,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code leaves} into a {@code List<Leave>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withLeave(Leave ... leaves) {
+    public PersonBuilder withLeaves(Leave ... leaves) {
         this.leaves = SampleDataUtil.getLeaveList(leaves);
         return this;
     }
