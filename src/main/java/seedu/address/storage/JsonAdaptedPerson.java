@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Hire;
@@ -34,15 +35,18 @@ class JsonAdaptedPerson {
     private final String address;
     private final String hire;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedLeave> leaves = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
-                             @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("hire") String hire, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("phone") String phone,
+            @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("hire") String hire, @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("leaves") List<JsonAdaptedLeave> leaves) {
+
         this.name = name;
         this.nric = nric;
         this.phone = phone;
@@ -51,6 +55,9 @@ class JsonAdaptedPerson {
         this.hire = hire;
         if (tags != null) {
             this.tags.addAll(tags);
+        }
+        if (leaves != null) {
+            this.leaves.addAll(leaves);
         }
     }
 
@@ -67,6 +74,9 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
+        leaves.addAll(source.getLeaves().stream()
+            .map(JsonAdaptedLeave::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -78,6 +88,11 @@ class JsonAdaptedPerson {
         final Set<Tag> personTags = new HashSet<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
+        }
+
+        final List<Leave> personLeaves = new ArrayList<>();
+        for (JsonAdaptedLeave leave : leaves) {
+            personLeaves.add(leave.toModelType());
         }
 
         if (name == null) {
@@ -129,6 +144,7 @@ class JsonAdaptedPerson {
         final Hire modelHire = new Hire(hire);
 
         final TagSet modelTags = new TagSet(personTags);
-        return new Person(modelName, modelNric, modelPhone, modelEmail, modelAddress, modelHire, modelTags);
+        return new Person(modelName, modelNric, modelPhone, modelEmail,
+                modelAddress, modelHire, modelTags, personLeaves);
     }
 }

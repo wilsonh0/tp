@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Hire;
@@ -30,6 +35,7 @@ public class PersonBuilder {
     private Address address;
     private Hire hire;
     private TagSet tags;
+    private List<Leave> leaves;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -40,8 +46,9 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        hire = new Hire(DEFAULT_HIRE); // Assuming Hire is a class with a constructor accepting a date string
+        hire = new Hire(DEFAULT_HIRE);
         tags = SampleDataUtil.getTagSet(DEFAULT_TAG);
+        leaves = new ArrayList<>();
     }
 
     /**
@@ -55,6 +62,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         hire = personToCopy.getHire();
         tags = personToCopy.getTags();
+        leaves = new ArrayList<>(personToCopy.getLeaves());
     }
 
     /**
@@ -116,9 +124,16 @@ public class PersonBuilder {
     }
 
     /**
+     * Parses the {@code leaves} into a {@code List<Leave>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withLeave(Leave ... leaves) {
+        this.leaves = SampleDataUtil.getLeaveList(leaves);
+        return this;
+    }
+
      * Builds a Person object with the given attributes.
      */
     public Person build() {
-        return new Person(name, nric, phone, email, address, hire, tags);
+        return new Person(name, nric, phone, email, address, hire, tags, leaves);
     }
 }

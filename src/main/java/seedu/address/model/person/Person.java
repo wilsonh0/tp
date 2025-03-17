@@ -2,9 +2,13 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.leave.Leave;
 
 /**
  * Represents a Person in the address book.
@@ -22,11 +26,14 @@ public class Person {
     private final Address address;
     private final Hire hire;
     private final TagSet tags;
+    private final List<Leave> leaves = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, TagSet tags) {
+
+    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, TagSet tags,
+                  List<Leave> leaves) {
         requireAllNonNull(name, nric, phone, email, address, hire, tags);
         this.name = name;
         this.nric = nric;
@@ -35,6 +42,7 @@ public class Person {
         this.address = address;
         this.hire = hire;
         this.tags = tags;
+        this.leaves.addAll(leaves);
     }
 
     public Name getName() {
@@ -63,6 +71,21 @@ public class Person {
 
     public TagSet getTags() {
         return tags;
+    }
+
+    /**
+     * Returns an immutable leave list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Leave> getLeaves() {
+        return Collections.unmodifiableList(leaves);
+    }
+
+    /**
+     * Adds a leave to the person's list of leaves.
+     */
+    public void addLeave(Leave leave) {
+        leaves.add(leave);
     }
 
     /**

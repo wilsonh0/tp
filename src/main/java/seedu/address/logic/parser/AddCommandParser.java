@@ -8,11 +8,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Hire;
@@ -49,7 +52,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Hire hire = ParserUtil.parseHire(argMultimap.getValue(PREFIX_HIRE).get());
         TagSet tagList = new TagSet(Collections.emptySet()); // placeholder else cannot compile
-        Person person = new Person(name, nric, phone, email, address, hire, tagList);
+        List<Leave> leaveList = new ArrayList<>();
+        Person person = new Person(name, nric, phone, email, address, hire, tagList, leaveList);
 
         return new AddCommand(person);
     }
