@@ -135,15 +135,6 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_invalidHire_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PHONE, VALID_EMAIL,
-                        VALID_ADDRESS, INVALID_HIRE, VALID_TAGS, VALID_LEAVES);
-        String expectedMessage = Hire.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
@@ -158,36 +149,31 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidNric_throwsIllegalValueException() {
         JsonAdaptedPerson person =
             new JsonAdaptedPerson(VALID_NAME, INVALID_NRIC, VALID_PHONE, VALID_EMAIL,
-                                    VALID_ADDRESS, VALID_HIRE, VALID_TAGS);
+                    VALID_ADDRESS, VALID_HIRE, VALID_TAGS, VALID_LEAVES);
         String expectedMessage = Nric.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
-    @Test
-    public void toModelType_nullNric_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, null, VALID_PHONE, VALID_EMAIL,
-                                                            VALID_ADDRESS, VALID_HIRE, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
 
     @Test
     public void toModelType_invalidHire_throwsIllegalValueException() {
         JsonAdaptedPerson person =
-            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PHONE,
-                                    VALID_EMAIL, VALID_ADDRESS, INVALID_HIRE, VALID_TAGS);
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PHONE, VALID_EMAIL,
+                    VALID_ADDRESS, INVALID_HIRE, VALID_TAGS, VALID_LEAVES);
         String expectedMessage = Hire.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullHire_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PHONE,
-                                                            VALID_EMAIL, VALID_ADDRESS, null, VALID_TAGS);
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PHONE, VALID_EMAIL,
+                    VALID_ADDRESS, null, VALID_TAGS, VALID_LEAVES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Hire.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
+    @Test
     public void toModelType_invalidLeaves_throwsIllegalValueException() {
         List<JsonAdaptedLeave> invalidLeaves = new ArrayList<>(VALID_LEAVES);
         invalidLeaves.add(new JsonAdaptedLeave(INVALID_LEAVE_START, INVALID_LEAVE_END, INVALID_LEAVE_REASON));

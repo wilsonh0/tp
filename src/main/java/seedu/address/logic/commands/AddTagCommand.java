@@ -74,9 +74,11 @@ public class AddTagCommand extends Command {
         updatedTagsSet.add(normalizedTag);
         TagSet updatedTags = new TagSet(updatedTagsSet);
 
+
+
         Person updatedPerson = new Person(personToEdit.getName(), personToEdit.getNric(),
             personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-            personToEdit.getHire(), updatedTags);
+            personToEdit.getHire(), updatedTags, personToEdit.getLeaves());
 
         model.setPerson(personToEdit, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
