@@ -4,15 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REASON;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.LeaveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Nric;
+import seedu.address.model.person.NricMatchesPredicate;
 
 /**
  * Parses input arguments and creates a new LeaveCommand object
@@ -33,23 +34,98 @@ public class LeaveCommandParser implements Parser<LeaveCommand> {
         }
 
         String subCommand = parts[0];
-        String arguments = (parts.length > 1) ? " " + parts[1] : ""; // arguments may be empty
+        String identifier = parts[1];
 
-        // Tokenize without sub-command
+        switch (subCommand) {
+        case "add":
+            return parseAddLeave(subCommand, identifier);
+        case "remove":
+            return parseRemoveLeave(subCommand, identifier);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LeaveCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses the given {@code ArgumentMultimap} and returns a LeaveCommand object for execution.
+     * Requires all fields to be present.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private LeaveCommand parseAddLeave(String subCommand, String identifier) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
-                arguments, PREFIX_NRIC, PREFIX_LEAVE_START, PREFIX_LEAVE_END, PREFIX_REASON);
+                identifier, PREFIX_LEAVE_START, PREFIX_LEAVE_END, PREFIX_REASON);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_LEAVE_START, PREFIX_LEAVE_END, PREFIX_REASON)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_LEAVE_START, PREFIX_LEAVE_END, PREFIX_REASON)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LeaveCommand.MESSAGE_USAGE));
         }
 
-        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
-        Leave leave = ParserUtil.parseLeave(argMultimap.getValue(PREFIX_LEAVE_START).get(),
+        // Process identifier (index or NRIC)
+        String id = argMultimap.getPreamble();
+        Index index = null;
+        Nric nric = null;
+
+        try {
+            index = ParserUtil.parseIndex(id);
+        } catch (ParseException e) {
+            nric = ParserUtil.parseNric(id);
+        }
+
+        Leave leave = ParserUtil.parseLeave(
+                argMultimap.getValue(PREFIX_LEAVE_START).get(),
                 argMultimap.getValue(PREFIX_LEAVE_END).get(),
                 argMultimap.getValue(PREFIX_REASON).get());
 
-        return new LeaveCommand(subCommand, nric, leave);
+        return getLeaveCommand(subCommand, index, nric, leave);
+    }
+
+    /**
+     * Parses the given {@code ArgumentMultimap} and returns a LeaveCommand object for execution.
+     * Only requires the start date to be present.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private LeaveCommand parseRemoveLeave(String subCommand, String identifier) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                identifier, PREFIX_LEAVE_START);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_LEAVE_START)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LeaveCommand.MESSAGE_USAGE));
+        }
+
+        // Process identifier (index or NRIC)
+        String id = argMultimap.getPreamble();
+        Index index = null;
+        Nric nric = null;
+
+        try {
+            index = ParserUtil.parseIndex(id);
+        } catch (ParseException e) {
+            nric = ParserUtil.parseNric(id);
+        }
+
+        // Get optional parameters with defaults
+        String startDate = argMultimap.getValue(PREFIX_LEAVE_START).get();
+        String endDate = startDate; // Default to start date
+        String reason = "-"; // Default to "-"
+
+        Leave leave = ParserUtil.parseLeave(startDate, endDate, reason);
+
+        return getLeaveCommand(subCommand, index, nric, leave);
+    }
+
+    /**
+     * Parses the given {@code ArgumentMultimap} and returns a LeaveCommand object for execution.
+     * Requires all fields to be present.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private LeaveCommand getLeaveCommand(String subCommand, Index index, Nric nric, Leave leave) throws ParseException {
+        if (index != null) {
+            return new LeaveCommand(subCommand, index, leave);
+        } else if (nric != null) {
+            NricMatchesPredicate predicate = new NricMatchesPredicate(nric);
+            return new LeaveCommand(subCommand, predicate, leave);
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LeaveCommand.MESSAGE_USAGE));
+        }
     }
 
     /**

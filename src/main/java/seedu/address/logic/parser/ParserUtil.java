@@ -173,9 +173,19 @@ public class ParserUtil {
         requireNonNull(leaveStart);
         requireNonNull(leaveEnd);
         requireNonNull(reason);
-        if (!Leave.isValidLeave(leaveStart, leaveEnd, reason)) {
-            throw new ParseException(Leave.MESSAGE_CONSTRAINTS);
+
+        if (!Leave.isValidDate(leaveStart) || !Leave.isValidDate(leaveEnd)) {
+            throw new ParseException(Leave.DATE_CONSTRAINTS);
         }
+
+        if (!Leave.isValidReason(reason)) {
+            throw new ParseException(Leave.REASON_CONSTRAINTS);
+        }
+
+        if (!Leave.isValidLeave(leaveStart, leaveEnd, reason)) {
+            throw new ParseException(Leave.DATE_CONSTRAINTS);
+        }
+
         return new Leave(leaveStart, leaveEnd, reason);
     }
 }

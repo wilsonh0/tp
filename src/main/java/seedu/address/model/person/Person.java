@@ -89,6 +89,32 @@ public class Person {
     }
 
     /**
+     * Removes a leave from the person's list of leaves.
+     */
+    public void removeLeave(Leave leave) {
+        leaves.remove(leave);
+    }
+
+    /**
+     * Checks if the person has an existing leave.
+     */
+    public boolean hasLeave(Leave leave) {
+        return leaves.contains(leave);
+    }
+
+    /**
+     * Checks if the person has an overlapping leave.
+     */
+    public boolean hasOverlappingLeave(Leave newLeave) {
+        for (Leave existingLeave : leaves) {
+            if (existingLeave.overlaps(newLeave)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
