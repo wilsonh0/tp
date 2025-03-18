@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Hire;
@@ -10,7 +13,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.TagSet;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -31,7 +34,8 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Hire hire;
-    private Set<Tag> tags;
+    private TagSet tags;
+    private List<Leave> leaves;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -43,7 +47,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         hire = new Hire(DEFAULT_HIRE);
-        tags = new HashSet<>();
+        tags = new TagSet(new HashSet<>()); // Empty set instead of having a tag by default
+        leaves = new ArrayList<>();
     }
 
     /**
@@ -56,7 +61,8 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         hire = personToCopy.getHire();
-        tags = new HashSet<>(personToCopy.getTags());
+        tags = personToCopy.getTags();
+        leaves = new ArrayList<>(personToCopy.getLeaves());
     }
 
     /**
@@ -72,22 +78,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withNric(String nric) {
         this.nric = new Nric(nric);
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
         return this;
     }
 
@@ -108,6 +98,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Address} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withAddress(String address) {
+        this.address = new Address(address);
+        return this;
+    }
+
+    /**
      * Sets the {@code Hire} of the {@code Person} that we are building.
      */
     public PersonBuilder withHire(String hire) {
@@ -115,8 +113,34 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() {
-        return new Person(name, nric, phone, email, address, hire, tags);
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withTags(String... tags) {
+        this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
     }
 
+    /**
+     * Sets the {@code Hire} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withHire(String hire) {
+        this.hire = new Hire(hire);
+        return this;
+    }
+
+     /**
+     * Parses the {@code leaves} into a {@code List<Leave>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withLeaves(Leave ... leaves) {
+        this.leaves = SampleDataUtil.getLeaveList(leaves);
+        return this;
+    }
+
+    /**
+     * Builds a Person object with the given attributes.
+     */
+    public Person build() {
+        return new Person(name, nric, phone, email, address, hire, tags, leaves);
+    }
 }

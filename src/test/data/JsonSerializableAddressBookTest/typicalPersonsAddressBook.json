@@ -2,45 +2,78 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
+    "nric": "S1234567A",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
-    "tags" : [ "friends" ]
+    "hire": "2019-10-10",
+    "tags" : [ "friends" ],
+    "leaves" : [ {
+      "startDate" : "2021-10-10",
+      "endDate" : "2021-10-12",
+      "reason" : "sick"
+    } ]
   }, {
     "name" : "Benson Meier",
+    "nric": "T2132398K",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
-    "tags" : [ "owesMoney", "friends" ]
+    "hire": "2022-10-10",
+    "tags" : [ "owesMoney", "friends" ],
+    "leaves" : [ {
+      "startDate" : "2022-10-10",
+      "endDate" : "2023-10-12",
+      "reason" : "paternity"
+    } ]
   }, {
     "name" : "Carl Kurz",
+    "nric": "S1234572F",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
-    "tags" : [ ]
+    "hire": "2020-10-10",
+    "tags" : [ "friends" ],
+    "leaves" : [ {
+      "startDate" : "2021-10-11",
+      "endDate" : "2021-10-12",
+      "reason" : "Annual"
+    } ]
   }, {
     "name" : "Daniel Meier",
+    "nric": "S1234573G",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
-    "tags" : [ "friends" ]
+    "hire": "2023-04-01",
+    "tags" : [ "friends" ],
+    "leaves" : [ ]
   }, {
     "name" : "Elle Meyer",
+    "nric": "T0000002A",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
-    "tags" : [ ]
+    "hire": "2024-02-10",
+    "tags" : [ "rivals" ],
+    "leaves" : [ ]
   }, {
     "name" : "Fiona Kunz",
+    "nric": "T0000003A",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
-    "tags" : [ ]
+    "hire": "2024-02-10",
+    "tags" : [ ],
+    "leaves" : [ ]
   }, {
     "name" : "George Best",
+    "nric": "T0000003A",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
-    "tags" : [ ]
+    "hire": "2024-02-10",
+    "tags" : [ ],
+    "leaves" : [ ]
   } ]
 }

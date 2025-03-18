@@ -29,16 +29,16 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_NRIC_AMY = "T0001398A";
-    public static final String VALID_NRIC_BOB = "T0001314Z";
+    public static final String VALID_NRIC_AMY = "T0000001B";
+    public static final String VALID_NRIC_BOB = "T0000002B";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_HIRE_AMY = "2005-10-10";
-    public static final String VALID_HIRE_BOB = "2009-12-20";
+    public static final String VALID_HIRE_AMY = "2021-01-01";
+    public static final String VALID_HIRE_BOB = "2022-02-02";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -52,8 +52,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String HIRE_DESC_AMY = " " + PREFIX_NAME + VALID_HIRE_AMY;
-    public static final String HIRE_DESC_BOB = " " + PREFIX_NAME + VALID_HIRE_BOB;
+    public static final String HIRE_DESC_AMY = " " + PREFIX_HIRE + VALID_HIRE_AMY;
+    public static final String HIRE_DESC_BOB = " " + PREFIX_HIRE + VALID_HIRE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_HIRE + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_HIRE + VALID_TAG_HUSBAND;
 

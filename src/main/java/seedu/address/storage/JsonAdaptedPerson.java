@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Hire;
@@ -17,7 +18,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Tag;
+import seedu.address.model.person.TagSet;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -33,6 +35,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String hire;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedLeave> leaves = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -41,7 +44,9 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
             @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("hire") String hire, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("hire") String hire, @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("leaves") List<JsonAdaptedLeave> leaves) {
+
         this.name = name;
         this.nric = nric;
         this.phone = phone;
@@ -50,6 +55,9 @@ class JsonAdaptedPerson {
         this.hire = hire;
         if (tags != null) {
             this.tags.addAll(tags);
+        }
+        if (leaves != null) {
+            this.leaves.addAll(leaves);
         }
     }
 
@@ -63,8 +71,11 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         hire = source.getHire().hire;
-        tags.addAll(source.getTags().stream()
+        tags.addAll(source.getTags().getTags().stream()
             .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList()));
+        leaves.addAll(source.getLeaves().stream()
+            .map(JsonAdaptedLeave::new)
             .collect(Collectors.toList()));
     }
 
@@ -74,9 +85,16 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final Set<Tag> personTags = new HashSet<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
+        }
+
+        final TagSet modelTags = new TagSet(personTags);
+
+        final List<Leave> personLeaves = new ArrayList<>();
+        for (JsonAdaptedLeave leave : leaves) {
+            personLeaves.add(leave.toModelType());
         }
 
         if (name == null) {
@@ -90,8 +108,8 @@ class JsonAdaptedPerson {
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
-        if (!Name.isValidName(nric)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Nric.isValidNric(nric)) {
+            throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
         }
         final Nric modelNric = new Nric(nric);
 
@@ -127,8 +145,7 @@ class JsonAdaptedPerson {
         }
         final Hire modelHire = new Hire(hire);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelNric, modelPhone, modelEmail, modelAddress, modelHire, modelTags);
+        return new Person(modelName, modelNric, modelPhone, modelEmail,
+                modelAddress, modelHire, modelTags, personLeaves);
     }
-
 }

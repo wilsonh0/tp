@@ -310,7 +310,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. If any required field is missing or invalid, 
+* 1a. If any required field is missing or invalid,
 the system prompts the user to correct the input and prevents submission.
 
   Use case resumes at step 1.
