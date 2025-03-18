@@ -26,7 +26,6 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_HIRE = "2023-13-01";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_HIRE = "2002-15-15";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_LEAVE_START = "1st Jan 2025";
     private static final String INVALID_LEAVE_END = "2nd Jan 2025";
@@ -149,7 +148,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullHire_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PHONE, VALID_EMAIL,
                 VALID_ADDRESS, null, VALID_TAGS, VALID_LEAVES);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Hire.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
