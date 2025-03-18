@@ -147,7 +147,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Hire hire;
-        private Set<Tag> tags;
+        private TagSet tags;
+        private List<Leave> leaves;
 
         public EditPersonDescriptor() {}
 
@@ -162,6 +163,8 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setHire(toCopy.hire);
+            setTags(toCopy.tags);
+            setLeaves(toCopy.leaves);
         }
 
         /**
@@ -218,12 +221,8 @@ public class EditCommand extends Command {
             return Optional.ofNullable(hire);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setTags(TagSet tags) {
+            this.tags = (tags != null) ? tags : null;
         }
 
         /**
@@ -231,8 +230,16 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<TagSet> getTags() {
+            return (tags != null) ? Optional.of(tags) : Optional.empty();
+        }
+
+        public void setLeaves(List<Leave> leaves) {
+            this.leaves = leaves;
+        }
+
+        public Optional<List<Leave>> getLeaves() {
+            return Optional.ofNullable(leaves);
         }
 
         @Override
