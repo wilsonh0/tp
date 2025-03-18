@@ -22,11 +22,11 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
-    public static final String DEFAULT_NRIC = "S1234567A";
+    public static final String DEFAULT_NRIC = "T0123456A";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_HIRE = "2023-01-01"; // Example hire date
+    public static final String DEFAULT_HIRE = "1900-01-01";
 
     private Name name;
     private Nric nric;
@@ -75,8 +75,6 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Nric} of the {@code Person} that we are building.
-     * @param nric
-     * @return
      */
     public PersonBuilder withNric(String nric) {
         this.nric = new Nric(nric);

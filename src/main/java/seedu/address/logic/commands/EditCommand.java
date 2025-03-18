@@ -145,6 +145,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Hire hire;
+        private TagSet tags;
+        private List<Leave> leaves;
 
         public EditPersonDescriptor() {}
 
@@ -159,6 +161,8 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setHire(toCopy.hire);
+            setTags(toCopy.tags);
+            setLeaves(toCopy.leaves);
         }
 
         /**
@@ -215,11 +219,26 @@ public class EditCommand extends Command {
             return Optional.ofNullable(hire);
         }
 
+        public void setTags(TagSet tags) {
+            this.tags = (tags != null) ? tags : null;
+        }
+
         /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
+        public Optional<TagSet> getTags() {
+            return (tags != null) ? Optional.of(tags) : Optional.empty();
+        }
+
+        public void setLeaves(List<Leave> leaves) {
+            this.leaves = leaves;
+        }
+
+        public Optional<List<Leave>> getLeaves() {
+            return Optional.ofNullable(leaves);
+        }
 
         @Override
         public boolean equals(Object other) {
