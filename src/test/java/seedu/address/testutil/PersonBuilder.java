@@ -122,14 +122,6 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Hire} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withHire(String hire) {
-        this.hire = new Hire(hire);
-        return this;
-    }
-
-     /**
      * Parses the {@code leaves} into a {@code List<Leave>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withLeaves(Leave ... leaves) {

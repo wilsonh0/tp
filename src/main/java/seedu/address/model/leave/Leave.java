@@ -10,9 +10,12 @@ import java.time.format.DateTimeFormatter;
  * Represents a Leave in the address book.
  */
 public class Leave {
-    public static final String MESSAGE_CONSTRAINTS = "Reason should not be empty.";
-    public static final String DATE_CONSTRAINTS = "Dates should be in the format of yyyy-MM-dd. "
-            + "Start date should be before end date.";
+    public static final String REASON_CONSTRAINTS = "Reason should not be empty.";
+    public static final String DATE_CONSTRAINTS = "Provide valid dates in the format of yyyy-MM-dd.\n"
+            + "Start date >= end date.";
+    public static final String MESSAGE_CONSTRAINTS = "Leave dates should be in the format of yyyy-MM-dd.\n"
+            + "Start date should be before end date.\n"
+            + "Reason should not be empty.";
     private static final DateTimeFormatter DateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private final LocalDate startDate;
@@ -48,7 +51,8 @@ public class Leave {
             return false;
         }
 
-        return LocalDate.parse(startDateString, DateFormatter).isBefore(LocalDate.parse(endDateString, DateFormatter));
+        // startDate <= endDate
+        return !LocalDate.parse(startDateString, DateFormatter).isAfter(LocalDate.parse(endDateString, DateFormatter));
     }
 
     /**
@@ -72,6 +76,15 @@ public class Leave {
         return reason != null && !reason.isEmpty();
     }
 
+    /**
+     * Returns true if this leave overlaps with another leave.
+     */
+    public boolean overlaps(Leave other) {
+        // startDate <= other.endDate && endDate >= other.startDate
+        return (startDate.isBefore(other.endDate) || startDate.isEqual(other.endDate))
+                && (endDate.isAfter(other.startDate) || endDate.isEqual(other.startDate));
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -83,6 +96,7 @@ public class Leave {
     public String getReason() {
         return reason;
     }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -95,16 +109,16 @@ public class Leave {
         }
 
         Leave otherLeave = (Leave) other;
-        return startDate.equals(otherLeave.startDate)
-                && endDate.equals(otherLeave.endDate)
-                && reason.equals(otherLeave.reason);
+        return startDate.equals(otherLeave.startDate);
     }
+
     @Override
     public int hashCode() {
-        return startDate.hashCode() + endDate.hashCode() + reason.hashCode();
+        return startDate.hashCode();
     }
+
     @Override
     public String toString() {
-        return "Start Date: " + startDate + " End Date: " + endDate + " Reason: " + reason;
+        return String.format("%s to %s (%s)", startDate.format(DateFormatter), endDate.format(DateFormatter), reason);
     }
 }
