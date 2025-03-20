@@ -8,8 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
-
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 
