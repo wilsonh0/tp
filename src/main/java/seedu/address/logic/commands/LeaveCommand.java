@@ -23,18 +23,27 @@ public class LeaveCommand extends Command {
 
     public static final String COMMAND_WORD = "leave";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Leave management system [add/remove]\n"
-            + "- add: Adds a leave to a person\n"
-            + "\tUsage: " + COMMAND_WORD + " add [INDEX or NRIC] "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Leave management system\n"
+            + "Parameters: SUBCOMMAND [INDEX or NRIC] <LEAVE DETAILS>\n"
+            + "Subcommands:\n"
+            + "- add [INDEX or NRIC] </start DATE /end DATE /reason REASON>\n"
+            + "- remove [INDEX or NRIC] </start DATE>\n";
+
+    public static final String ADD_MESSAGE_USAGE = COMMAND_WORD + " add " + ": Adds a leave to a person\n"
+            + "Usage: " + COMMAND_WORD + " add [INDEX or NRIC] "
             + PREFIX_LEAVE_START + "START_DATE "
             + PREFIX_LEAVE_END + "END_DATE "
             + PREFIX_REASON + "REASON\n"
-            + "- remove: Removes a leave from a person\n"
-            + "\tUsage: " + COMMAND_WORD + " remove [INDEX or NRIC] "
-            + PREFIX_LEAVE_START + "START_DATE\n"
-            + "\tExample: " + COMMAND_WORD + " remove 1 "
-            + PREFIX_LEAVE_START + "2021-10-01";
+            + "Example: " + COMMAND_WORD + " add 1 "
+            + PREFIX_LEAVE_START + "2021-10-01 "
+            + PREFIX_LEAVE_END + "2021-10-05 "
+            + PREFIX_REASON + "Annual Leave";
 
+    public static final String REMOVE_MESSAGE_USAGE = COMMAND_WORD + " remove " + ": Removes a leave from a person\n"
+            + "Usage: " + COMMAND_WORD + " remove [INDEX or NRIC] "
+            + PREFIX_LEAVE_START + "START_DATE\n"
+            + "Example: " + COMMAND_WORD + " remove 1 "
+            + PREFIX_LEAVE_START + "2021-10-01";
 
     public static final String MESSAGE_ADD_SUCCESS = "Leave added: %1$s for %2$s";
     public static final String MESSAGE_REMOVE_SUCCESS = "Leave removed: %1$s for %2$s";
@@ -43,7 +52,7 @@ public class LeaveCommand extends Command {
     public static final String MESSAGE_OVERLAPPING_LEAVE = "Leave from %1$s to %2$s overlaps with existing leave";
     public static final String MESSAGE_PERSON_NRIC_NOT_FOUND = "Person with NRIC %1$s not found";
     public static final String MESSAGE_PERSON_INDEX_NOT_FOUND = "Person with index %1$s not found";
-    public static final String MESSAGE_UNKNOWN_SUBCOMMAND = "Unknown subcommand: %1$s";
+    public static final String MESSAGE_UNKNOWN_SUBCOMMAND = "Unknown subcommand: %1$s\nUse [add/remove]";
 
     private final String subCommand;
     private final Index index;
@@ -108,7 +117,7 @@ public class LeaveCommand extends Command {
                     .toList();
 
             if (matchingPersons.isEmpty()) {
-                throw new CommandException(String.format(MESSAGE_PERSON_NRIC_NOT_FOUND, predicate.toString()));
+                throw new CommandException(String.format(MESSAGE_PERSON_NRIC_NOT_FOUND, predicate.getNric()));
             }
 
             if (matchingPersons.size() > 1) {
@@ -143,13 +152,13 @@ public class LeaveCommand extends Command {
      */
     private CommandResult processRemove(Person person) throws CommandException {
         if (!person.hasLeave(leave)) {
-            throw new CommandException(MESSAGE_LEAVE_NOT_FOUND);
+            throw new CommandException(String.format(MESSAGE_LEAVE_NOT_FOUND, leave.getStartDate()));
         }
 
         Leave actualLeave = person.getLeaves().stream()
                 .filter(l -> l.equals(leave))
                 .findFirst()
-                .orElseThrow(() -> new CommandException(MESSAGE_LEAVE_NOT_FOUND));
+                .orElseThrow(() -> new CommandException(String.format(MESSAGE_LEAVE_NOT_FOUND, leave.getStartDate())));
 
         person.removeLeave(actualLeave);
         return new CommandResult(String.format(MESSAGE_REMOVE_SUCCESS, actualLeave, person.getName()));

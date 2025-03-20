@@ -12,6 +12,13 @@ public class NricMatchesPredicate implements Predicate<Person> {
         this.nric = nric;
     }
 
+    /**
+     * Retrieves nric
+     */
+    public Nric getNric() {
+        return nric;
+    }
+
     @Override
     public boolean test(Person person) {
         return person.getNric().equals(nric);
