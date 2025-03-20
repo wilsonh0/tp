@@ -83,6 +83,9 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
+    /**
+     * Fills up all the placeholders of this window.
+     */
     @FXML
     public void initialize() {
         // Bind each pane to 50% width of the SplitPane

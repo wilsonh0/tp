@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
@@ -104,7 +106,9 @@ public class PersonDetailsPanel extends UiPart<Region> {
      * Returns the appropriate suffix for a given day.
      */
     private String getDaySuffix(int day) {
-        if (day >= 11 && day <= 13) return "th";
+        if (day >= 11 && day <= 13) {
+            return "th";
+        }
         switch (day % 10) {
         case 1: return "st";
         case 2: return "nd";

@@ -63,8 +63,9 @@ public class PersonCard extends UiPart<Region> {
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
-    /** Creates a {@code PersonCard} with the given {@code Person} to display
-     *  made for showing a PersonCard in the right pane
+    /**
+     * Creates a {@code PersonCard} with the given {@code Person} to display
+     * made for showing a PersonCard in the right pane
      */
     public PersonCard(Person person) {
         super(FXML);
