@@ -122,16 +122,13 @@ public class LeaveCommandParser implements Parser<LeaveCommand> {
         if (input == null || input.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, message));
         }
+        // Get first word when there are prefixes
+        String cleanIdentifier = input.trim().split("\\s+")[0];
 
         try {
-            return ParserUtil.parseIndex(input.trim()); // Try parsing as index
+            return ParserUtil.parseIndex(cleanIdentifier); // Try parsing as index
         } catch (ParseException e) {
-            try {
-                return ParserUtil.parseNric(input.trim().toUpperCase()); // Try parsing as NRIC
-            } catch (ParseException nricException) {
-                // Neither index nor NRIC parsing worked
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, message));
-            }
+            return ParserUtil.parseNric(cleanIdentifier.toUpperCase()); // Try parsing as NRIC
         }
     }
 
