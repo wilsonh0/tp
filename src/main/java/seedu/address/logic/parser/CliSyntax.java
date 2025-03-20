@@ -16,4 +16,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_LEAVE_START = new Prefix("/start");
     public static final Prefix PREFIX_LEAVE_END = new Prefix("/end");
     public static final Prefix PREFIX_REASON = new Prefix("/reason");
+    /* For Attendance Command */
+    public static final Prefix PREFIX_ATTENDANCE_ABSENT = new Prefix("/absent");
 }

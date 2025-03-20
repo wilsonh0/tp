@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 
 /**
@@ -15,7 +16,6 @@ import seedu.address.model.leave.Leave;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-
     // Identity fields
     private final Name name;
     private final Nric nric;
@@ -27,6 +27,7 @@ public class Person {
     private final Hire hire;
     private final TagSet tags;
     private final List<Leave> leaves = new ArrayList<>();
+    private final Attendance attendance;
 
     /**
      * Every field must be present and not null.
@@ -43,6 +44,24 @@ public class Person {
         this.hire = hire;
         this.tags = tags;
         this.leaves.addAll(leaves);
+        this.attendance = new Attendance();
+    }
+
+    /**
+     * An overloaded constructor designed for EditCommand.java
+     */
+    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, TagSet tags,
+                  List<Leave> leaves, Attendance attendance) {
+        requireAllNonNull(name, nric, phone, email, address, hire, tags);
+        this.name = name;
+        this.nric = nric;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.hire = hire;
+        this.tags = tags;
+        this.leaves.addAll(leaves);
+        this.attendance = attendance;
     }
 
     public Name getName() {
@@ -86,6 +105,14 @@ public class Person {
      */
     public void addLeave(Leave leave) {
         leaves.add(leave);
+    }
+
+    public Attendance getAttendance() {
+        return attendance;
+    }
+
+    public void incrementAbsentDay() {
+        this.attendance.incrementAbsentDay();
     }
 
     /**

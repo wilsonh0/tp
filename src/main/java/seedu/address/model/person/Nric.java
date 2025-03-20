@@ -44,6 +44,9 @@ public class Nric {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getNric() {
+        return this.nric;
+    }
 
     @Override
     public String toString() {

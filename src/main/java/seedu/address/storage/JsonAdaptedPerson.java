@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -36,6 +37,7 @@ class JsonAdaptedPerson {
     private final String hire;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedLeave> leaves = new ArrayList<>();
+    private final JsonAdaptedAttendance attendance;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -45,7 +47,8 @@ class JsonAdaptedPerson {
             @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("hire") String hire, @JsonProperty("tags") List<JsonAdaptedTag> tags,
-            @JsonProperty("leaves") List<JsonAdaptedLeave> leaves) {
+            @JsonProperty("leaves") List<JsonAdaptedLeave> leaves,
+            @JsonProperty("attendance") JsonAdaptedAttendance attendance) {
 
         this.name = name;
         this.nric = nric;
@@ -59,6 +62,7 @@ class JsonAdaptedPerson {
         if (leaves != null) {
             this.leaves.addAll(leaves);
         }
+        this.attendance = attendance;
     }
 
     /**
@@ -77,6 +81,7 @@ class JsonAdaptedPerson {
         leaves.addAll(source.getLeaves().stream()
             .map(JsonAdaptedLeave::new)
             .collect(Collectors.toList()));
+        attendance = new JsonAdaptedAttendance(source.getAttendance());
     }
 
     /**
@@ -95,6 +100,13 @@ class JsonAdaptedPerson {
         final List<Leave> personLeaves = new ArrayList<>();
         for (JsonAdaptedLeave leave : leaves) {
             personLeaves.add(leave.toModelType());
+        }
+
+        final Attendance modelAttendance;
+        if (attendance == null) {
+            modelAttendance = new Attendance(); // default if missing
+        } else {
+            modelAttendance = attendance.toModelType(); // deserialize
         }
 
         if (name == null) {
@@ -146,6 +158,6 @@ class JsonAdaptedPerson {
         final Hire modelHire = new Hire(hire);
 
         return new Person(modelName, modelNric, modelPhone, modelEmail,
-                modelAddress, modelHire, modelTags, personLeaves);
+                modelAddress, modelHire, modelTags, personLeaves, modelAttendance);
     }
 }

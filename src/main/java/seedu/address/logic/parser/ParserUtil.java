@@ -2,13 +2,17 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -187,5 +191,26 @@ public class ParserUtil {
         }
 
         return new Leave(leaveStart, leaveEnd, reason);
+    }
+
+    /**
+     * Parses a {@code String nricListAsAWhole} into a list of NRICs for attendance.
+     * Leading and trailing whitespaces will be trimmed. The NRICs are expected to be separated by at least a space.
+     *
+     * @param nricListAsAWhole The input string containing NRICs separated by spaces.
+     * @return A list of valid NRICs, where each NRIC is represented as a string instead of NRIC object in the list.
+     * @throws ParseException if any NRIC in the list is invalid.
+     */
+    public static List<String> parseAttendance(String nricListAsAWhole) throws ParseException {
+        if (nricListAsAWhole.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<String> nricList = Arrays.asList(nricListAsAWhole.trim().split(" "));
+        for (String nric: nricList) {
+            if (!Nric.isValidNric(nric)) {
+                throw new ParseException(Attendance.MESSAGE_CONSTRAINTS);
+            }
+        }
+        return nricList;
     }
 }
