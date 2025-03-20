@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Person;
 
 /**
  * Represents the result of a command execution.
@@ -19,6 +20,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The person to view for view command (optional). */
+    private final Person personToView;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -26,6 +30,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.personToView = null;
     }
 
     /**
@@ -34,6 +39,17 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and {@code personToView} for the view command.
+     */
+    public CommandResult(String feedbackToUser, Person personToView) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.personToView = requireNonNull(personToView);
     }
 
     public String getFeedbackToUser() {
@@ -46,6 +62,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public Person getPersonToView() {
+        return personToView;
     }
 
     @Override
@@ -62,7 +82,8 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && Objects.equals(personToView, otherCommandResult.personToView);
     }
 
     @Override
@@ -76,6 +97,7 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("personToView", personToView)
                 .toString();
     }
 

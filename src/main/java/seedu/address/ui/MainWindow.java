@@ -5,10 +5,12 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,6 +39,15 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
+    private SplitPane splitPane;
+
+    @FXML
+    private VBox leftPane;
+
+    @FXML
+    private StackPane rightPane;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -49,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private PersonDetailsPanel personDetailsPanel;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -66,6 +81,25 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    @FXML
+    public void initialize() {
+        // Bind each pane to 50% width of the SplitPane
+        splitPane.getDividers().get(0).positionProperty().addListener((obs, oldVal, newVal) -> {
+            splitPane.setDividerPositions(0.5); // Lock at 50%
+        });
+
+        // Prevent resizing of both panes
+        SplitPane.setResizableWithParent(leftPane, false);
+        SplitPane.setResizableWithParent(rightPane, false);
+    }
+
+    public void showPersonDetails(Person person) {
+        personDetailsPanel.setPerson(person);
     }
 
     public Stage getPrimaryStage() {
@@ -175,6 +209,22 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+
+            System.out.println("Command executed: " + commandText);
+            System.out.println("personDetailsPanel: " + personDetailsPanel);
+
+            // Ensure personDetailsPanel is initialized before using it
+            if (personDetailsPanel == null) {
+                personDetailsPanel = new PersonDetailsPanel();
+                rightPane.getChildren().clear();
+                rightPane.getChildren().add(personDetailsPanel.getRoot());
+            }
+
+            // If the command result contains a person, update the details panel
+            if (commandResult.getPersonToView() != null) {
+                personDetailsPanel.setPerson(commandResult.getPersonToView());
+            }
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
