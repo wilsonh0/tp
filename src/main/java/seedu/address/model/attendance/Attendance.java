@@ -38,6 +38,22 @@ public class Attendance {
     }
 
     /**
+     * Sets the total number of working days for the current year.
+     *
+     * <p>This is a static method that modifies the shared {@code workDayCount} across all instances
+     * of {@code Attendance}. This value represents the total number of days employees are expected
+     * to work in the current year up to date and is used in attendance rate calculations for each person.</p>
+     *
+     * <p><strong>Note:</strong> This method does not perform validation on the provided value.
+     * It should be used carefully, typically during initialization or data restoration processes.</p>
+     *
+     * @param count The total number of working days to set. Should be a non-negative integer.
+     */
+    public static void setWorkDayCount(int count) {
+        workDayCount = count;
+    }
+
+    /**
      * Returns the total number of absent days recorded for this person.
      *
      * @return The number of absent days.

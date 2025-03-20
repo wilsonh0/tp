@@ -45,17 +45,12 @@ public class JsonAdaptedAttendance {
             throw new IllegalValueException("Work day count cannot be negative.");
         }
 
+        // Safely reset the static workDayCount to the stored value.
+        Attendance.setWorkDayCount(workDayCount);
+
         Attendance reconstructedAttendance = new Attendance();
         for (int i = 0; i < absentDayCount; i++) {
             reconstructedAttendance.incrementAbsentDay();
-        }
-
-        // Reset static workDayCount to match stored value.
-        // Requires reflection or a setter, but we'll simulate by incrementing.
-        int currentWorkDayCount = reconstructedAttendance.getWorkDayCount();
-        int difference = workDayCount - currentWorkDayCount;
-        for (int i = 0; i < difference; i++) {
-            Attendance.incrementWorkDayCount();
         }
 
         return reconstructedAttendance;
