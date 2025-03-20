@@ -48,7 +48,7 @@ public class Person {
     }
 
     /**
-     An overloaded constructor designed for EditCommand.java
+     * An overloaded constructor designed for EditCommand.java
      */
     public Person(Name name, Nric nric, Phone phone, Email email, Address address, Hire hire, TagSet tags,
                   List<Leave> leaves, Attendance attendance) {

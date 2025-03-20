@@ -7,16 +7,17 @@ import seedu.address.model.leave.Leave;
  * Stores information such as the total number of working days, the number of absent days,
  * and the calculated attendance rate for the person.
  *
- * Guarantees: The attendance rate is initially set to 100% and is recalculated whenever the absent day count is updated.
+ * Guarantees:
+ * The attendance rate is initially set to 100% and is recalculated whenever the absent day count is updated.
  */
 public class Attendance {
     // Stores the number of working days so far in that year
     private static int workDayCount = 0;
+    public static final String MESSAGE_CONSTRAINTS = "Absentees should be indicated by their NRIC "
+            + "and each absentee's NRIC should be separated by at least one whitespace.";
     private int absentDayCount;
     // Stores the current attendance rate for this person in that year, initialized as 100% first
     private double attendanceRate;
-    public static final String MESSAGE_CONSTRAINTS = "Absentees should be indicated by their NRIC "
-            + "and each absentee's NRIC should be separated by at least one whitespace.";
 
     /**
      * Constructs an {@code Attendance} object with default values:
@@ -53,8 +54,9 @@ public class Attendance {
     public void calculateAttendanceRate() {
         if (workDayCount == 0) {
             attendanceRate = 100.0; // Avoid division by zero
+        } else {
+            attendanceRate = ((double) (workDayCount - absentDayCount) / workDayCount) * 100;
         }
-        attendanceRate = ((double) (workDayCount - absentDayCount) / workDayCount) * 100;
     }
 
     /**
@@ -88,13 +90,13 @@ public class Attendance {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Leave)) {
+        if (!(other instanceof Attendance)) {
             return false;
         }
 
         Attendance otherAttendance = (Attendance) other;
-        return absentDayCount == otherAttendance.absentDayCount &&
-                Double.compare(getAttendanceRate(), otherAttendance.getAttendanceRate()) == 0;
+        return absentDayCount == otherAttendance.absentDayCount
+                && Double.compare(getAttendanceRate(), otherAttendance.getAttendanceRate()) == 0;
     }
 
     @Override
