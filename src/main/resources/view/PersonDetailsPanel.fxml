@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="detailsPane"
+      spacing="10">
+
+    <!-- Leave Records Header -->
+    <Label fx:id="leaveRecordsHeader" text="Leave Records" style="-fx-font-weight: bold;" alignment="CENTER_LEFT" visible="false"/>
+</VBox>
