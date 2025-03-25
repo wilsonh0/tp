@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -27,6 +28,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_HIRE = "1900-01-01";
+    public static final Attendance DEFAULT_ATTENDANCE = new Attendance();
 
     private Name name;
     private Nric nric;
@@ -36,6 +38,7 @@ public class PersonBuilder {
     private Hire hire;
     private TagSet tags;
     private List<Leave> leaves;
+    private Attendance attendance;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -49,6 +52,7 @@ public class PersonBuilder {
         hire = new Hire(DEFAULT_HIRE);
         tags = new TagSet(new HashSet<>()); // Empty set instead of having a tag by default
         leaves = new ArrayList<>();
+        attendance = DEFAULT_ATTENDANCE;
     }
 
     /**
@@ -63,6 +67,7 @@ public class PersonBuilder {
         hire = personToCopy.getHire();
         tags = personToCopy.getTags();
         leaves = new ArrayList<>(personToCopy.getLeaves());
+        attendance = personToCopy.getAttendance();
     }
 
     /**
@@ -130,9 +135,17 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Attendance} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withAttendance(Attendance attendance) {
+        this.attendance = attendance;
+        return this;
+    }
+
+    /**
      * Builds a Person object with the given attributes.
      */
     public Person build() {
-        return new Person(name, nric, phone, email, address, hire, tags, leaves);
+        return new Person(name, nric, phone, email, address, hire, tags, leaves, attendance);
     }
 }
