@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 
@@ -28,6 +29,9 @@ public class PersonDetailsPanel extends UiPart<Region> {
     @FXML
     private Label leaveRecordsHeader;
 
+    @FXML
+    private Label attendanceHeader;
+
     /**
      * Creates a {@code PersonDetailsPanel} with an empty state.
      */
@@ -44,9 +48,13 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void initialize() {
         // Initialize Leave Records Header
         leaveRecordsHeader.setText("Leave Records");
-        leaveRecordsHeader.setStyle("-fx-font-weight: bold;");
+        leaveRecordsHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
         leaveRecordsHeader.setAlignment(Pos.CENTER_LEFT);
         leaveRecordsHeader.setVisible(false); // Initially hidden
+        attendanceHeader.setText("Attendance Records");
+        attendanceHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+        attendanceHeader.setAlignment(Pos.CENTER_LEFT);
+        attendanceHeader.setVisible(false);
     }
 
     /**
@@ -56,6 +64,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         if (person == null) {
             detailsPane.getChildren().clear();
             leaveRecordsHeader.setVisible(false);
+            attendanceHeader.setVisible(false);
             return;
         }
 
@@ -78,6 +87,31 @@ public class PersonDetailsPanel extends UiPart<Region> {
         } else {
             leaveRecordsHeader.setVisible(false);
         }
+
+        Attendance attendance = person.getAttendance();
+        if (attendance != null && (attendance.getWorkDayCount() > 0 || attendance.getAbsentDayCount() > 0)) {
+            attendanceHeader.setVisible(true);
+
+            detailsPane.getChildren().add(createStyledLabel(
+                    String.format("Total Working Days: %d", attendance.getWorkDayCount())));
+
+            detailsPane.getChildren().add(createStyledLabel(
+                    String.format("Absent Days: %d", attendance.getAbsentDayCount())));
+
+            detailsPane.getChildren().add(createStyledLabel(
+                    String.format("Attendance Rate: %.1f%%", attendance.getAttendanceRate())));
+        } else {
+            attendanceHeader.setVisible(false);
+        }
+    }
+
+    /**
+     * Creates a styled label for attendance
+     */
+    private Label createStyledLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-font-size: 13px; -fx-padding: 2 0 2 15;");
+        return label;
     }
 
     /**
