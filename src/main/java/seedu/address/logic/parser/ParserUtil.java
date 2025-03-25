@@ -208,7 +208,7 @@ public class ParserUtil {
         List<String> nricList = Arrays.asList(nricListAsAWhole.trim().split(" "));
         for (String nric: nricList) {
             if (!Nric.isValidNric(nric)) {
-                throw new ParseException(Attendance.MESSAGE_CONSTRAINTS);
+                throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
             }
         }
         return nricList;
