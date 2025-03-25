@@ -28,7 +28,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         try {
             Index index = ParserUtil.parseIndex(trimmedArgs);
             return new ViewCommand(index);
-        } catch (ParseException e) {
+        } catch (NumberFormatException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
     }

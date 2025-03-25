@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 
@@ -39,7 +38,6 @@ public class TypicalPersons {
             .withHire("2019-10-10")
             .withTags("friends")
             .withLeaves(new Leave("2021-10-10", "2021-10-12", "sick"))
-            .withAttendance(new Attendance())
             .build();
 
     public static final Person BENSON = new PersonBuilder()
@@ -51,7 +49,6 @@ public class TypicalPersons {
             .withHire("2022-10-10")
             .withTags("owesMoney", "friends")
             .withLeaves(new Leave("2022-10-10", "2022-11-10", "paternity"))
-        .withAttendance(new Attendance())
             .build();
 
     public static final Person CARL = new PersonBuilder()
