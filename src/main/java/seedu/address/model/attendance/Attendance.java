@@ -1,5 +1,7 @@
 package seedu.address.model.attendance;
 
+import seedu.address.model.leave.Leave;
+
 /**
  * Represents the attendance details for a person in the address book.
  * Stores information such as the total number of working days, the number of absent days,
@@ -9,12 +11,10 @@ package seedu.address.model.attendance;
  * The attendance rate is initially set to 100% and is recalculated whenever the absent day count is updated.
  */
 public class Attendance {
-    public static final String MESSAGE_CONSTRAINTS = "Absentees should be indicated by their NRIC "
-        + "and each absentee's NRIC should be separated by at least one whitespace.";
-
     // Stores the number of working days so far in that year
     private static int workDayCount = 0;
-
+    public static final String MESSAGE_CONSTRAINTS = "Absentees should be indicated by their NRIC "
+            + "and each absentee's NRIC should be separated by at least one whitespace.";
     private int absentDayCount;
     // Stores the current attendance rate for this person in that year, initialized as 100% first
     private double attendanceRate;
