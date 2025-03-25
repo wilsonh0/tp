@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -205,12 +206,19 @@ public class ParserUtil {
         if (nricListAsAWhole.trim().isEmpty()) {
             return Collections.emptyList();
         }
-        List<String> nricList = Arrays.asList(nricListAsAWhole.trim().split(" "));
+
+        // Remove all additional whitespaces between NRICs
+        List<String> nricList = Arrays.stream(nricListAsAWhole.trim().split("\\s+"))
+                .filter(s -> !s.isEmpty())
+                .map(String::trim)
+                .collect(Collectors.toList());
+
         for (String nric: nricList) {
             if (!Nric.isValidNric(nric)) {
                 throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
             }
         }
+
         return nricList;
     }
 }
