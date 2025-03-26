@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
 
-<HBox xmlns="http://javafx.com/javafx/17"
+<VBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:id="contentPane"
       style="-fx-padding: 10; -fx-background-color: -fx-background;"
       spacing="20">
-</HBox>
+
+    <!-- Person Card (Full width) -->
+    <StackPane fx:id="personCardPlaceholder" VBox.vgrow="NEVER"/>
+
+    <!-- Records Container (Split 70-30) -->
+    <HBox fx:id="recordsContainer" spacing="20" VBox.vgrow="ALWAYS">
+
+        <!-- Leave Records (70%) -->
+        <VBox fx:id="leaveSection" style="-fx-pref-width: 70%;">
+            <Label text="LEAVE RECORDS" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+            <StackPane fx:id="leaveTablePlaceholder" VBox.vgrow="ALWAYS"/>
+            <Label fx:id="noLeavesLabel" text="No leave records found!"
+                   style="-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10;"
+                   visible="false"/>
+        </VBox>
+
+        <!-- Attendance (30%) -->
+        <VBox fx:id="attendanceSection" style="-fx-pref-width: 30%;">
+            <Label text="ATTENDANCE" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+        </VBox>
+    </HBox>
+</VBox>
