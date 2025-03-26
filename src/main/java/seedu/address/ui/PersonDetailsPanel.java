@@ -3,11 +3,19 @@ package seedu.address.ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 
@@ -17,23 +25,30 @@ import seedu.address.model.person.Person;
 public class PersonDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "PersonDetailsPanel.fxml";
+    private static final String DEFAULT_STYLE = "-fx-padding: 10; -fx-background-color: -fx-background;";
+    private static final String SECTION_HEADER_STYLE = "-fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 0 5 0;";
+    private static final String DETAIL_LABEL_STYLE = "-fx-font-size: 13px; -fx-padding: 2 0 2 0;";
+    private static final String LEAVE_ITEM_STYLE = "-fx-font-size: 12px; -fx-padding: 3 0 3 10;";
+    private static final String EMPTY_STATE_TEXT = "No employee selected. Select an employee from the list to view details.";
 
     private Person person;
-
-    @FXML
-    private VBox detailsPane;
 
     private PersonCard personCard;
 
     @FXML
-    private Label leaveRecordsHeader;
+    private HBox contentPane;
+
+    // Table components
+    private TableView<Leave> leaveTable;
+    private Label noLeavesLabel;
 
     /**
      * Creates a {@code PersonDetailsPanel} with an empty state.
      */
     public PersonDetailsPanel() {
         super(FXML);
-        personCard = null; // Start with no person displayed
+        personCard = null;
+        showEmptyState();
     }
 
     /**
@@ -42,11 +57,36 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     @FXML
     private void initialize() {
-        // Initialize Leave Records Header
-        leaveRecordsHeader.setText("Leave Records");
-        leaveRecordsHeader.setStyle("-fx-font-weight: bold;");
-        leaveRecordsHeader.setAlignment(Pos.CENTER_LEFT);
-        leaveRecordsHeader.setVisible(false); // Initially hidden
+        // Initialize the leave table
+        initializeLeaveTable();
+
+        // Initialize the no leaves label
+        noLeavesLabel = new Label("No leave records found!");
+        noLeavesLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10;");
+
+        // Set up the content pane
+        contentPane.setSpacing(20);
+        contentPane.setPadding(new Insets(10));
+    }
+
+    private void initializeLeaveTable() {
+        leaveTable = new TableView<>();
+        leaveTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        // From column
+        TableColumn<Leave, String> fromCol = new TableColumn<>("From");
+        fromCol.setCellValueFactory(new PropertyValueFactory<>("formattedStartDate"));
+
+        // To column
+        TableColumn<Leave, String> toCol = new TableColumn<>("To");
+        toCol.setCellValueFactory(new PropertyValueFactory<>("formattedEndDate"));
+
+        // Reason column
+        TableColumn<Leave, String> reasonCol = new TableColumn<>("Reason");
+        reasonCol.setCellValueFactory(new PropertyValueFactory<>("reason"));
+
+        leaveTable.getColumns().addAll(fromCol, toCol, reasonCol);
+        leaveTable.setPrefWidth(0.7 * contentPane.getWidth()); // 70% width
     }
 
     /**
@@ -54,30 +94,73 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     public void setPerson(Person person) {
         if (person == null) {
-            detailsPane.getChildren().clear();
-            leaveRecordsHeader.setVisible(false);
+            showEmptyState();
             return;
         }
 
         this.person = person;
+        contentPane.getChildren().clear();
 
-        // Clear previous details and show the new person's details
-        detailsPane.getChildren().clear();
+        // Add person card
+        personCard = new PersonCard(person);
+        contentPane.getChildren().add(personCard.getRoot());
 
-        // Create a PersonCard for the selected person
-        personCard = new PersonCard(person); // Index is 0 because it's a standalone card
-        detailsPane.getChildren().add(personCard.getRoot());
+        // Create container for leave records and future attendance (70-30 split)
+        HBox recordsContainer = new HBox();
+        recordsContainer.setSpacing(20);
 
-        // Show the leave records
-        if (!person.getLeaves().isEmpty()) {
-            leaveRecordsHeader.setVisible(true);
-            for (Leave leave : person.getLeaves()) {
-                Label leaveLabel = new Label(formatLeave(leave));
-                detailsPane.getChildren().add(leaveLabel);
-            }
+        // Leave records (70%)
+        VBox leaveSection = new VBox();
+        leaveSection.setSpacing(10);
+        leaveSection.setPrefWidth(0.7 * contentPane.getWidth());
+
+        Label leaveHeader = new Label("LEAVE RECORDS");
+        leaveHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 14;");
+
+        leaveSection.getChildren().add(leaveHeader);
+
+        if (person.getLeaves().isEmpty()) {
+            leaveSection.getChildren().add(noLeavesLabel);
         } else {
-            leaveRecordsHeader.setVisible(false);
+            ObservableList<Leave> leaves = FXCollections.observableArrayList(person.getLeaves());
+            leaveTable.setItems(leaves);
+            leaveSection.getChildren().add(leaveTable);
         }
+
+        // Attendance placeholder (30%)
+        VBox attendanceSection = new VBox();
+        attendanceSection.setSpacing(10);
+        attendanceSection.setPrefWidth(0.3 * contentPane.getWidth());
+
+        Label attendanceHeader = new Label("ATTENDANCE");
+        attendanceHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 14;");
+
+        attendanceSection.getChildren().addAll(attendanceHeader);
+        // Add attendance content later
+
+        recordsContainer.getChildren().addAll(leaveSection, attendanceSection);
+        contentPane.getChildren().add(recordsContainer);
+    }
+    /**
+     * Shows the empty state of the panel.
+     */
+    private void showEmptyState() {
+        contentPane.getChildren().clear();
+
+        Label emptyStateLabel = new Label(EMPTY_STATE_TEXT);
+        emptyStateLabel.setStyle("-fx-font-style: italic; -fx-text-fill: derive(-fx-text-background-color, -30%);");
+        emptyStateLabel.setAlignment(Pos.CENTER);
+        emptyStateLabel.setWrapText(true);
+        contentPane.getChildren().add(emptyStateLabel);
+    }
+
+    /**
+     * Creates a spacer with the specified height.
+     */
+    private Region createSpacer(double height) {
+        Region spacer = new Region();
+        spacer.setPrefHeight(height);
+        return spacer;
     }
 
     /**
@@ -97,7 +180,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         String startDate = formatDate(leave.getStartDate());
         String endDate = formatDate(leave.getEndDate());
         String reason = leave.getReason();
-        return "From " + startDate + " to " + endDate + ": " + reason;
+        return String.format("✓ From %s to %s: %s", startDate, endDate, reason);
     }
 
     /**

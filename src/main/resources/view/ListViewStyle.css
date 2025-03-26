@@ -1,0 +1,9 @@
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 8 0; /* Adds 8px spacing at the bottom of each cell */
+}
+
+.list-view .list-cell:empty {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
