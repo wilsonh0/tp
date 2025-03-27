@@ -105,4 +105,18 @@ public class SortCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, attribute,
                 direction.equals("desc") ? "descending" : "ascending"));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof SortCommand)) {
+            return false;
+        }
+
+        SortCommand otherCommand = (SortCommand) other;
+        return attribute.equals(otherCommand.attribute) && direction.equals(otherCommand.direction);
+    }
 }

@@ -19,8 +19,8 @@ public class NricComparator implements Comparator<Person> {
      */
     @Override
     public int compare(Person a, Person b) {
-        String name1 = a.getName().toString().toLowerCase();
-        String name2 = b.getName().toString().toLowerCase();
+        String name1 = a.getNric().toString().toLowerCase();
+        String name2 = b.getNric().toString().toLowerCase();
         return name1.compareTo(name2);
     }
 }
