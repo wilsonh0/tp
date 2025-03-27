@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:id="contentPane"
-      style="-fx-padding: 10; -fx-background-color: -fx-background;"
-      spacing="20">
+      spacing="10"
+      style="-fx-padding: 10;">
 
-    <!-- Person Card (Full width) -->
-    <StackPane fx:id="personCardPlaceholder" VBox.vgrow="NEVER"/>
+    <!-- Person Card (fixed height) -->
+    <StackPane fx:id="personCardPlaceholder"
+               style="-fx-max-height: 200;"/>
 
-    <!-- Records Container (Split 70-30) -->
-    <HBox fx:id="recordsContainer" spacing="20" VBox.vgrow="ALWAYS">
+    <!-- Leave Records (takes remaining space) -->
+    <VBox fx:id="leaveSection" VBox.vgrow="ALWAYS" spacing="5">
+        <Label text="LEAVE RECORDS" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+        <StackPane fx:id="leaveTablePlaceholder" VBox.vgrow="ALWAYS"/>
+        <Label fx:id="noLeavesLabel" text="No leave records found!"
+               style="-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10;"
+               visible="false"/>
+    </VBox>
 
-        <!-- Leave Records (70%) -->
-        <VBox fx:id="leaveSection" style="-fx-pref-width: 70%;">
-            <Label text="LEAVE RECORDS" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
-            <StackPane fx:id="leaveTablePlaceholder" VBox.vgrow="ALWAYS"/>
-            <Label fx:id="noLeavesLabel" text="No leave records found!"
-                   style="-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10;"
-                   visible="false"/>
-        </VBox>
-
-        <!-- Attendance (30%) -->
-        <VBox fx:id="attendanceSection" style="-fx-pref-width: 30%;">
-            <Label text="ATTENDANCE" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
-        </VBox>
-    </HBox>
+    <!-- Attendance (fixed height) -->
+    <VBox fx:id="attendanceSection" style="-fx-max-height: 150;" spacing="5">
+        <Label text="ATTENDANCE" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+        <StackPane fx:id="attendancePlaceholder"/>
+    </VBox>
 </VBox>

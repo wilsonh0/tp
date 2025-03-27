@@ -2,17 +2,15 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -30,35 +28,25 @@ public class PersonDetailsPanel extends UiPart<Region> {
     @FXML private StackPane personCardPlaceholder;
     @FXML private StackPane leaveTablePlaceholder;
     @FXML private Label noLeavesLabel;
-    @FXML private HBox recordsContainer;
     @FXML private VBox leaveSection;
     @FXML private VBox attendanceSection;
 
     private Person person;
     private PersonCard personCard;
     private TableView<Leave> leaveTable;
+    private ScrollPane leaveScrollPane;
 
     /**
      * Creates a {@code PersonDetailsPanel} with an empty state.
      */
     public PersonDetailsPanel() {
         super(FXML);
+        initializeLeaveTable();
     }
 
     /**
-     * Initializes the panel by setting up the leave records header.
-     * This method is called automatically after the FXML components are injected.
+     * Initializes the leave table and adds it to the placeholder.
      */
-    @FXML
-    private void initialize() {
-        initializeLeaveTable();
-
-        VBox.setVgrow(personCardPlaceholder, Priority.NEVER);
-        VBox.setVgrow(recordsContainer, Priority.ALWAYS);
-        HBox.setHgrow(leaveSection, Priority.ALWAYS);
-    }
-
-
     private void initializeLeaveTable() {
         leaveTable = new TableView<>();
         leaveTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -73,6 +61,13 @@ public class PersonDetailsPanel extends UiPart<Region> {
         reasonCol.setCellValueFactory(new PropertyValueFactory<>("reason"));
 
         leaveTable.getColumns().addAll(fromCol, toCol, reasonCol);
+
+        leaveScrollPane = new ScrollPane(leaveTable);
+        leaveScrollPane.setFitToWidth(true);
+        leaveScrollPane.setFitToHeight(true);
+        leaveScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        leaveTablePlaceholder.getChildren().add(leaveScrollPane);
     }
 
     /**
@@ -89,17 +84,19 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
         // Set up person card
         personCard = new PersonCard(person);
-        personCardPlaceholder.getChildren().setAll(personCard.getRoot());
+        personCardPlaceholder.getChildren().add(personCard.getRoot());
 
-        // Set up leave records
+        // Update leave records
         if (person.getLeaves().isEmpty()) {
             noLeavesLabel.setVisible(true);
+            leaveTable.setItems(FXCollections.observableArrayList());
         } else {
             noLeavesLabel.setVisible(false);
-            ObservableList<Leave> leaves = FXCollections.observableArrayList(person.getLeaves());
-            leaveTable.setItems(leaves);
-            leaveTablePlaceholder.getChildren().setAll(leaveTable);
+            leaveTable.setItems(FXCollections.observableArrayList(person.getLeaves()));
         }
+
+        // Force UI update
+        Platform.runLater(() -> leaveTable.requestLayout());
     }
 
     /**
@@ -107,7 +104,6 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     private void clearContent() {
         personCardPlaceholder.getChildren().clear();
-        leaveTablePlaceholder.getChildren().clear();
         noLeavesLabel.setVisible(false);
     }
 
@@ -134,7 +130,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     }
 
     /**
-     * Formats a Leave object to a string: "From 18th March 2025 to 20th March 2025: Sick Leave"
+     * Formats a Leave object to a string.
      */
     private String formatLeave(Leave leave) {
         String startDate = formatDate(leave.getStartDate());
