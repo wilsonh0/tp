@@ -90,9 +90,11 @@ public class PersonDetailsPanel extends UiPart<Region> {
         if (person.getLeaves().isEmpty()) {
             noLeavesLabel.setVisible(true);
             leaveTablePlaceholder.setVisible(false);
+            leaveTablePlaceholder.setManaged(false);  // Ensures no empty space
         } else {
             noLeavesLabel.setVisible(false);
             leaveTablePlaceholder.setVisible(true);
+            leaveTablePlaceholder.setManaged(true);   // Ensures table appears normally
             leaveTable.setItems(FXCollections.observableArrayList(person.getLeaves()));
         }
 
