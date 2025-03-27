@@ -1,8 +1,8 @@
 package seedu.address.model.person.comparators;
 
-import seedu.address.model.person.Person;
-
 import java.util.Comparator;
+
+import seedu.address.model.person.Person;
 
 /**
  * A comparator that compares {@link Person} objects based on their nric field.
