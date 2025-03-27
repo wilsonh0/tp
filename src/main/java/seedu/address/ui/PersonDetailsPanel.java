@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -11,9 +12,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 
@@ -24,7 +27,6 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "PersonDetailsPanel.fxml";
     private static final String EMPTY_STATE_TEXT = "No employee selected. Select an employee from the list to view details.";
-    private static final String ATTENDANCE_FORMAT = "%-12s | %-12s | %-12s";
     private static final String ATTENDANCE_EMPTY_TEXT = "No attendance data available";
 
     @FXML private StackPane personCardPlaceholder;
@@ -33,6 +35,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     @FXML private VBox leaveSection;
     @FXML private VBox attendanceSection;
     @FXML private Label attendanceLabel;
+    @FXML private GridPane attendanceGrid;
 
     private Person person;
     private PersonCard personCard;
@@ -102,19 +105,34 @@ public class PersonDetailsPanel extends UiPart<Region> {
         }
 
         // Update attendance records
+        attendanceGrid.getChildren().clear(); // Clear previous content
+
         if (person.getAttendance() == null) {
-            attendanceLabel.setText(ATTENDANCE_EMPTY_TEXT);
+            Label noAttendance = new Label(ATTENDANCE_EMPTY_TEXT);
+            attendanceGrid.add(noAttendance, 0, 0, 3, 1); // Span all columns
         } else {
             int daysWorked = person.getAttendance().getWorkDayCount() - person.getAttendance().getAbsentDayCount();
             int daysSinceHire = person.getAttendance().getWorkDayCount();
             double attendanceRate = person.getAttendance().getAttendanceRate();
 
-            String formattedAttendance = String.format(ATTENDANCE_FORMAT,
-                "DAYS WORKED","DAYS SINCE HIRE", "ATTENDANCE RATE")
-                + "\n"
-                + String.format(ATTENDANCE_FORMAT, daysWorked, daysSinceHire, String.format("%.1f%%", attendanceRate));
+            // Create headers
+            Label header1 = new Label("DAYS WORKED");
+            Label header2 = new Label("DAYS SINCE HIRE");
+            Label header3 = new Label("ATTENDANCE RATE");
 
-            attendanceLabel.setText(formattedAttendance);
+            // Create data labels
+            Label data1 = new Label(String.valueOf(daysWorked));
+            Label data2 = new Label(String.valueOf(daysSinceHire));
+            Label data3 = new Label(String.format("%.1f%%", attendanceRate));
+
+            // Style headers
+            header1.setStyle("-fx-font-weight: bold;");
+            header2.setStyle("-fx-font-weight: bold;");
+            header3.setStyle("-fx-font-weight: bold;");
+
+            // Add to grid
+            attendanceGrid.addRow(0, header1, header2, header3);
+            attendanceGrid.addRow(1, data1, data2, data3);
         }
 
         // Force UI update
@@ -127,6 +145,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void clearContent() {
         personCardPlaceholder.getChildren().clear();
         noLeavesLabel.setVisible(false);
+        attendanceGrid.getChildren().clear();
     }
 
     /**
