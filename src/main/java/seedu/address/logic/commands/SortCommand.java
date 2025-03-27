@@ -29,7 +29,7 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Sorts all persons by the specified attribute in the given direction.\n"
-        + "Usage: sort [ATTRIBUTE]  [DIRECTION]\n"
+        + "Parameters: [ATTRIBUTE] [DIRECTION]\n"
         + "ATTRIBUTE must be one of: name, nric, phone, address, email, hire\n"
         + "DIRECTION must be one of: asc (ascending), desc (descending)\n"
         + "Example: " + COMMAND_WORD + " name asc";

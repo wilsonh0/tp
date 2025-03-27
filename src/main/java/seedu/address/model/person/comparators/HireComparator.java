@@ -21,5 +21,4 @@ public class HireComparator implements Comparator<Person> {
     public int compare(Person a, Person b) {
         return a.getHire().toString().compareTo(b.getHire().toString());
     }
-
 }

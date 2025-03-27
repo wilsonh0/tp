@@ -23,5 +23,4 @@ public class AddressComparator implements Comparator<Person> {
         String address2 = b.getAddress().toString().toLowerCase();
         return address1.compareTo(address2);
     }
-
 }

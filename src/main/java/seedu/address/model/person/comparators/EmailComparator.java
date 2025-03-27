@@ -23,5 +23,4 @@ public class EmailComparator implements Comparator<Person> {
         String email2 = b.getEmail().toString().toLowerCase();
         return email1.compareTo(email2);
     }
-
 }
