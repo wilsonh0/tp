@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;

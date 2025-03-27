@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 
@@ -26,7 +25,8 @@ import seedu.address.model.person.Person;
 public class PersonDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "PersonDetailsPanel.fxml";
-    private static final String EMPTY_STATE_TEXT = "No employee selected. Select an employee from the list to view details.";
+    private static final String EMPTY_STATE_TEXT = "No employee selected. "
+        + "Select an employee from the list to view details.";
     private static final String ATTENDANCE_EMPTY_TEXT = "No attendance data available";
 
     @FXML private StackPane personCardPlaceholder;
@@ -99,11 +99,11 @@ public class PersonDetailsPanel extends UiPart<Region> {
         if (person.getLeaves().isEmpty()) {
             noLeavesLabel.setVisible(true);
             leaveTablePlaceholder.setVisible(false);
-            leaveTablePlaceholder.setManaged(false);  // Ensures no empty space
+            leaveTablePlaceholder.setManaged(false); // Ensures no empty space
         } else {
             noLeavesLabel.setVisible(false);
             leaveTablePlaceholder.setVisible(true);
-            leaveTablePlaceholder.setManaged(true);   // Ensures table appears normally
+            leaveTablePlaceholder.setManaged(true); // Ensures table appears normally
             leaveTable.setItems(FXCollections.observableArrayList(person.getLeaves()));
         }
 

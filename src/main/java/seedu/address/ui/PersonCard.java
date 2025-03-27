@@ -99,7 +99,7 @@ public class PersonCard extends UiPart<Region> {
             "-fx-background-color: #BBDEFB; -fx-text-fill: #1976D2;", // Blue
             "-fx-background-color: #B2EBF2; -fx-text-fill: #0097A7;", // Cyan
             "-fx-background-color: #B2DFDB; -fx-text-fill: #00796B;", // Teal
-            "-fx-background-color: #C8E6C9; -fx-text-fill: #388E3C;"  // Green
+            "-fx-background-color: #C8E6C9; -fx-text-fill: #388E3C;" // Green
         };
 
         // Create and style tags
@@ -108,11 +108,11 @@ public class PersonCard extends UiPart<Region> {
             .sorted(Comparator.comparing(t -> t.tagName))
             .toList()) {
             Label tagLabel = new Label(tag.tagName);
-            tagLabel.setStyle(tagColors[colorIndex % tagColors.length] +
-                "-fx-text-fill: black; " +  // All text in black
-                "-fx-background-radius: 10; " +
-                "-fx-padding: 2 8 2 8; " +
-                "-fx-font-size: 11px;");
+            tagLabel.setStyle(tagColors[colorIndex % tagColors.length]
+                + "-fx-text-fill: black; " // All text in black
+                + "-fx-background-radius: 10; "
+                + "-fx-padding: 2 8 2 8; "
+                + "-fx-font-size: 11px;");
             tagLabel.setMaxHeight(20);
             tags.getChildren().add(tagLabel);
             colorIndex++;

@@ -1,6 +1,5 @@
 package seedu.address.model.attendance;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -12,11 +11,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * The attendance rate is initially set to 100% and is recalculated whenever the absent day count is updated.
  */
 public class Attendance {
+    public static final String MESSAGE_CONSTRAINTS = "Both the number of working days and absent days "
+        + "should be larger than or equal to 0. Number of working days should be larger than number "
+        + "of working days.";
     // Stores the number of working days for this person
     private int workDayCount;
-    public static final String MESSAGE_CONSTRAINTS = "Both the number of working days and absent days "
-            + "should be larger than or equal to 0. Number of working days should be larger than number "
-            + "of working days.";
     private int absentDayCount;
     // Stores the current attendance rate for this person in that year, initialized as 100% first
     private double attendanceRate;

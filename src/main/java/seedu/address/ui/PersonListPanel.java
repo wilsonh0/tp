@@ -15,12 +15,12 @@ import seedu.address.model.person.Person;
  */
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final String LIST_VIEW_STYLE =
-        "-fx-control-inner-background: transparent; " +
-            "-fx-background-color: transparent; " +
-            "-fx-padding: 5; " +  // Padding around the entire list
-            "-fx-cell-size: 150;";
+        "-fx-control-inner-background: transparent; "
+            + "-fx-background-color: transparent; "
+            + "-fx-padding: 5; " // Padding around the entire list
+            + "-fx-cell-size: 150;"; // Height of each cell
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<Person> personListView;
