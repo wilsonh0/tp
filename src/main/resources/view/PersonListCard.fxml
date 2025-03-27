@@ -30,4 +30,5 @@
     <Label fx:id="address" styleClass="cell_small_label" style="-fx-font-size: 13px; -fx-wrap-text: true;" />
     <Label fx:id="hire" styleClass="cell_small_label" style="-fx-font-size: 13px;" />
   </VBox>
+
 </HBox>

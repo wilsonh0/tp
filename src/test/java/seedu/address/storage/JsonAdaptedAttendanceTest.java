@@ -59,4 +59,5 @@ class JsonAdaptedAttendanceTest {
                 VALID_WORK_DAYS, INVALID_ABSENT_EXCEEDS_WORK_DAYS);
         assertThrows(IllegalValueException.class, jsonAttendance::toModelType);
     }
+
 }

@@ -70,4 +70,5 @@ public class AttendanceCommandParserTest {
         assertParseFailure(parser, " " + PREFIX_ATTENDANCE_ABSENT + VALID_NRIC_AMY + " "
                 + PREFIX_ATTENDANCE_ABSENT + INVALID_NRIC_DESC, Nric.MESSAGE_CONSTRAINTS);
     }
+
 }

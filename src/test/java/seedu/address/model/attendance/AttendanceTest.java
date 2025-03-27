@@ -183,4 +183,5 @@ public class AttendanceTest {
                 "Number of working days so far this year: 10; Number of days absent: 2; Attendance Rate: 80.0";
         assertEquals(expected, attendance.toString());
     }
+
 }

@@ -6,4 +6,5 @@
 .list-view .list-cell:empty {
     -fx-padding: 0;
     -fx-background-color: transparent;
+
 }
