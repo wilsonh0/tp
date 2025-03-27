@@ -13,25 +13,33 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Get started in minutes
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+#### Prerequisites
+- Java 17 or later [(Download)](https://www.oracle.com/java/technologies/downloads/#java24)
+  - Verify with `java -version` in your terminal.
+  - For Mac users, ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+#### Steps
+1. Download the `.jar` file
+   - Grab the latest `HRNexus.jar` release [here](https://github.com/se-edu/addressbook-level3/releases))
+2. Run the app
+   - Move the downloaded `.jar` file to a folder of your choice.
+   - Open your preferred terminal and run the following commands:
+       ```
+       cd /path/to/folder
+       java -jar HRNexus.jar
+       ```
+- A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /address John street, block 123, #01-01 /hire 2025-03-05`: Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -39,7 +47,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [Features](#features) below for more details on each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -49,17 +57,17 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 **Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+  - e.g. in `add /name NAME`, `NAME` is a parameter which can be used as `add /name John Doe`.
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items with `…`​ after them can accept multiple values separated by a space.
+  - Examples: In the case of `attendence [/absent NRIC…​]`, `NRIC` can be empty or have one or more values.
+    - `attendence /absent` : sets all employees as present
+    - `attendence /absent S1234567A`
+    - `attendence /absent S1234567A S2345678B`
+  
+* Parameters can be in any order.
+  - e.g. if the command specifies `/name NAME /phone PHONE_NUMBER`, `/phone PHONE_NUMBER /name NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
