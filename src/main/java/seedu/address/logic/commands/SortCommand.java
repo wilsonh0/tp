@@ -4,10 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -40,10 +37,6 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Sorted all persons by %1$s in %2$s order.";
 
-    private static final Set<String> VALID_ATTRIBUTES = new HashSet<>(Arrays.asList("name", "nric", "phone", "address",
-            "email", "hire"));
-    private static final Set<String> VALID_DIRECTIONS = new HashSet<>(Arrays.asList("asc", "desc"));
-
     private final String attribute;
     private final String direction;
 
@@ -65,15 +58,14 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        if (!VALID_ATTRIBUTES.contains(attribute)) {
-            throw new CommandException(MESSAGE_INVALID_ATTRIBUTE + MESSAGE_USAGE);
-        } else if (!VALID_DIRECTIONS.contains(direction)) {
-            throw new CommandException(MESSAGE_INVALID_DIRECTION + MESSAGE_USAGE);
-        }
 
         List<Person> originalPersons = model.getAddressBook().getPersonList();
 
         ArrayList<Person> sortedPersons = new ArrayList<>(originalPersons);
+
+        if (!direction.equals("asc") && !direction.equals("desc")) {
+            throw new CommandException(MESSAGE_INVALID_DIRECTION + MESSAGE_USAGE);
+        }
 
         switch (attribute) {
         case "name":
@@ -104,5 +96,19 @@ public class SortCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, attribute,
                 direction.equals("desc") ? "descending" : "ascending"));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof SortCommand)) {
+            return false;
+        }
+
+        SortCommand otherCommand = (SortCommand) other;
+        return attribute.equals(otherCommand.attribute) && direction.equals(otherCommand.direction);
     }
 }
