@@ -25,7 +25,7 @@ public class SortCommandParser implements Parser<SortCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        String[] parameters = trimmedArgs.split(" ", 2);
+        String[] parameters = trimmedArgs.replaceAll("\\s+", " ").split(" ", 2);
         if (parameters.length < 2 || parameters[1].trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
