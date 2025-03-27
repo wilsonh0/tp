@@ -1,6 +1,6 @@
 package seedu.address.model.attendance;
 
-import seedu.address.model.leave.Leave;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the attendance details for a person in the address book.
@@ -11,10 +11,11 @@ import seedu.address.model.leave.Leave;
  * The attendance rate is initially set to 100% and is recalculated whenever the absent day count is updated.
  */
 public class Attendance {
-    // Stores the number of working days so far in that year
-    private static int workDayCount = 0;
-    public static final String MESSAGE_CONSTRAINTS = "Absentees should be indicated by their NRIC "
-            + "and each absentee's NRIC should be separated by at least one whitespace.";
+    public static final String MESSAGE_CONSTRAINTS = "Both the number of working days and absent days "
+        + "should be larger than or equal to 0. Number of working days should be larger than number "
+        + "of working days.";
+    // Stores the number of working days for this person
+    private int workDayCount;
     private int absentDayCount;
     // Stores the current attendance rate for this person in that year, initialized as 100% first
     private double attendanceRate;
@@ -24,42 +25,105 @@ public class Attendance {
      * absent day count set to 0 and attendance rate set to 100%.
      */
     public Attendance() {
+        this.workDayCount = 0;
         this.absentDayCount = 0;
         this.attendanceRate = 100.0;
     }
 
     /**
-     * Returns the total number of working days for the current year.
+     * Constructs an {@code Attendance} object with the specified workday and absent day counts.
+     * The attendance rate is automatically calculated based on the given values.
      *
-     * @return The total number of working days.
+     * @param workDayCount The number of workdays recorded.
+     * @param absentDayCount The number of days the person was absent.
+     * @throws NullPointerException if {@code workDayCount} or {@code absentDayCount} is null.
+     */
+    public Attendance(int workDayCount, int absentDayCount) {
+        checkArgument(isValidAttendance(workDayCount, absentDayCount), MESSAGE_CONSTRAINTS);
+        this.workDayCount = workDayCount;
+        this.absentDayCount = absentDayCount;
+        calculateAttendanceRate();
+    }
+
+    /**
+     * Returns true if given workDayCount and absentDayCount values are valid when exist together.
+     */
+    public static boolean isValidAttendance(int workDayCount, int absentDayCount) {
+        if (!isValidWorkDayCount(workDayCount) || !isValidAbsentDayCount(absentDayCount)) {
+            return false;
+        }
+
+        if (workDayCount < absentDayCount) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns true if given workDayCount value is valid.
+     */
+    public static boolean isValidWorkDayCount(int workDayCount) {
+        if (workDayCount < 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns true if given absentDayCount value is valid.
+     */
+    public static boolean isValidAbsentDayCount(int absentDayCount) {
+        if (absentDayCount < 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns the total number of working days for the person.
+     *
+     * @return The total number of working days for the person.
      */
     public int getWorkDayCount() {
-        return workDayCount;
+        return this.workDayCount;
     }
 
     /**
-     * Sets the total number of working days for the current year.
+     * Sets the total number of workdays recorded for the person and
+     * recalculates the attendance rate accordingly.
      *
-     * <p>This is a static method that modifies the shared {@code workDayCount} across all instances
-     * of {@code Attendance}. This value represents the total number of days employees are expected
-     * to work in the current year up to date and is used in attendance rate calculations for each person.</p>
-     *
-     * <p><strong>Note:</strong> This method does not perform validation on the provided value.
-     * It should be used carefully, typically during initialization or data restoration processes.</p>
-     *
-     * @param count The total number of working days to set. Should be a non-negative integer.
+     * @param workDayCount the number of workdays to set
      */
-    public static void setWorkDayCount(int count) {
-        workDayCount = count;
+    public void setWorkDayCount(int workDayCount) {
+        checkArgument(isValidWorkDayCount(workDayCount), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAttendance(workDayCount, absentDayCount), MESSAGE_CONSTRAINTS);
+        this.workDayCount = workDayCount;
+        calculateAttendanceRate();
     }
 
     /**
-     * Returns the total number of absent days recorded for this person.
+     * Returns the total number of absent days recorded for the person.
      *
      * @return The number of absent days.
      */
     public int getAbsentDayCount() {
         return this.absentDayCount;
+    }
+
+    /**
+     * Sets the total number of absent days recorded for the person
+     * and recalculates the attendance rate accordingly.
+     *
+     * @param absentDayCount the number of days to set as absent
+     */
+    public void setAbsentDayCount(int absentDayCount) {
+        checkArgument(isValidAbsentDayCount(absentDayCount), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAttendance(workDayCount, absentDayCount), MESSAGE_CONSTRAINTS);
+        this.absentDayCount = absentDayCount;
+        calculateAttendanceRate();
     }
 
     /**
@@ -86,10 +150,10 @@ public class Attendance {
     }
 
     /**
-     * Increments the number of working days for the current year.
+     * Increments the number of working days for the person.
      */
-    public static void incrementWorkDayCount() {
-        workDayCount++;
+    public void incrementWorkDay() {
+        this.workDayCount++;
     }
 
     /**
@@ -111,20 +175,20 @@ public class Attendance {
         }
 
         Attendance otherAttendance = (Attendance) other;
-        return absentDayCount == otherAttendance.absentDayCount
-                && Double.compare(getAttendanceRate(), otherAttendance.getAttendanceRate()) == 0;
+        return this.workDayCount == otherAttendance.workDayCount
+                && this.absentDayCount == otherAttendance.absentDayCount;
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(absentDayCount) + Double.hashCode(attendanceRate);
+        return Integer.hashCode(workDayCount) + Integer.hashCode(absentDayCount);
     }
 
     @Override
     public String toString() {
-        return "Number of working days so far this year: " + workDayCount
-                + " Number of days absent: " + absentDayCount
-                + " Attendance Rate: " + attendanceRate;
+        return "Number of working days so far this year: " + this.workDayCount
+                + "; Number of days absent: " + this.absentDayCount
+                + "; Attendance Rate: " + this.attendanceRate;
     }
 
 }

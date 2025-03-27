@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,25 +13,31 @@ import seedu.address.model.attendance.Attendance;
  */
 public class JsonAdaptedAttendance {
 
-    private final int absentDayCount;
     private final int workDayCount;
+    private final int absentDayCount;
+
+
+    public JsonAdaptedAttendance() {
+        this(0, 0); // Default to empty attendance
+    }
 
     /**
      * Constructs a {@code JsonAdaptedAttendance} with the given attendance details.
      */
     @JsonCreator
-    public JsonAdaptedAttendance(@JsonProperty("absentDayCount") int absentDayCount,
-                                 @JsonProperty("workDayCount") int workDayCount) {
-        this.absentDayCount = absentDayCount;
+    public JsonAdaptedAttendance(@JsonProperty("workDayCount") int workDayCount,
+                                 @JsonProperty("absentDayCount") int absentDayCount) {
         this.workDayCount = workDayCount;
+        this.absentDayCount = absentDayCount;
     }
 
     /**
      * Converts a given {@code Attendance} into this class for Jackson use.
      */
     public JsonAdaptedAttendance(Attendance source) {
-        this.absentDayCount = source.getAbsentDayCount();
+        requireNonNull(source);
         this.workDayCount = source.getWorkDayCount();
+        this.absentDayCount = source.getAbsentDayCount();
     }
 
     /**
@@ -38,21 +46,11 @@ public class JsonAdaptedAttendance {
      * @throws IllegalValueException if data constraints are violated.
      */
     public Attendance toModelType() throws IllegalValueException {
-        if (absentDayCount < 0) {
-            throw new IllegalValueException("Absent day count cannot be negative.");
-        }
-        if (workDayCount < 0) {
-            throw new IllegalValueException("Work day count cannot be negative.");
+        if (workDayCount < 0 || absentDayCount < 0 || workDayCount < absentDayCount) {
+            throw new IllegalValueException(Attendance.MESSAGE_CONSTRAINTS);
         }
 
-        // Safely reset the static workDayCount to the stored value.
-        Attendance.setWorkDayCount(workDayCount);
-
-        Attendance reconstructedAttendance = new Attendance();
-        for (int i = 0; i < absentDayCount; i++) {
-            reconstructedAttendance.incrementAbsentDay();
-        }
-
+        Attendance reconstructedAttendance = new Attendance(this.workDayCount, this.absentDayCount);
         return reconstructedAttendance;
     }
 }

@@ -37,9 +37,12 @@ public class JsonAdaptedLeave {
     }
 
     /**
-     * Converts this Jackson-friendly adapted leave object into the model's {@code Leave} object.
+     * Converts this Jackson-friendly adapted attendance object into the model's {@code Attendance} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted leave.
+     * @throws IllegalValueException if data constraints are violated, specifically:
+     *         - If workDayCount is negative
+     *         - If absentDayCount is negative
+     *         - If workDayCount is less than absentDayCount
      */
     public Leave toModelType() throws IllegalValueException {
         if (!Leave.isValidLeave(startDate, endDate, reason)) {

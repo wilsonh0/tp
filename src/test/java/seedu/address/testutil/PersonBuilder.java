@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -36,6 +37,7 @@ public class PersonBuilder {
     private Hire hire;
     private TagSet tags;
     private List<Leave> leaves;
+    private Attendance attendance;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -49,6 +51,7 @@ public class PersonBuilder {
         hire = new Hire(DEFAULT_HIRE);
         tags = new TagSet(new HashSet<>()); // Empty set instead of having a tag by default
         leaves = new ArrayList<>();
+        attendance = new Attendance();
     }
 
     /**
@@ -63,6 +66,8 @@ public class PersonBuilder {
         hire = personToCopy.getHire();
         tags = personToCopy.getTags();
         leaves = new ArrayList<>(personToCopy.getLeaves());
+        attendance = new Attendance();
+        attendance.setAbsentDayCount(personToCopy.getAttendance().getAbsentDayCount());
     }
 
     /**
@@ -126,6 +131,16 @@ public class PersonBuilder {
      */
     public PersonBuilder withLeaves(Leave ... leaves) {
         this.leaves = SampleDataUtil.getLeaveList(leaves);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Attendance} of the {@code Person} that we are building.
+     * @param attendance
+     * @return
+     */
+    public PersonBuilder withAttendance(Attendance attendance) {
+        this.attendance = attendance;
         return this;
     }
 

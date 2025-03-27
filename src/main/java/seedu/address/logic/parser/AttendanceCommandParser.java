@@ -24,16 +24,14 @@ public class AttendanceCommandParser implements Parser<AttendanceCommand> {
      */
     public AttendanceCommand parse(String args) throws ParseException {
         requireNonNull(args);
-
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ATTENDANCE_ABSENT);
-
-        List<String> nricList = ParserUtil.parseAttendance(argMultimap.getValue(PREFIX_ATTENDANCE_ABSENT).get());
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ATTENDANCE_ABSENT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AttendanceCommand.MESSAGE_USAGE));
         }
 
+        List<String> nricList = ParserUtil.parseAttendance(argMultimap.getValue(PREFIX_ATTENDANCE_ABSENT).get());
         return new AttendanceCommand(nricList);
     }
 
