@@ -15,6 +15,11 @@ import seedu.address.model.person.Person;
  */
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
+    private static final String LIST_VIEW_STYLE =
+        "-fx-control-inner-background: transparent; "
+            + "-fx-background-color: transparent; "
+            + "-fx-padding: 5; " // Padding around the entire list
+            + "-fx-cell-size: 150;"; // Height of each cell
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
@@ -27,6 +32,10 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setStyle(LIST_VIEW_STYLE); // Makes list background transparent
+
+        // Apply CSS for spacing between cells
+        personListView.getStylesheets().add(getClass().getResource("/view/ListViewStyle.css").toExternalForm());
     }
 
     /**
@@ -40,8 +49,10 @@ public class PersonListPanel extends UiPart<Region> {
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle("-fx-padding: 0; -fx-background-color: transparent;");
             } else {
                 setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setStyle("-fx-padding: 0 0 8 0; -fx-background-color: transparent;");
             }
         }
     }

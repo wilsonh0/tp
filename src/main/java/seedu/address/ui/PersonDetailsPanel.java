@@ -3,12 +3,19 @@ package seedu.address.ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.address.model.attendance.Attendance;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 
@@ -18,16 +25,22 @@ import seedu.address.model.person.Person;
 public class PersonDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "PersonDetailsPanel.fxml";
+    private static final String EMPTY_STATE_TEXT = "No employee selected. "
+        + "Select an employee from the list to view details.";
+    private static final String ATTENDANCE_EMPTY_TEXT = "No attendance data available";
+
+    @FXML private StackPane personCardPlaceholder;
+    @FXML private StackPane leaveTablePlaceholder;
+    @FXML private Label noLeavesLabel;
+    @FXML private VBox leaveSection;
+    @FXML private VBox attendanceSection;
+    @FXML private Label attendanceLabel;
+    @FXML private GridPane attendanceGrid;
 
     private Person person;
-
-    @FXML
-    private VBox detailsPane;
-
     private PersonCard personCard;
-
-    @FXML
-    private Label leaveRecordsHeader;
+    private TableView<Leave> leaveTable;
+    private ScrollPane leaveScrollPane;
 
     @FXML
     private Label attendanceHeader;
@@ -37,24 +50,33 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     public PersonDetailsPanel() {
         super(FXML);
-        personCard = null; // Start with no person displayed
+        initializeLeaveTable();
     }
 
     /**
-     * Initializes the panel by setting up the leave records header.
-     * This method is called automatically after the FXML components are injected.
+     * Initializes the leave table and adds it to the placeholder.
      */
-    @FXML
-    private void initialize() {
-        // Initialize Leave Records Header
-        leaveRecordsHeader.setText("Leave Records");
-        leaveRecordsHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
-        leaveRecordsHeader.setAlignment(Pos.CENTER_LEFT);
-        leaveRecordsHeader.setVisible(false); // Initially hidden
-        attendanceHeader.setText("Attendance Records");
-        attendanceHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
-        attendanceHeader.setAlignment(Pos.CENTER_LEFT);
-        attendanceHeader.setVisible(false);
+    private void initializeLeaveTable() {
+        leaveTable = new TableView<>();
+        leaveTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        TableColumn<Leave, String> fromCol = new TableColumn<>("From");
+        fromCol.setCellValueFactory(new PropertyValueFactory<>("formattedStartDate"));
+
+        TableColumn<Leave, String> toCol = new TableColumn<>("To");
+        toCol.setCellValueFactory(new PropertyValueFactory<>("formattedEndDate"));
+
+        TableColumn<Leave, String> reasonCol = new TableColumn<>("Reason");
+        reasonCol.setCellValueFactory(new PropertyValueFactory<>("reason"));
+
+        leaveTable.getColumns().addAll(fromCol, toCol, reasonCol);
+
+        leaveScrollPane = new ScrollPane(leaveTable);
+        leaveScrollPane.setFitToWidth(true);
+        leaveScrollPane.setFitToHeight(true);
+        leaveScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        leaveTablePlaceholder.getChildren().add(leaveScrollPane);
     }
 
     /**
@@ -62,56 +84,83 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     public void setPerson(Person person) {
         if (person == null) {
-            detailsPane.getChildren().clear();
-            leaveRecordsHeader.setVisible(false);
-            attendanceHeader.setVisible(false);
+            showEmptyState();
             return;
         }
 
         this.person = person;
+        clearContent();
 
-        // Clear previous details and show the new person's details
-        detailsPane.getChildren().clear();
+        // Set up person card
+        personCard = new PersonCard(person);
+        personCardPlaceholder.getChildren().add(personCard.getRoot());
 
-        // Create a PersonCard for the selected person
-        personCard = new PersonCard(person); // Index is 0 because it's a standalone card
-        detailsPane.getChildren().add(personCard.getRoot());
-
-        // Show the leave records
-        if (!person.getLeaves().isEmpty()) {
-            leaveRecordsHeader.setVisible(true);
-            for (Leave leave : person.getLeaves()) {
-                Label leaveLabel = new Label(formatLeave(leave));
-                detailsPane.getChildren().add(leaveLabel);
-            }
+        // Update leave records
+        if (person.getLeaves().isEmpty()) {
+            noLeavesLabel.setVisible(true);
+            leaveTablePlaceholder.setVisible(false);
+            leaveTablePlaceholder.setManaged(false); // Ensures no empty space
         } else {
-            leaveRecordsHeader.setVisible(false);
+            noLeavesLabel.setVisible(false);
+            leaveTablePlaceholder.setVisible(true);
+            leaveTablePlaceholder.setManaged(true); // Ensures table appears normally
+            leaveTable.setItems(FXCollections.observableArrayList(person.getLeaves()));
         }
 
-        Attendance attendance = person.getAttendance();
-        if (attendance != null && (attendance.getWorkDayCount() > 0 || attendance.getAbsentDayCount() > 0)) {
-            attendanceHeader.setVisible(true);
+        // Update attendance records
+        attendanceGrid.getChildren().clear(); // Clear previous content
 
-            detailsPane.getChildren().add(createStyledLabel(
-                    String.format("Total Working Days: %d", attendance.getWorkDayCount())));
-
-            detailsPane.getChildren().add(createStyledLabel(
-                    String.format("Absent Days: %d", attendance.getAbsentDayCount())));
-
-            detailsPane.getChildren().add(createStyledLabel(
-                    String.format("Attendance Rate: %.1f%%", attendance.getAttendanceRate())));
+        if (person.getAttendance() == null) {
+            Label noAttendance = new Label(ATTENDANCE_EMPTY_TEXT);
+            attendanceGrid.add(noAttendance, 0, 0, 3, 1); // Span all columns
         } else {
-            attendanceHeader.setVisible(false);
+            int daysWorked = person.getAttendance().getWorkDayCount() - person.getAttendance().getAbsentDayCount();
+            int daysSinceHire = person.getAttendance().getWorkDayCount();
+            double attendanceRate = person.getAttendance().getAttendanceRate();
+
+            // Create headers
+            Label header1 = new Label("DAYS WORKED");
+            Label header2 = new Label("DAYS SINCE HIRE");
+            Label header3 = new Label("ATTENDANCE RATE");
+
+            // Create data labels
+            Label data1 = new Label(String.valueOf(daysWorked));
+            Label data2 = new Label(String.valueOf(daysSinceHire));
+            Label data3 = new Label(String.format("%.1f%%", attendanceRate));
+
+            // Style headers
+            header1.setStyle("-fx-font-weight: bold;");
+            header2.setStyle("-fx-font-weight: bold;");
+            header3.setStyle("-fx-font-weight: bold;");
+
+            // Add to grid
+            attendanceGrid.addRow(0, header1, header2, header3);
+            attendanceGrid.addRow(1, data1, data2, data3);
         }
+
+        // Force UI update
+        Platform.runLater(() -> leaveTable.requestLayout());
     }
 
     /**
-     * Creates a styled label for attendance
+     * Clears the content of the panel.
      */
-    private Label createStyledLabel(String text) {
-        Label label = new Label(text);
-        label.setStyle("-fx-font-size: 13px; -fx-padding: 2 0 2 15;");
-        return label;
+    private void clearContent() {
+        personCardPlaceholder.getChildren().clear();
+        noLeavesLabel.setVisible(false);
+        attendanceGrid.getChildren().clear();
+    }
+
+    /**
+     * Shows the empty state of the panel.
+     */
+    private void showEmptyState() {
+        clearContent();
+        Label emptyStateLabel = new Label(EMPTY_STATE_TEXT);
+        emptyStateLabel.setStyle("-fx-font-style: italic; -fx-text-fill: derive(-fx-text-background-color, -30%);");
+        emptyStateLabel.setAlignment(Pos.CENTER);
+        emptyStateLabel.setWrapText(true);
+        personCardPlaceholder.getChildren().add(emptyStateLabel);
     }
 
     /**
@@ -125,13 +174,13 @@ public class PersonDetailsPanel extends UiPart<Region> {
     }
 
     /**
-     * Formats a Leave object to a string: "From 18th March 2025 to 20th March 2025: Sick Leave"
+     * Formats a Leave object to a string.
      */
     private String formatLeave(Leave leave) {
         String startDate = formatDate(leave.getStartDate());
         String endDate = formatDate(leave.getEndDate());
         String reason = leave.getReason();
-        return "From " + startDate + " to " + endDate + ": " + reason;
+        return String.format("✓ From %s to %s: %s", startDate, endDate, reason);
     }
 
     /**

@@ -54,9 +54,9 @@ public class AttendanceTest {
         assertTrue(Attendance.isValidAttendance(100, 50));
 
         // invalid cases
-        assertFalse(Attendance.isValidAttendance(-1, 0));  // negative work days
-        assertFalse(Attendance.isValidAttendance(5, -1));  // negative absent days
-        assertFalse(Attendance.isValidAttendance(5, 6));   // absent > work days
+        assertFalse(Attendance.isValidAttendance(-1, 0)); // negative work days
+        assertFalse(Attendance.isValidAttendance(5, -1)); // negative absent days
+        assertFalse(Attendance.isValidAttendance(5, 6)); // absent > work days
     }
 
     @Test
@@ -183,4 +183,5 @@ public class AttendanceTest {
                 "Number of working days so far this year: 10; Number of days absent: 2; Attendance Rate: 80.0";
         assertEquals(expected, attendance.toString());
     }
+
 }

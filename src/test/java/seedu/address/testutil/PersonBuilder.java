@@ -134,6 +134,11 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Attendance} of the {@code Person} that we are building.
+     * @param attendance
+     * @return
+     */
     public PersonBuilder withAttendance(Attendance attendance) {
         this.attendance = attendance;
         return this;

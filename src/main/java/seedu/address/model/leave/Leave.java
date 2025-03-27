@@ -97,6 +97,14 @@ public class Leave {
         return reason;
     }
 
+    public String getFormattedStartDate() {
+        return startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
+
+    public String getFormattedEndDate() {
+        return endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
