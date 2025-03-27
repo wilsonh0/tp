@@ -24,8 +24,12 @@
     </VBox>
 
     <!-- Attendance (fixed height) -->
-    <VBox fx:id="attendanceSection" style="-fx-max-height: 150;" spacing="5">
+    <VBox fx:id="attendanceSection" style="-fx-padding: 10px 0px 10px 0px;">
         <Label text="ATTENDANCE" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
-        <StackPane fx:id="attendancePlaceholder"/>
+        <StackPane fx:id="attendancePlaceholder">
+            <Label fx:id="attendanceLabel" text="No attendance data available"
+                   style="-fx-font-size: 20; -fx-padding: 5px;"/>
+        </StackPane>
     </VBox>
+
 </VBox>
