@@ -9,5 +9,17 @@
       spacing="10">
 
     <!-- Leave Records Header -->
-    <Label fx:id="leaveRecordsHeader" text="Leave Records" style="-fx-font-weight: bold;" alignment="CENTER_LEFT" visible="false"/>
+    <Label fx:id="leaveRecordsHeader"
+           text="Leave Records"
+           style="-fx-font-weight: bold; -fx-font-size: 14px;"
+           alignment="CENTER_LEFT"
+           visible="false"/>
+
+    <!-- Attendance Records Header -->
+    <Label fx:id="attendanceHeader"
+           text="Attendance Records"
+           style="-fx-font-weight: bold; -fx-font-size: 14px;"
+           alignment="CENTER_LEFT"
+           visible="false"
+           VBox.vgrow="NEVER"/>
 </VBox>

@@ -115,6 +115,10 @@ public class Person {
         this.attendance.incrementAbsentDay();
     }
 
+    public void incrementWorkDay() {
+        this.attendance.incrementWorkDay();
+    }
+
     /**
      * Removes a leave from the person's list of leaves.
      */
