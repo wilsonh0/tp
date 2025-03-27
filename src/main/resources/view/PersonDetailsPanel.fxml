@@ -10,7 +10,7 @@
       xmlns:fx="http://javafx.com/fxml/1"
       spacing="10"
       style="-fx-padding: 10;">
-
+    
     <!-- Person Card (fixed height) -->
     <StackPane fx:id="personCardPlaceholder"
                style="-fx-max-height: 200;"/>

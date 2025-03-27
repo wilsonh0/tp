@@ -42,6 +42,9 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private TableView<Leave> leaveTable;
     private ScrollPane leaveScrollPane;
 
+    @FXML
+    private Label attendanceHeader;
+
     /**
      * Creates a {@code PersonDetailsPanel} with an empty state.
      */

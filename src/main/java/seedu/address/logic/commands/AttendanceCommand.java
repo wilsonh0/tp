@@ -8,7 +8,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.attendance.Attendance;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,10 +20,11 @@ public class AttendanceCommand extends Command {
 
     public static final String COMMAND_WORD = "attendance";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendance for everyone except those absent. "
-            + "NRICs that do not match with any person will be neglected. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendance for everyone. "
+            + "Duplicated NRIC and NRIC that does not match with any person will be ignored. "
             + "Parameters: "
-            + PREFIX_ATTENDANCE_ABSENT + " LIST OF NRICs (Can contain 0 or more NRICs) "
+            + PREFIX_ATTENDANCE_ABSENT + " LIST OF NRICs separated by at least one whitespace "
+            + "(Can contain 0 or more valid NRICs) "
             + "\n "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ATTENDANCE_ABSENT + " T0123456A" + " T1234567B" + " T2345678C ";
@@ -47,21 +48,26 @@ public class AttendanceCommand extends Command {
 
         // Get all persons whose NRIC is in nricList (i.e. absent people)
         List<Person> personList = model.getFilteredPersonList();
+
+        // Increment work day count once for everyone
+        for (Person person : personList) {
+            person.incrementWorkDay();
+        }
+
+        // Get all persons whose absent
         List<Person> absentPersons = personList.stream()
                 .filter(p -> nricList.contains(p.getNric().getNric()))
                 .toList();
-
-        // Increment working day count once for everyone
-        Attendance.incrementWorkDayCount();
 
         // Mark absent people by incrementing their absent day count
         for (Person person : absentPersons) {
             person.incrementAbsentDay();
         }
+
         // Debug: output number of absentees
         System.out.println("Number of absentees: " + absentPersons.size());
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, absentPersons.size() + " people marked as absent."));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, absentPersons.size() + " person marked as absent."));
     }
 
     @Override

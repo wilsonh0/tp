@@ -1,9 +1,11 @@
 ---
-layout: page
-title: About Us
+  layout: default.md
+  title: "About Us"
 ---
 
-We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
+# About Us
+
+We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 You can reach us at the email `seer[at]comp.nus.edu.sg`
 
@@ -14,6 +16,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/senshir.png" width="200px">
 
 [[github](https://github.com/senshir)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Project Advisor
 * Responsibilities: Project Management
@@ -23,6 +26,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/wilsonh0.png" width="200px">
 
 [[github](http://github.com/wilsonh0)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: UI
@@ -32,6 +36,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/nicholasdaijh.png" width="200px">
 
 [[github](http://github.com/nicholasdaijh)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: Data
