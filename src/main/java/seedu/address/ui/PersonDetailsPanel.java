@@ -89,9 +89,10 @@ public class PersonDetailsPanel extends UiPart<Region> {
         // Update leave records
         if (person.getLeaves().isEmpty()) {
             noLeavesLabel.setVisible(true);
-            leaveTable.setItems(FXCollections.observableArrayList());
+            leaveTablePlaceholder.setVisible(false);
         } else {
             noLeavesLabel.setVisible(false);
+            leaveTablePlaceholder.setVisible(true);
             leaveTable.setItems(FXCollections.observableArrayList(person.getLeaves()));
         }
 

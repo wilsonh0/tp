@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
@@ -18,7 +17,7 @@
     <!-- Leave Records (takes remaining space) -->
     <VBox fx:id="leaveSection" VBox.vgrow="ALWAYS" spacing="5">
         <Label text="LEAVE RECORDS" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
-        <StackPane fx:id="leaveTablePlaceholder" VBox.vgrow="ALWAYS"/>
+        <StackPane fx:id="leaveTablePlaceholder" VBox.vgrow="ALWAYS" visible="false"/>
         <Label fx:id="noLeavesLabel" text="No leave records found!"
                style="-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10;"
                visible="false"/>
