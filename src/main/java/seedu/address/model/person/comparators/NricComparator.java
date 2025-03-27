@@ -6,7 +6,7 @@ import seedu.address.model.person.Person;
 
 /**
  * A comparator that compares {@link Person} objects based on their nric field.
- * The comparison is done using the natural ordering of strings (case-sensitive).
+ * The comparison is case-insensitive ("S123" and "s123" are considered equal).
  */
 public class NricComparator implements Comparator<Person> {
     /**
@@ -19,8 +19,8 @@ public class NricComparator implements Comparator<Person> {
      */
     @Override
     public int compare(Person a, Person b) {
-        String name1 = a.getNric().toString().toLowerCase();
-        String name2 = b.getNric().toString().toLowerCase();
-        return name1.compareTo(name2);
+        String nric1 = a.getNric().toString().toLowerCase();
+        String nric2 = b.getNric().toString().toLowerCase();
+        return nric1.compareTo(nric2);
     }
 }
