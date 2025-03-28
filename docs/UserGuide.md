@@ -79,27 +79,29 @@ solution to help you lay the foundation for a more efficient HR process in the f
 
 ## Features
 
-<box type="info" header="#### Notes on the command format" icon-size="2x" seamless>
+<box type="info" header="## Notes on the command format" seamless>
 
-* Words in **UPPER_CASE** are the **parameters** to be supplied by the user.
-  - For example, the `add` command requires these fields and parameters:
+```properties
+command [IDENTIFIER] [/field PARAMETER]...
+```
+* **Elements in square brackets** are **optional**. Not all commands require them.
+    - For example, the `clear` command does not require any parameters:
+     ```properties
+     clear
+     ```
+* **Identifiers**: These are used to specify the target employee for certain commands.
+* **Fields** (flags): The command prefixes like: `/name`, `/nric`, `/phone`, etc.
+* **Parameters**: The actual values you supply like: `John Doe`, `S1234567A`, `98765432`, etc.
+  * **Parameters** followed by `…`​ accept multiple space-separated values.
+    - For example, the `attendance` command can be used in the following ways:
+      - If `NRIC` is not provided, it marks all employees as present.
+      - If one or more `NRIC` are provided, it marks the specified employees as absent.
   
-    ```properties
-    add /name NAME /nric NRIC /phone PHONE_NUMBER /email EMAIL /address ADDRESS /hire DATE
-    ```
-  - The **parameters** are `NAME`, `NRIC`, `PHONE_NUMBER`, `EMAIL`, `ADDRESS`, and `DATE`.
-<p></p>
-
-* **Parameters** followed by `…`​ accept multiple space-separated values.
-  - For example, the `attendance` command can be used in the following ways:
-    - If `NRIC` is not provided, it marks all employees as present.
-    - If one or more `NRIC` are provided, it marks the specified employees as absent.
-  
-      ```properties
-      attendance /absent 
-      attendance /absent S1234567A
-      attendance /absent S1234567A S2345678B
-      ```
+        ```properties
+        attendance /absent 
+        attendance /absent S1234567A
+        attendance /absent S1234567A S2345678B
+        ```
 
   
 * **Parameters** are **not positional** and **can be given in any order**.
@@ -108,16 +110,6 @@ solution to help you lay the foundation for a more efficient HR process in the f
     add /name NAME /nric NRIC /phone PHONE_NUMBER /email EMAIL /address ADDRESS /hire DATE
     add /hire DATE /addre ADDRESS /email EMAIL /phone PHONE_NUMBER /nric NRIC /name NAME
     ```
-
-* **Parameters in square brackets are optional**.
-  - For example, the `edit` command takes in optional parameters:
-  
-     ```properties
-     edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADDRESS] [/hire DATE]
-     ```
-    - Only the `INDEX` is **compulsory**, in addition to **at least one** of the optional parameters.
-<p></p>
-
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   - If the command specifies `help 123`, it will be interpreted as `help`.
 <p></p>
@@ -251,6 +243,36 @@ Leave removed: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 </panel>
 </panel>
 
+<panel type="seamless" header="### Managing attendance: `attendance`{.properties}" expanded no-close no-switch>
+
+##### Marks employee attendance (present/absent) in the system.
+
+**Compulsory field:** `absent`
+
+**Optional parameters:** `NRIC…`​
+
+**Behavior:**
+- When no NRIC provided: Marks all employees as **present**
+- When NRIC provided: Marks specified employees as **absent**
+
+**Format:**
+```properties
+attendance /absent [NRIC...]
+```
+**Examples:**
+- Mark all employees except those with the NRIC `S1234567A` and `S2345678B` as present:
+```properties
+attendance /absent S1234567A S2345678B
+```
+
+**Output:**
+```
+Attendance added: 2 person marked as absent.
+```
+
+</panel>
+
+
 <panel type="seamless" header="### Listing all employees: `list`{.properties}" expanded no-close no-switch>
 
 ##### Shows a list of all employees in the HR Nexus system.
@@ -311,7 +333,7 @@ The details of the **2nd** employee in the list will be displayed on the right p
 <panel type="seamless" header="### Editing an employee: `edit`{.properties}" expanded no-close no-switch>
 
 ##### Edits an existing employee in the HR Nexus system.
-**Compulsory field:** <span class="badge bg-primary">INDEX</span>
+**Required:** `INDEX`
 
 **Optional fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
 - **At least one** of the optional fields must be provided.
@@ -460,7 +482,7 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Command Summary
 
 ### Employee Management
 | Command | Format | Example |
@@ -472,6 +494,7 @@ _Details coming soon ..._
 | **Find** | `find KEYWORD [MORE_KEYWORDS]` | `find John Alex` |
 | **View** | `view INDEX` | `view 1` |
 | **Sort** | `sort FIELD DIRECTION` | `sort name asc` |
+| **Attendance** | `attendance [/absent NRIC...]` | `attendance /absent S1234567A S2345678B` |
 
 ### Leave Management
 | Command | Format | Example |
@@ -486,11 +509,11 @@ _Details coming soon ..._
 | **Remove Tag** | `removetag INDEX TAG` | `removetag 1 "Junior"` |
 
 ### System Operations
-| Command | Format | Example |
-|---------|--------|---------|
-| **Clear** | `clear` | `clear` |
-| **Help** | `help` | `help` |
-| **Exit** | `exit` | `exit` |
+| Command | Format |
+|---------|--------|
+| **Clear** | `clear` |
+| **Help** | `help` |
+| **Exit** | `exit` |
 
 <br>
 
@@ -502,4 +525,5 @@ _Details coming soon ..._
 - `INDEX`: Positive integer (1, 2, 3,...)
 - `IDENTIFIER`: Employee index or NRIC
 - `DATE`: YYYY-MM-DD format
+- `/field`: Command flag prefix
 </box>
