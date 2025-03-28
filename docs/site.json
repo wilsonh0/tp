@@ -5,8 +5,9 @@
   "faviconPath": "images/SeEduLogo.png",
   "style": {
     "codeTheme": "dark",
-    "bootstrapTheme": "bootswatch-cosmo"
+    "bootstrapTheme": "bootswatch-simplex"
   },
+  "stylesheets": ["assets/css/custom.css"],
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",

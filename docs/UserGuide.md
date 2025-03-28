@@ -31,7 +31,7 @@ solution to help you lay the foundation for a more efficient HR process in the f
 
 #### Steps
 1. Download the `HRNexus.jar` file
-   -  Click [here](https://github.com/AY2425S2-CS2103T-T15-3/tp/releases) to download the latest version
+   -  Click [here](https://github.com/AY2425S2-CS2103T-T15-3/tp/releases) to grab the latest version
 2. Run the app
    - Move the downloaded `HRNexus.jar` file to a folder of your choice.
    - Open your preferred terminal and navigate to the same folder using:
@@ -126,7 +126,7 @@ solution to help you lay the foundation for a more efficient HR process in the f
 </box>
 <br>
 
-<panel type="seamless" header="### Viewing help: `help`" expanded no-close no-switch>
+<panel type="seamless" header="### Viewing help: `help`{.properties}" expanded no-close no-switch>
 
 ##### Shows a message explaining how to access the help page.
 **Format:**
@@ -137,7 +137,7 @@ help
 ![help message](images/helpMessage.png)
 </panel>
 
-<panel type="seamless" header="### Adding an employee: `add`" expanded no-close no-switch>
+<panel type="seamless" header="### Adding an employee: `add`{.properties}" expanded no-close no-switch>
 
 ##### Adds an employee to the system.
 
@@ -154,8 +154,104 @@ add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /add
 ```
 </panel>
 
+<panel type="seamless" header="### Adding a tag: `addtag`{.properties}" expanded no-close no-switch>
 
-<panel type="seamless" header="### Listing all employees: `list`" expanded no-close no-switch>
+##### Adds a tag (role or skill) to the specified employee.
+
+**Format:**
+```properties
+addtag INDEX TAG
+```
+
+**Examples:**
+- Add the tag `Software Developer` to the **1st** employee:
+```properties
+addtag 1 Software Developer
+```
+
+**Output:**
+```
+Tag "Software Developer" added successfully to John Doe.
+```
+</panel>
+
+<panel type="seamless" header="### Removing a tag: `removetag`{.properties}" expanded no-close no-switch>
+
+##### Removes a tag from the specified employee.
+
+**Format:**
+```properties
+removetag INDEX TAG
+```
+
+**Examples:**
+- Remove the tag `Software Developer` from the **1st** employee:
+```properties
+removetag 1 Software Developer
+```
+
+**Output:**
+```
+Tag "Software Developer" removed successfully from John Doe.
+```
+</panel>
+
+<panel type="seamless" header="### Managing leaves: `leave`{.properties}" expanded no-close no-switch>
+
+##### Manages leave entries for employees.
+
+- `IDENTIFIER` can be either:
+    - An employee index (e.g., `1`), or
+    - A valid NRIC (e.g., `S1234567A`)
+- Dates must follow the format `YYYY-MM-DD`
+
+<panel type="seamless" header="#### Adding a leave entry `leave add`{.properties}" expanded no-close no-switch>
+
+**Compulsory fields:** `start`, `end`, `reason`
+- The `end` date must be equal or later than the `start` date.
+- The `reason` must be a non-empty string.
+- The `reason` can contain spaces.
+
+**Format:**
+```properties
+leave add IDENTIFIER /start START_DATE /end END_DATE /reason REASON
+```
+**Examples:**
+- Add a leave entry for the employee with the **NRIC** `S1234567A`:
+```properties
+leave add S1234567A /start 2025-03-05 /end 2025-03-07 /reason Sick Leave
+leave add 1 /start 2025-03-05 /end 2025-03-07 /reason Sick Leave
+```
+**Output:**
+```
+Leave added: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
+```
+</panel>
+
+<panel type="seamless" header="#### Removing a leave entry `leave remove`{.properties}" expanded no-close no-switch>
+
+**Compulsory fields:** `start`
+
+**Format:**
+```properties
+leave remove IDENTIFIER /start START_DATE
+```
+
+**Examples:**
+- Remove leave entry for employee with **NRIC** `S1234567A` starting on `2025-03-05`:
+```properties
+leave remove S1234567A /start 2025-03-05
+leave remove 1 /start 2025-03-05
+```
+
+**Output:**
+```
+Leave removed: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
+```
+</panel>
+</panel>
+
+<panel type="seamless" header="### Listing all employees: `list`{.properties}" expanded no-close no-switch>
 
 ##### Shows a list of all employees in the HR Nexus system.
 
@@ -167,7 +263,52 @@ list
 ![list](images/Ui.png)
 </panel>
 
-<panel type="seamless" header="### Editing an employee: `edit`" expanded no-close no-switch>
+<panel type="seamless" header="### Sorting employees: `sort`{.properties}" expanded no-close no-switch>
+
+##### Sorts the employee list by the specified field in either ascending or descending order.
+
+**Supported fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
+
+**Sort directions:** `asc` (ascending) or `desc` (descending).
+
+**Format:**
+```properties
+sort FIELD DIRECTION
+```
+
+**Examples:**
+- Sort employees by name in ascending order:
+```properties
+sort name asc
+```
+
+**Output:**
+![sort](images/UG-sort-name-asc.png)
+
+
+</panel>
+
+<panel type="seamless" header="### Viewing employee details: `view`{.properties}" expanded no-close no-switch>
+
+##### Displays comprehensive details of the specified employee on the **right** panel.
+**Format:**
+```properties
+view INDEX
+```
+**Examples:**
+```properties
+view 2
+```
+
+**Output:**
+
+The details of the **2nd** employee in the list will be displayed on the right panel.
+
+[comment]: <> (Will need to update the image)
+![list](images/Ui.png) 
+</panel>
+
+<panel type="seamless" header="### Editing an employee: `edit`{.properties}" expanded no-close no-switch>
 
 ##### Edits an existing employee in the HR Nexus system.
 **Compulsory field:** <span class="badge bg-primary">INDEX</span>
@@ -183,20 +324,20 @@ edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADD
 
 **Examples:**
 - Edit the name of the **1st** employee to be `Robert Lee`:
-    ```properties
-    edit 1 /name Robert Lee
-    ```
+```properties
+edit 1 /name Robert Lee
+```
 **Output:**
 ```
 Edited Person: Robert Lee; Nric: T0000001A; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Hire: 2025-01-01; Tags: friends
 ```
 </panel>
 
-<panel type="seamless" header="### Find employee by **name**: `find`" expanded no-close no-switch>
+<panel type="seamless" header="### Find employee by **name**: `find`{.properties}" expanded no-close no-switch>
 
 ##### Finds employees whose **names** contain any of the given keywords.
 
-Format:
+**Format:**
 ```properties
 find KEYWORD [MORE_KEYWORDS]
 ```
@@ -221,11 +362,11 @@ Returns both `Alex Yeoh` and `David Li`
 ![result for 'find alex david'](images/findAlexDavidResult.png)
 </panel>
 
-<panel type="seamless" header="### Deleting an employee: `delete`" expanded no-close no-switch>
+<panel type="seamless" header="### Deleting an employee: `delete`{.properties}" expanded no-close no-switch>
 
 ##### Deletes the specified person from the HR Nexus system.
 
-Format:
+**Format:**
 ```properties
 delete INDEX
 ```
@@ -234,7 +375,7 @@ delete INDEX
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
-Examples:
+**Examples:**
 - First, list all employees, then delete the **1st** employee in the list:
 ```properties
 list
@@ -242,14 +383,15 @@ delete 1
 ```
 
 **Output:**
-- The **1st** employee in the list will be deleted.
+
+The **1st** employee in the list will be deleted.
 ```
 Deleted Person: Robert Lee; Nric: T0000001A; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Hire: 2025-01-01; Tags: friends
 ```
 
 </panel>
 
-<panel type="seamless" header="### Clearing all entries : `clear`" expanded no-close no-switch>
+<panel type="seamless" header="### Clearing all entries : `clear`{.properties}" expanded no-close no-switch>
 
 ##### Clears all employee entries from the HR Nexus system.
 
@@ -264,7 +406,7 @@ Address book has been cleared!
 ```
 </panel>
 
-<panel type="seamless" header="### Exiting the program : `exit`" expanded no-close no-switch>
+<panel type="seamless" header="### Exiting the program : `exit`{.properties}" expanded no-close no-switch>
 
 ##### Exits the program.
 
@@ -276,11 +418,10 @@ exit
 <br>
 
 ## Data Storage
-
 HR Nexus automatically saves your data to disk after any command that modifies it. There is no need to perform manual saves.
 
-### Data file location
 
+### Data file location
 Employee records are stored in a JSON file `addressbook.json` located at:
 ```ps
 [HRNexus.jar file location]/data/addressbook.json
@@ -321,12 +462,44 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+### Employee Management
+| Command | Format | Example |
+|---------|--------|---------|
+| **Add** | `add /name NAME /nric NRIC /phone PHONE /email EMAIL /address ADDRESS /hire DATE` | `add /name John Doe /nric S1234567A /phone 98765432 /email johnd@example.com /address "123 Street" /hire 2025-01-01` |
+| **Edit** | `edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADDRESS] [/hire DATE]` | `edit 1 /name Robert Lee /phone 87654321` |
+| **Delete** | `delete INDEX` | `delete 2` |
+| **List** | `list` | `list` |
+| **Find** | `find KEYWORD [MORE_KEYWORDS]` | `find John Alex` |
+| **View** | `view INDEX` | `view 1` |
+| **Sort** | `sort FIELD DIRECTION` | `sort name asc` |
+
+### Leave Management
+| Command | Format | Example |
+|---------|--------|---------|
+| **Add Leave** | `leave add IDENTIFIER /start DATE /end DATE /reason REASON` | `leave add 1 /start 2025-03-01 /end 2025-03-03 /reason "Annual Leave"` |
+| **Remove Leave** | `leave remove IDENTIFIER /start DATE` | `leave remove S1234567A /start 2025-03-01` |
+
+### Tag Management
+| Command | Format | Example |
+|---------|--------|---------|
+| **Add Tag** | `addtag INDEX TAG` | `addtag 1 "Senior Developer"` |
+| **Remove Tag** | `removetag INDEX TAG` | `removetag 1 "Junior"` |
+
+### System Operations
+| Command | Format | Example |
+|---------|--------|---------|
+| **Clear** | `clear` | `clear` |
+| **Help** | `help` | `help` |
+| **Exit** | `exit` | `exit` |
+
+<br>
+
+<box type="info">
+
+**Legend:**
+- `UPPER_CASE`: Parameters you should replace with actual values
+- `[]`: Optional parameters
+- `INDEX`: Positive integer (1, 2, 3,...)
+- `IDENTIFIER`: Employee index or NRIC
+- `DATE`: YYYY-MM-DD format
+</box>
