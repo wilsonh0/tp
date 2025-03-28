@@ -4,8 +4,10 @@
   "titleSuffix": "HR Nexus",
   "faviconPath": "images/SeEduLogo.png",
   "style": {
-    "codeTheme": "light"
+    "codeTheme": "dark",
+    "bootstrapTheme": "bootswatch-simplex"
   },
+  "stylesheets": ["assets/css/custom.css"],
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",

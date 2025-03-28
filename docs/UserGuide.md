@@ -4,121 +4,365 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# HR Nexus User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+HR Nexus is a desktop app designed for SMEs to simplify employee management, especially for businesses with limited or 
+no dedicated HR personnel. It helps you keep track of essential employee records in one place, including personal details,
+attendance records, and leave history.
+
+With a clean and intuitive interface combining both Command Line (CLI) efficiency and Graphical User Interface (GUI), 
+HR Nexus makes it easy to stay organized without the overhead of a full-fledged HR system. It is a lightweight, practical
+solution to help you lay the foundation for a more efficient HR process in the future.
 
 <!-- * Table of Contents -->
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Get started in minutes
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+#### Prerequisites
+- **Java 17 or later**
+  - Verify with `java -version` in your terminal.
+    - You should see something like `java version "17.X.X"` in the output.
+  - If you don't have Java 17 installed, you can download and install it [here](https://www.oracle.com/java/technologies/downloads/#java17).
+  - For Mac users, ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+#### Steps
+1. Download the `HRNexus.jar` file
+   -  Click [here](https://github.com/AY2425S2-CS2103T-T15-3/tp/releases) to grab the latest version
+2. Run the app
+   - Move the downloaded `HRNexus.jar` file to a folder of your choice.
+   - Open your preferred terminal and navigate to the same folder using:
+       ```ps
+       cd /path/to/folder
+       ```
+   - Then, start HR Nexus with:
+       ```properties
+       java -jar HRNexus.jar
+       ```
+- A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * Lists all employees:
+      ```properties
+      list
+      ```
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * Add an employee named **John Doe**:
+      ```properties
+      add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /address John street, block 123, #01-01 /hire 2025-03-05
+      ```
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * Delete the first employee:
+      ```properties
+      delete 1
+      ```
 
-   * `clear` : Deletes all contacts.
+   * Deletes all employees:
+      ```properties
+      clear
+      ```
 
-   * `exit` : Exits the app.
+   * Exits the app:
+      ```properties
+      exit
+      ```
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [Features](#features) below for more details on each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
-<box type="info" seamless>
+<box type="info" header="## Notes on the command format" seamless>
 
-**Notes about the command format:**<br>
+```properties
+command [IDENTIFIER] [/field PARAMETER]...
+```
+* **Elements in square brackets** are **optional**. Not all commands require them.
+    - For example, the `clear` command does not require any parameters:
+     ```properties
+     clear
+     ```
+* **Identifiers**: These are used to specify the target employee for certain commands.
+* **Fields** (flags): The command prefixes like: `/name`, `/nric`, `/phone`, etc.
+* **Parameters**: The actual values you supply like: `John Doe`, `S1234567A`, `98765432`, etc.
+  * **Parameters** followed by `…`​ accept multiple space-separated values.
+    - For example, the `attendance` command can be used in the following ways:
+      - If `NRIC` is not provided, it marks all employees as present.
+      - If one or more `NRIC` are provided, it marks the specified employees as absent.
+  
+        ```properties
+        attendance /absent 
+        attendance /absent S1234567A
+        attendance /absent S1234567A S2345678B
+        ```
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
+  
+* **Parameters** are **not positional** and **can be given in any order**.
+  - The following commands are equivalent:
+    ```properties
+    add /name NAME /nric NRIC /phone PHONE_NUMBER /email EMAIL /address ADDRESS /hire DATE
+    add /hire DATE /addre ADDRESS /email EMAIL /phone PHONE_NUMBER /nric NRIC /name NAME
+    ```
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  - If the command specifies `help 123`, it will be interpreted as `help`.
+<p></p>
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
+<br>
 
-### Viewing help : `help`
+<panel type="seamless" header="### Viewing help: `help`{.properties}" expanded no-close no-switch>
 
-Shows a message explaning how to access the help page.
-
+##### Shows a message explaining how to access the help page.
+**Format:**
+```properties
+help
+```
+**Output:**
 ![help message](images/helpMessage.png)
+</panel>
 
-Format: `help`
+<panel type="seamless" header="### Adding an employee: `add`{.properties}" expanded no-close no-switch>
+
+##### Adds an employee to the system.
+
+**Required fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
+
+**Format:** 
+```properties
+add /name NAME /nric NRIC /phone PHONE_NUMBER /email EMAIL /address ADDRESS /hire DATE
+```
+
+**Examples:**
+```properties
+add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /address John street, block 123, #01-01 /hire 2025-03-05
+```
+</panel>
+
+<panel type="seamless" header="### Adding a tag: `addtag`{.properties}" expanded no-close no-switch>
+
+##### Adds a tag (role or skill) to the specified employee.
+
+**Format:**
+```properties
+addtag INDEX TAG
+```
+
+**Examples:**
+- Add the tag `Software Developer` to the **1st** employee:
+```properties
+addtag 1 Software Developer
+```
+
+**Output:**
+```
+Tag "Software Developer" added successfully to John Doe.
+```
+</panel>
+
+<panel type="seamless" header="### Removing a tag: `removetag`{.properties}" expanded no-close no-switch>
+
+##### Removes a tag from the specified employee.
+
+**Format:**
+```properties
+removetag INDEX TAG
+```
+
+**Examples:**
+- Remove the tag `Software Developer` from the **1st** employee:
+```properties
+removetag 1 Software Developer
+```
+
+**Output:**
+```
+Tag "Software Developer" removed successfully from John Doe.
+```
+</panel>
+
+<panel type="seamless" header="### Managing leaves: `leave`{.properties}" expanded no-close no-switch>
+
+##### Manages leave entries for employees.
+
+- `IDENTIFIER` can be either:
+    - An employee index (e.g., `1`), or
+    - A valid NRIC (e.g., `S1234567A`)
+- Dates must follow the format `YYYY-MM-DD`
+
+<panel type="seamless" header="#### Adding a leave entry `leave add`{.properties}" expanded no-close no-switch>
+
+**Compulsory fields:** `start`, `end`, `reason`
+- The `end` date must be equal or later than the `start` date.
+- The `reason` must be a non-empty string.
+- The `reason` can contain spaces.
+
+**Format:**
+```properties
+leave add IDENTIFIER /start START_DATE /end END_DATE /reason REASON
+```
+**Examples:**
+- Add a leave entry for the employee with the **NRIC** `S1234567A`:
+```properties
+leave add S1234567A /start 2025-03-05 /end 2025-03-07 /reason Sick Leave
+leave add 1 /start 2025-03-05 /end 2025-03-07 /reason Sick Leave
+```
+**Output:**
+```
+Leave added: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
+```
+</panel>
+
+<panel type="seamless" header="#### Removing a leave entry `leave remove`{.properties}" expanded no-close no-switch>
+
+**Compulsory fields:** `start`
+
+**Format:**
+```properties
+leave remove IDENTIFIER /start START_DATE
+```
+
+**Examples:**
+- Remove leave entry for employee with **NRIC** `S1234567A` starting on `2025-03-05`:
+```properties
+leave remove S1234567A /start 2025-03-05
+leave remove 1 /start 2025-03-05
+```
+
+**Output:**
+```
+Leave removed: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
+```
+</panel>
+</panel>
+
+<panel type="seamless" header="### Managing attendance: `attendance`{.properties}" expanded no-close no-switch>
+
+##### Marks employee attendance (present/absent) in the system.
+
+**Compulsory field:** `absent`
+
+**Optional parameters:** `NRIC…`​
+
+**Behavior:**
+- When no NRIC provided: Marks all employees as **present**
+- When NRIC provided: Marks specified employees as **absent**
+
+**Format:**
+```properties
+attendance /absent [NRIC...]
+```
+**Examples:**
+- Mark all employees except those with the NRIC `S1234567A` and `S2345678B` as present:
+```properties
+attendance /absent S1234567A S2345678B
+```
+
+**Output:**
+```
+Attendance added: 2 person marked as absent.
+```
+
+</panel>
 
 
-### Adding a person: `add`
+<panel type="seamless" header="### Listing all employees: `list`{.properties}" expanded no-close no-switch>
 
-Adds a person to the address book.
+##### Shows a list of all employees in the HR Nexus system.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+**Format:**
+```properties
+list
+```
+**Output:**
+![list](images/Ui.png)
+</panel>
 
-<box type="tip" seamless>
+<panel type="seamless" header="### Sorting employees: `sort`{.properties}" expanded no-close no-switch>
 
-**Tip:** A person can have any number of tags (including 0)
-</box>
+##### Sorts the employee list by the specified field in either ascending or descending order.
 
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+**Supported fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
 
-### Listing all persons : `list`
+**Sort directions:** `asc` (ascending) or `desc` (descending).
 
-Shows a list of all persons in the address book.
+**Format:**
+```properties
+sort FIELD DIRECTION
+```
 
-Format: `list`
+**Examples:**
+- Sort employees by name in ascending order:
+```properties
+sort name asc
+```
 
-### Editing a person : `edit`
+**Output:**
+![sort](images/UG-sort-name-asc.png)
 
-Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+</panel>
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+<panel type="seamless" header="### Viewing employee details: `view`{.properties}" expanded no-close no-switch>
 
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+##### Displays comprehensive details of the specified employee on the **right** panel.
+**Format:**
+```properties
+view INDEX
+```
+**Examples:**
+```properties
+view 2
+```
 
-### Locating persons by name: `find`
+**Output:**
 
-Finds persons whose names contain any of the given keywords.
+The details of the **2nd** employee in the list will be displayed on the right panel.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+[comment]: <> (Will need to update the image)
+![list](images/Ui.png) 
+</panel>
+
+<panel type="seamless" header="### Editing an employee: `edit`{.properties}" expanded no-close no-switch>
+
+##### Edits an existing employee in the HR Nexus system.
+**Required:** `INDEX`
+
+**Optional fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
+- **At least one** of the optional fields must be provided.
+- Existing values will be updated to the input values.
+
+**Format:**
+```properties
+edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADDRESS] [/hire DATE]
+```
+
+**Examples:**
+- Edit the name of the **1st** employee to be `Robert Lee`:
+```properties
+edit 1 /name Robert Lee
+```
+**Output:**
+```
+Edited Person: Robert Lee; Nric: T0000001A; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Hire: 2025-01-01; Tags: friends
+```
+</panel>
+
+<panel type="seamless" header="### Find employee by **name**: `find`{.properties}" expanded no-close no-switch>
+
+##### Finds employees whose **names** contain any of the given keywords.
+
+**Format:**
+```properties
+find KEYWORD [MORE_KEYWORDS]
+```
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -127,50 +371,95 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+**Examples:**
+- Find persons with the name `alex` and `david`:
+```properties
+find alex david
+```
+  
 
-### Deleting a person : `delete`
+**Output:**
 
-Deletes the specified person from the address book.
+Returns both `Alex Yeoh` and `David Li`
+![result for 'find alex david'](images/findAlexDavidResult.png)
+</panel>
 
-Format: `delete INDEX`
+<panel type="seamless" header="### Deleting an employee: `delete`{.properties}" expanded no-close no-switch>
+
+##### Deletes the specified person from the HR Nexus system.
+
+**Format:**
+```properties
+delete INDEX
+```
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+**Examples:**
+- First, list all employees, then delete the **1st** employee in the list:
+```properties
+list
+delete 1
+```
 
-### Clearing all entries : `clear`
+**Output:**
 
-Clears all entries from the address book.
+The **1st** employee in the list will be deleted.
+```
+Deleted Person: Robert Lee; Nric: T0000001A; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Hire: 2025-01-01; Tags: friends
+```
 
-Format: `clear`
+</panel>
 
-### Exiting the program : `exit`
+<panel type="seamless" header="### Clearing all entries : `clear`{.properties}" expanded no-close no-switch>
 
-Exits the program.
+##### Clears all employee entries from the HR Nexus system.
 
-Format: `exit`
+Format:
+```properties
+clear
+```
 
-### Saving the data
+**Output:**
+```
+Address book has been cleared!
+```
+</panel>
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+<panel type="seamless" header="### Exiting the program : `exit`{.properties}" expanded no-close no-switch>
+
+##### Exits the program.
+
+Format:
+```properties
+exit
+```
+</panel>
+<br>
+
+## Data Storage
+HR Nexus automatically saves your data to disk after any command that modifies it. There is no need to perform manual saves.
+
+
+### Data file location
+Employee records are stored in a JSON file `addressbook.json` located at:
+```ps
+[HRNexus.jar file location]/data/addressbook.json
+```
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Advanced users can directly edit the data file if they are familiar with JSON. The data is stored in a format that is easy to understand and edit. 
+However, it is recommended to use the app to edit the data file whenever possible.
 
-<box type="warning" seamless>
+<box type="warning" header="#### Caution" icon-size="2x" seamless>
 
-**Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Editing the data file manually can lead to issues if the file format becomes invalid. If the file cannot be parsed on startup, HR Nexus will discard its contents and create a new, empty data file.
+We strongly recommend creating a backup before making any changes.
+
+Additionally, incorrect edits (e.g., values outside acceptable ranges or missing fields) may cause HR Nexus to behave unexpectedly. Proceed only if you are confident in editing JSON files safely.
 </box>
 
 ### Archiving data files `[coming in v2.0]`
@@ -193,14 +482,48 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Command Summary
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+### Employee Management
+| Command | Format | Example |
+|---------|--------|---------|
+| **Add** | `add /name NAME /nric NRIC /phone PHONE /email EMAIL /address ADDRESS /hire DATE` | `add /name John Doe /nric S1234567A /phone 98765432 /email johnd@example.com /address "123 Street" /hire 2025-01-01` |
+| **Edit** | `edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADDRESS] [/hire DATE]` | `edit 1 /name Robert Lee /phone 87654321` |
+| **Delete** | `delete INDEX` | `delete 2` |
+| **List** | `list` | `list` |
+| **Find** | `find KEYWORD [MORE_KEYWORDS]` | `find John Alex` |
+| **View** | `view INDEX` | `view 1` |
+| **Sort** | `sort FIELD DIRECTION` | `sort name asc` |
+| **Attendance** | `attendance [/absent NRIC...]` | `attendance /absent S1234567A S2345678B` |
+
+### Leave Management
+| Command | Format | Example |
+|---------|--------|---------|
+| **Add Leave** | `leave add IDENTIFIER /start DATE /end DATE /reason REASON` | `leave add 1 /start 2025-03-01 /end 2025-03-03 /reason "Annual Leave"` |
+| **Remove Leave** | `leave remove IDENTIFIER /start DATE` | `leave remove S1234567A /start 2025-03-01` |
+
+### Tag Management
+| Command | Format | Example |
+|---------|--------|---------|
+| **Add Tag** | `addtag INDEX TAG` | `addtag 1 "Senior Developer"` |
+| **Remove Tag** | `removetag INDEX TAG` | `removetag 1 "Junior"` |
+
+### System Operations
+| Command | Format |
+|---------|--------|
+| **Clear** | `clear` |
+| **Help** | `help` |
+| **Exit** | `exit` |
+
+<br>
+
+<box type="info">
+
+**Legend:**
+- `UPPER_CASE`: Parameters you should replace with actual values
+- `[]`: Optional parameters
+- `INDEX`: Positive integer (1, 2, 3,...)
+- `IDENTIFIER`: Employee index or NRIC
+- `DATE`: YYYY-MM-DD format
+- `/field`: Command flag prefix
+</box>
