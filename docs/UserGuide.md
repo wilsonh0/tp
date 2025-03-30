@@ -1,12 +1,12 @@
 ---
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
 # HR Nexus User Guide
 
-HR Nexus is a desktop app designed for SMEs to simplify employee management, especially for businesses with limited or 
+HR Nexus is a desktop app designed for SMEs to simplify employee management, especially for businesses with limited or
 no dedicated HR personnel. It helps you keep track of essential employee records in one place, including personal details,
 attendance records, and leave history.
 
