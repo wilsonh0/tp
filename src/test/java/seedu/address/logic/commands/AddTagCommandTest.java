@@ -53,7 +53,7 @@ public class AddTagCommandTest {
                                                 personToEdit.getName());
 
         // Execute and assert success
-        assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(addTagCommand, model, expectedMessage, editedPerson, expectedModel);
     }
 
 
