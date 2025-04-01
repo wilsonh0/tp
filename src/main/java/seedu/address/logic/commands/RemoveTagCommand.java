@@ -81,7 +81,8 @@ public class RemoveTagCommand extends Command {
 
         model.setPerson(personToEdit, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_REMOVE_TAG_SUCCESS, tagToRemove, updatedPerson.getName()));
+        return new CommandResult(String.format(MESSAGE_REMOVE_TAG_SUCCESS, tagToRemove, updatedPerson.getName()),
+                updatedPerson);
     }
 
     @Override

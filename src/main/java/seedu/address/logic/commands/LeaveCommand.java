@@ -144,7 +144,7 @@ public class LeaveCommand extends Command {
         }
 
         person.addLeave(leave);
-        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, leave, person.getName()));
+        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, leave, person.getName()), person);
     }
 
     /**
@@ -161,7 +161,7 @@ public class LeaveCommand extends Command {
                 .orElseThrow(() -> new CommandException(String.format(MESSAGE_LEAVE_NOT_FOUND, leave.getStartDate())));
 
         person.removeLeave(actualLeave);
-        return new CommandResult(String.format(MESSAGE_REMOVE_SUCCESS, actualLeave, person.getName()));
+        return new CommandResult(String.format(MESSAGE_REMOVE_SUCCESS, actualLeave, person.getName()), person);
     }
 
     @Override

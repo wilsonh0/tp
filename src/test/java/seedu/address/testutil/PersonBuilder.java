@@ -66,7 +66,7 @@ public class PersonBuilder {
         hire = personToCopy.getHire();
         tags = personToCopy.getTags();
         leaves = new ArrayList<>(personToCopy.getLeaves());
-        attendance = new Attendance();
+        attendance = personToCopy.getAttendance();
         attendance.setAbsentDayCount(personToCopy.getAttendance().getAbsentDayCount());
     }
 

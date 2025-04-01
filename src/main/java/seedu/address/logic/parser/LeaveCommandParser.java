@@ -122,8 +122,14 @@ public class LeaveCommandParser implements Parser<LeaveCommand> {
         if (input == null || input.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, message));
         }
+
         // Get first word when there are prefixes
         String cleanIdentifier = input.trim().split("\\s+")[0];
+
+        // Check if it looks like a prefix first
+        if (cleanIdentifier.startsWith("/")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, message));
+        }
 
         try {
             return ParserUtil.parseIndex(cleanIdentifier); // Try parsing as index
