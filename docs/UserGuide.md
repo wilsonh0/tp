@@ -10,7 +10,7 @@ HR Nexus is a desktop app designed for SMEs to simplify employee management, esp
 no dedicated HR personnel. It helps you keep track of essential employee records in one place, including personal details,
 attendance records, and leave history.
 
-With a clean and intuitive interface combining both Command Line (CLI) efficiency and Graphical User Interface (GUI), 
+With a clean and intuitive interface combining both Command Line (CLI) efficiency and Graphical User Interface (GUI),
 HR Nexus makes it easy to stay organized without the overhead of a full-fledged HR system. It is a lightweight, practical
 solution to help you lay the foundation for a more efficient HR process in the future.
 
@@ -96,14 +96,14 @@ command [IDENTIFIER] [/field PARAMETER]...
     - For example, the `attendance` command can be used in the following ways:
       - If `NRIC` is not provided, it marks all employees as present.
       - If one or more `NRIC` are provided, it marks the specified employees as absent.
-  
+
         ```properties
-        attendance /absent 
+        attendance /absent
         attendance /absent S1234567A
         attendance /absent S1234567A S2345678B
         ```
 
-  
+
 * **Parameters** are **not positional** and **can be given in any order**.
   - The following commands are equivalent:
     ```properties
@@ -135,7 +135,7 @@ help
 
 **Required fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
 
-**Format:** 
+**Format:**
 ```properties
 add /name NAME /nric NRIC /phone PHONE_NUMBER /email EMAIL /address ADDRESS /hire DATE
 ```
@@ -327,7 +327,7 @@ view 2
 The details of the **2nd** employee in the list will be displayed on the right panel.
 
 [comment]: <> (Will need to update the image)
-![list](images/Ui.png) 
+![list](images/Ui.png)
 </panel>
 
 <panel type="seamless" header="### Editing an employee: `edit`{.properties}" expanded no-close no-switch>
@@ -376,7 +376,7 @@ find KEYWORD [MORE_KEYWORDS]
 ```properties
 find alex david
 ```
-  
+
 
 **Output:**
 
@@ -451,7 +451,7 @@ Employee records are stored in a JSON file `addressbook.json` located at:
 
 ### Editing the data file
 
-Advanced users can directly edit the data file if they are familiar with JSON. The data is stored in a format that is easy to understand and edit. 
+Advanced users can directly edit the data file if they are familiar with JSON. The data is stored in a format that is easy to understand and edit.
 However, it is recommended to use the app to edit the data file whenever possible.
 
 <box type="warning" header="#### Caution" icon-size="2x" seamless>
