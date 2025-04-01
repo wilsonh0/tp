@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -178,19 +180,44 @@ public class ParserUtil {
         requireNonNull(leaveEnd);
         requireNonNull(reason);
 
-        if (!Leave.isValidDate(leaveStart) || !Leave.isValidDate(leaveEnd)) {
-            throw new ParseException(Leave.DATE_CONSTRAINTS);
+        // Check start date
+        try {
+            LocalDate startDate = LocalDate.parse(leaveStart, Leave.DATE_FORMATER);
+            validateYear(startDate, "Start date: ");
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format("Invalid start date: %s.\n%s",
+                    leaveStart, Leave.DATE_CONSTRAINTS));
         }
 
+        // Check end date
+        try {
+            LocalDate startDate = LocalDate.parse(leaveEnd, Leave.DATE_FORMATER);
+            validateYear(startDate, "End date: ");
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format("Invalid end date: %s.\n%s",
+                    leaveEnd, Leave.DATE_CONSTRAINTS));
+        }
+
+        // Check reason
         if (!Leave.isValidReason(reason)) {
             throw new ParseException(Leave.REASON_CONSTRAINTS);
         }
 
-        if (!Leave.isValidLeave(leaveStart, leaveEnd, reason)) {
-            throw new ParseException(Leave.DATE_CONSTRAINTS);
+        // Check if start date is before or equal to end date
+        if (!Leave.isValidOrder(leaveStart, leaveEnd)) {
+            throw new ParseException(String.format("Invalid date order.\n%s", Leave.DATE_CONSTRAINTS));
         }
 
         return new Leave(leaveStart, leaveEnd, reason);
+    }
+
+    // Helper method for parseLeave to check if a date is within the valid range
+    private static void validateYear(LocalDate date, String fieldName) throws ParseException {
+        int year = date.getYear();
+        if (year < Leave.MIN_YEAR || year > Leave.MAX_YEAR) {
+            throw new ParseException(String.format("%s: Year must be between %d and %d.\n%s",
+                    fieldName, Leave.MIN_YEAR, Leave.MAX_YEAR, Leave.DATE_CONSTRAINTS));
+        }
     }
 
     /**

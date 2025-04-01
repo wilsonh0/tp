@@ -32,7 +32,6 @@ public class LeaveTest {
     private static final String OVERLAP_END_LATE = "2025-03-17";
     private static final String NON_OVERLAP_START = "2025-03-05";
     private static final String NON_OVERLAP_END = "2025-03-08";
-    private static final String SAME_AS_START_DATE = "2025-03-10"; // Edge case
 
     @Test
     public void constructor_nullArguments_throwsNullPointerException() {
@@ -110,5 +109,11 @@ public class LeaveTest {
         Leave leave = new Leave(VALID_START_DATE, VALID_END_DATE, VALID_REASON);
         assertEquals(VALID_FORMATTED_START_DATE, leave.getFormattedStartDate());
         assertEquals(VALID_FORMATTED_END_DATE, leave.getFormattedEndDate());
+    }
+
+    @Test
+    public void testInvalidDate() {
+        assertFalse(Leave.isValidDate("2025-02-30")); // February 30th should be invalid
+        assertFalse(Leave.isValidDate("2025-04-31")); // April 31st should be invalid
     }
 }
