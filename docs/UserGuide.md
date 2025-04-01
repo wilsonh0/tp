@@ -150,6 +150,10 @@ add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /add
 
 ##### Adds a tag (role or skill) to the specified employee.
 
+- `INDEX` refers to the employee's position in the displayed list.
+- `TAG` must be a non-empty string and can contain spaces.
+- If the employee already has the tag, an error message will be shown.
+
 **Format:**
 ```properties
 addtag INDEX TAG
@@ -170,6 +174,10 @@ Tag "Software Developer" added successfully to John Doe.
 <panel type="seamless" header="### Removing a tag: `removetag`{.properties}" expanded no-close no-switch>
 
 ##### Removes a tag from the specified employee.
+
+- `INDEX` refers to the employee's position in the displayed list.
+- `TAG` must be a non-empty string and can contain spaces.
+- If the employee already has the tag, an error message will be shown.
 
 **Format:**
 ```properties
