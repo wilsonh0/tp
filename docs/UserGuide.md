@@ -138,9 +138,9 @@ help
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `NAME` refers to the employee's name. Names should only contain alphanumeric characters and spaces.
-- `NRIC` refers to the employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+- `NRIC` refers to the employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `PHONE` refers to the employee's phone number and it should be at least 3 digits long.
-- `EMAIL` refers to the employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters "+_.-". The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+- `EMAIL` refers to the employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it may not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 - `ADDRESS` refers to the employee's address. Addresses can take any values.
 - `DATE` refers to the employee's date of hire. Date of hire must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
@@ -395,7 +395,7 @@ The details of the **2nd** employee in the list will be displayed on the right p
 - `NAME` refers to the target employee's name. Names should only contain alphanumeric characters and spaces.
 - `NRIC` refers to the target employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
 - `PHONE` refers to the target employee's phone number and it should be at least 3 digits long.
-- `EMAIL` refers to the target employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters "+_.-". The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+- `EMAIL` refers to the target employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it may not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 - `ADDRESS` refers to the target employee's address. Addresses can take any values.
 - `DATE` refers to the target employee's date of hire. Date of hire must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).
 - At least one of the parameters need to be present and an error message will be shown if none of these parameters is provided.
