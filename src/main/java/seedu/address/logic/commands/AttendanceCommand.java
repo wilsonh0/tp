@@ -53,9 +53,9 @@ public class AttendanceCommand extends Command {
             person.incrementWorkDay();
         }
 
-        // Get all persons whose absent
+        // Get all persons who are absent (case-insensitive comparison)
         List<Person> absentPersons = personList.stream()
-                .filter(p -> nricList.contains(p.getNric().getNric()))
+                .filter(p -> nricList.stream().anyMatch(nric -> p.getNric().getNric().equalsIgnoreCase(nric)))
                 .toList();
 
         // Mark absent people by incrementing their absent day count
