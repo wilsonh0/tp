@@ -4,41 +4,43 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Person's NRIC in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidNric(String)}
  */
 public class Nric {
 
-    public static final String MESSAGE_CONSTRAINTS = "NRIC should begin with either 'S' or 'T', "
-            + "followed by 7 numerical characters, "
-            + "and end with 1 uppercase alphabetical character (e.g., S7654321A). "
-            + "It should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "NRIC should begin with either 'S', 'T', 'F', 'G', or 'M' "
+        + "(case-insensitive), "
+        + "followed by 7 numerical characters, "
+        + "and end with 1 alphabetical character (case-insensitive). "
+        + "E.g., S7654321A, t1234567b. "
+        + "It should not be blank.";
 
     /**
      * Regex to validate a Singapore NRIC.
-     * - The first character must be 'S' or 'T', representing the issuance year.
-     * - Followed by exactly 7 numerical digits.
-     * - Ends with a single uppercase alphabetical character .
-     * - Ensures no leading or trailing spaces.
-     * - Example of a valid NRIC: "S1234567A".
+     * - The first character must be 'S', 'T', 'F', 'G', or 'M' (case-insensitive)
+     * - Followed by exactly 7 numerical digits
+     * - Ends with a single alphabetical character (case-insensitive)
+     * - Example of valid NRICs: "S1234567A", "t1234567b", "F9876543C"
      */
-    public static final String VALIDATION_REGEX = "^[ST]\\d{7}[A-Z]$";
+    public static final String VALIDATION_REGEX = "^[STFGMstfgm]\\d{7}[A-Za-z]$";
 
     public final String nric;
 
     /**
      * Constructs a {@code Nric}.
      *
-     * @param nric A valid nric.
+     * @param nric A valid nric (will be converted to uppercase).
      */
     public Nric(String nric) {
         requireNonNull(nric);
+        String uppercasedNric = nric.toUpperCase();
         checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
-        this.nric = nric;
+        this.nric = uppercasedNric; // Store in uppercase
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid NRIC.
      */
     public static boolean isValidNric(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -72,5 +74,4 @@ public class Nric {
     public int hashCode() {
         return nric.hashCode();
     }
-
 }
