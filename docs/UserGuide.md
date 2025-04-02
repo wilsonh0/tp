@@ -96,6 +96,7 @@ command [IDENTIFIER] [/field PARAMETER]...
     - For example, the `attendance` command can be used in the following ways:
       - If `NRIC` is not provided, it marks all employees as present.
       - If one or more `NRIC` are provided, it marks the specified employees as absent.
+      - Any invalid `NRIC` provided will be ignored and will not have any effect on the attendance of other employees/
 
         ```properties
         attendance /absent
@@ -133,7 +134,17 @@ help
 
 ##### Adds an employee to the system.
 
-**Required fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
+**Compulsory fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
+
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
+- `NAME` refers to the employee's name. Names should only contain alphanumeric characters and spaces.
+- `NRIC` refers to the employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+- `PHONE` refers to the employee's phone number and it should be at least 3 digits long.
+- `EMAIL` refers to the employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters "+_.-". The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+- `ADDRESS` refers to the employee's address. Addresses can take any values.
+- `DATE` refers to the employee's date of hire. Date of hire must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -150,9 +161,12 @@ add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /add
 
 ##### Adds a tag (role or skill) to the specified employee.
 
-- `INDEX` refers to the employee's position in the displayed list.
-- `TAG` must be a non-empty string and can contain spaces.
-- If the employee already has the tag, an error message will be shown.
+**Compulsory parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer.
+- `TAG` refers to the tag that we want to add to the target employee. It must be a non-empty string and can only contain letters, numbers, and spaces.
+- If the employee already has the same tag, an error message will be shown.
+- All parameters are compulsory and error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -175,9 +189,12 @@ Tag "Software Developer" added successfully to John Doe.
 
 ##### Removes a tag from the specified employee.
 
-- `INDEX` refers to the employee's position in the displayed list.
-- `TAG` must be a non-empty string and can contain spaces.
-- If the employee already has the tag, an error message will be shown.
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer.
+- `TAG` refers to a tag that has been previously added to the target employee. It must be a non-empty string and can only contain letters, numbers, and spaces.
+- If `TAG` is not a tag that has already been previously added to the target employee, an error message will be shown.
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -198,26 +215,29 @@ Tag "Software Developer" removed successfully from John Doe.
 
 <panel type="seamless" header="### Managing leaves: `leave`{.properties}" expanded no-close no-switch>
 
-##### Manages leave entries for employees.
+##### Adds leave entries for employees.
 
+**Compulsory fields:** `start`, `end`, `reason`.
+
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `IDENTIFIER` can be either:
-    - An employee index (e.g., `1`), or
-    - A valid NRIC (e.g., `S1234567A`)
-- Dates must follow the format `YYYY-MM-DD`
+    - An employee index that should be a non-zero unsigned integer(e.g., `1`), or
+    - A valid NRIC that begins with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+- `START_DATE` refers to the starting date of the target employee's leave. It must follow the format `YYYY-MM-DD`.
+- `END_DATE` refers to the ending date of the target employee's leave. It must follow the format `YYYY-MM-DD` and must be later or on the same day as `END_DATE`.
+- `REASON` refers to the target employee's reason for taking the leave. It must be a non-empty string and can contain spaces.
+- The period of the leave should not overlap with the period of the target employee's any other leaves. If it overlaps, an error message will be shown.
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
 
 <panel type="seamless" header="#### Adding a leave entry `leave add`{.properties}" expanded no-close no-switch>
-
-**Compulsory fields:** `start`, `end`, `reason`
-- The `end` date must be equal or later than the `start` date.
-- The `reason` must be a non-empty string.
-- The `reason` can contain spaces.
 
 **Format:**
 ```properties
 leave add IDENTIFIER /start START_DATE /end END_DATE /reason REASON
 ```
 **Examples:**
-- Add a leave entry for the employee with the **NRIC** `S1234567A`:
+- Two available approaches of adding a leave entry for the employee with the **INDEX**`1`and **NRIC** `S1234567A`:
 ```properties
 leave add S1234567A /start 2025-03-05 /end 2025-03-07 /reason Sick Leave
 leave add 1 /start 2025-03-05 /end 2025-03-07 /reason Sick Leave
@@ -226,11 +246,23 @@ leave add 1 /start 2025-03-05 /end 2025-03-07 /reason Sick Leave
 ```
 Leave added: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 ```
+
+##### Removes leave entries for employees.
+
+**Compulsory fields:** `start`.
+
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
+- `IDENTIFIER` can be either:
+    - An employee index that should be a non-zero unsigned integer(e.g., `1`), or
+    - A valid NRIC that begins with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+- `START_DATE` refers to the starting date of the target employee's leave. It must follow the format `YYYY-MM-DD`.
+- The start date of the leave should match with one of the start date of the target employee's leaves. If no match is found, an error message will be shown.
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
+
 </panel>
 
 <panel type="seamless" header="#### Removing a leave entry `leave remove`{.properties}" expanded no-close no-switch>
-
-**Compulsory fields:** `start`
 
 **Format:**
 ```properties
@@ -238,7 +270,7 @@ leave remove IDENTIFIER /start START_DATE
 ```
 
 **Examples:**
-- Remove leave entry for employee with **NRIC** `S1234567A` starting on `2025-03-05`:
+- Two available approaches of removing a leave entry for the employee with the **INDEX**`1`and **NRIC** `S1234567A`:
 ```properties
 leave remove S1234567A /start 2025-03-05
 leave remove 1 /start 2025-03-05
@@ -255,13 +287,15 @@ Leave removed: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 
 ##### Marks employee attendance (present/absent) in the system.
 
-**Compulsory field:** `absent`
+**Compulsory fields:** `absent`
 
-**Optional parameters:** `NRIC…`​
+**Optional parameters:**
+- `NRIC...` refers to a list of employees' NRIC which represent the employees we want to mark as absent. It should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+- Any parameter added must be in a correct format as described above, if not, an error message will be shown.
 
 **Behavior:**
 - When no NRIC provided: Marks all employees as **present**
-- When NRIC provided: Marks specified employees as **absent**
+- When NRIC provided: For employees with NRIC that matches one of the NRICs on the list, they are marked as **absent**. Remaining employees are marked as **present**. NRICs in the list that do not match with any employee will be ignored and will not add up to the number count of absentees.
 
 **Format:**
 ```properties
@@ -297,9 +331,11 @@ list
 
 ##### Sorts the employee list by the specified field in either ascending or descending order.
 
-**Supported fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
-
-**Sort directions:** `asc` (ascending) or `desc` (descending).
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):** 
+- `FIELD` refers to the specified field of the employees we want to use for sorting. It must be just one of `name`, `nric`,`phone`,`email`,`address`,`hire`.
+- `DIRECTION` refers to the ordering direction that we want to use for sorting. It must be either `asc` (ascending) or `desc` (descending).
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -321,6 +357,12 @@ sort name asc
 <panel type="seamless" header="### Viewing employee details: `view`{.properties}" expanded no-close no-switch>
 
 ##### Displays comprehensive details of the specified employee on the **right** panel.
+
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer(e.g., `1`).
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
+
 **Format:**
 ```properties
 view INDEX
@@ -340,12 +382,24 @@ The details of the **2nd** employee in the list will be displayed on the right p
 
 <panel type="seamless" header="### Editing an employee: `edit`{.properties}" expanded no-close no-switch>
 
-##### Edits an existing employee in the HR Nexus system.
-**Required:** `INDEX`
+##### Edits an existing employee by updating input values in the HR Nexus system.
 
-**Optional fields:** `name`, `nric`, `phone`, `email`, `address`, `hire`.
-- **At least one** of the optional fields must be provided.
-- Existing values will be updated to the input values.
+**Optional Fields:** `name`,`nric`,`phone`,`email`,`address`,`hire`
+
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer(e.g., `1`).
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
+
+**Optional Parameters:**
+- `NAME` refers to the target employee's name. Names should only contain alphanumeric characters and spaces.
+- `NRIC` refers to the target employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+- `PHONE` refers to the target employee's phone number and it should be at least 3 digits long.
+- `EMAIL` refers to the target employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters "+_.-". The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+- `ADDRESS` refers to the target employee's address. Addresses can take any values.
+- `DATE` refers to the target employee's date of hire. Date of hire must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).
+- At least one of the parameters need to be present and an error message will be shown if none of these parameters is provided.
+- Any parameter added must be in a correct format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -367,11 +421,21 @@ Edited Person: Robert Lee; Nric: T0000001A; Phone: 87438807; Email: alexyeoh@exa
 
 ##### Finds employees whose **names** contain any of the given keywords.
 
-**Format:**
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
+- `KEYWORD` refers to the word that would be used to check whether each employee's name contains it. It should be a non-empty string.
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
+- All parameters must be in correct format as described above, if not, an error message will be shown.
+
+**Optional Parameters:**
+- `MORE_KEYWORDS` refers to additional words that would also be used to check whether each employee's name contains it. It should be a non-empty string.
+- Any parameter added must be in a correct format as described above, if not, an error message will be shown.
+
+- **Format:**
 ```properties
 find KEYWORD [MORE_KEYWORDS]
 ```
 
+**Behaviours:**
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
@@ -395,6 +459,10 @@ Returns both `Alex Yeoh` and `David Li`
 <panel type="seamless" header="### Deleting an employee: `delete`{.properties}" expanded no-close no-switch>
 
 ##### Deletes the specified person from the HR Nexus system.
+
+**Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer(e.g., `1`).
+- All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
 
 **Format:**
 ```properties
@@ -493,16 +561,16 @@ _Details coming soon ..._
 ## Command Summary
 
 ### Employee Management
-| Command | Format | Example |
-|---------|--------|---------|
-| **Add** | `add /name NAME /nric NRIC /phone PHONE /email EMAIL /address ADDRESS /hire DATE` | `add /name John Doe /nric S1234567A /phone 98765432 /email johnd@example.com /address "123 Street" /hire 2025-01-01` |
+| Command | Format                                                                                               | Example |
+|---------|------------------------------------------------------------------------------------------------------|---------|
+| **Add** | `add /name NAME /nric NRIC /phone PHONE /email EMAIL /address ADDRESS /hire DATE`                    | `add /name John Doe /nric S1234567A /phone 98765432 /email johnd@example.com /address "123 Street" /hire 2025-01-01` |
 | **Edit** | `edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADDRESS] [/hire DATE]` | `edit 1 /name Robert Lee /phone 87654321` |
-| **Delete** | `delete INDEX` | `delete 2` |
-| **List** | `list` | `list` |
-| **Find** | `find KEYWORD [MORE_KEYWORDS]` | `find John Alex` |
-| **View** | `view INDEX` | `view 1` |
-| **Sort** | `sort FIELD DIRECTION` | `sort name asc` |
-| **Attendance** | `attendance [/absent NRIC...]` | `attendance /absent S1234567A S2345678B` |
+| **Delete** | `delete INDEX`                                                                                       | `delete 2` |
+| **List** | `list`                                                                                               | `list` |
+| **Find** | `find KEYWORD [MORE_KEYWORDS]`                                                                       | `find John Alex` |
+| **View** | `view INDEX`                                                                                         | `view 1` |
+| **Sort** | `sort FIELD DIRECTION`                                                                               | `sort name asc` |
+| **Attendance** | `attendance /absent [NRIC...]`                                                                       | `attendance /absent S1234567A S2345678B` |
 
 ### Leave Management
 | Command | Format | Example |
