@@ -93,7 +93,7 @@ public class TypicalPersons {
 
     public static final Person GEORGE = new PersonBuilder()
             .withName("George Best")
-            .withNric("T0000003A")
+            .withNric("T0000004A")
             .withPhone("9482442")
             .withEmail("anna@example.com")
             .withAddress("4th street")
