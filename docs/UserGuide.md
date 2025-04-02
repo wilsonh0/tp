@@ -138,7 +138,7 @@ help
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `NAME` refers to the employee's name. Names should only contain alphanumeric characters and spaces.
-- `NRIC` refers to the employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
+- `NRIC` refers to the employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `PHONE` refers to the employee's phone number and it should be at least 3 digits long.
 - `EMAIL` refers to the employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it may not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 - `ADDRESS` refers to the employee's address. Addresses can take any values.
@@ -222,7 +222,7 @@ Tag "Software Developer" removed successfully from John Doe.
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `IDENTIFIER` can be either:
     - An employee index that should be a non-zero unsigned integer(e.g., `1`), or
-    - A valid NRIC that begins with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+    - A valid NRIC that begins with any of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `START_DATE` refers to the starting date of the target employee's leave. It must follow the format `YYYY-MM-DD`.
 - `END_DATE` refers to the ending date of the target employee's leave. It must follow the format `YYYY-MM-DD` and must be later or on the same day as `END_DATE`.
 - `REASON` refers to the target employee's reason for taking the leave. It must be a non-empty string and can contain spaces.
@@ -254,7 +254,7 @@ Leave added: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `IDENTIFIER` can be either:
     - An employee index that should be a non-zero unsigned integer(e.g., `1`), or
-    - A valid NRIC that begins with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+    - A valid NRIC that begins with any of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `START_DATE` refers to the starting date of the target employee's leave. It must follow the format `YYYY-MM-DD`.
 - The start date of the leave should match with one of the start date of the target employee's leaves. If no match is found, an error message will be shown.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
@@ -290,7 +290,7 @@ Leave removed: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 **Compulsory fields:** `absent`
 
 **Optional parameters:**
-- `NRIC...` refers to a list of employees' NRIC which represent the employees we want to mark as absent. It should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+- `NRIC...` refers to a list of employees' NRIC which represent the employees we want to mark as absent. It should begin with any of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - Any parameter added must be in a correct format as described above, if not, an error message will be shown.
 
 **Behavior:**
@@ -393,7 +393,7 @@ The details of the **2nd** employee in the list will be displayed on the right p
 
 **Optional Parameters:**
 - `NAME` refers to the target employee's name. Names should only contain alphanumeric characters and spaces.
-- `NRIC` refers to the target employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M", followed by 7 numerical characters, and end with 1 uppercase alphabetical character (e.g., S7654321A).
+- `NRIC` refers to the target employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `PHONE` refers to the target employee's phone number and it should be at least 3 digits long.
 - `EMAIL` refers to the target employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it may not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 - `ADDRESS` refers to the target employee's address. Addresses can take any values.
