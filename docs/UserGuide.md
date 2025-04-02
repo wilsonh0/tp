@@ -296,6 +296,7 @@ Leave removed: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 **Behavior:**
 - When no NRIC provided: Marks all employees as **present**
 - When NRIC provided: For employees with NRIC that matches one of the NRICs on the list, they are marked as **absent**. Remaining employees are marked as **present**. NRICs in the list that do not match with any employee will be ignored and will not add up to the number count of absentees. Duplicated NRICs will be treated as just one NRIC of that alphanumerical sequence.
+- Matching of NRIC from employee to the list is case-insensitive, e.g. s0123456a matches S0123456A.
 
 **Format:**
 ```properties
