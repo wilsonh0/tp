@@ -32,7 +32,6 @@ public class LeaveTest {
     private static final String OVERLAP_END_LATE = "2025-03-17";
     private static final String NON_OVERLAP_START = "2025-03-05";
     private static final String NON_OVERLAP_END = "2025-03-08";
-    private static final String SAME_AS_START_DATE = "2025-03-10"; // Edge case
 
     @Test
     public void constructor_nullArguments_throwsNullPointerException() {
@@ -110,5 +109,30 @@ public class LeaveTest {
         Leave leave = new Leave(VALID_START_DATE, VALID_END_DATE, VALID_REASON);
         assertEquals(VALID_FORMATTED_START_DATE, leave.getFormattedStartDate());
         assertEquals(VALID_FORMATTED_END_DATE, leave.getFormattedEndDate());
+    }
+
+    @Test
+    public void testDateValidation() {
+        assertFalse(Leave.isValidDate("2025-02-30")); // February 30th should be invalid
+        assertFalse(Leave.isValidDate("2025-04-31")); // April 31st should be invalid
+        assertFalse(Leave.isValidDate("2025-14-01")); // Invalid month
+        assertFalse(Leave.isValidDate("abcd-ef-gh")); // Invalid input
+        assertFalse(Leave.isValidDate("01-01-2025")); // Invalid format
+        assertFalse(Leave.isValidDate(null)); // Null input
+        assertFalse(Leave.isValidDate("")); // Empty string
+        assertTrue(Leave.isValidDate("2025-02-28")); // Valid date
+
+        // Leap year - If a year is fully divisible by 4, it is a leap year, unless it is also divisible by 100.
+        // e.g. 1600, 2000, 2400 are leap years, but 1700, 1800, 1900 are not.
+
+        assertFalse(Leave.isValidDate("1900-02-29")); // Invalid leap year
+        assertTrue(Leave.isValidDate("2000-02-29")); // Valid leap year
+
+        // Test for years outside the valid range
+        assertFalse(Leave.isValidDate("1899-12-30")); // Invalid date before MIN_YEAR
+        assertTrue(Leave.isValidDate("1900-01-01")); // Valid date on MIN_YEAR
+
+        assertFalse(Leave.isValidDate("2101-01-01")); // Invalid date after MAX_YEAR
+        assertTrue(Leave.isValidDate("2100-12-30")); // Valid date on MAX_YEAR
     }
 }
