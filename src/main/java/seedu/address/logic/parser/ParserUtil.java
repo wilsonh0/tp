@@ -131,7 +131,7 @@ public class ParserUtil {
         requireNonNull(hire);
         String trimmedHire = hire.trim();
         if (!Hire.isValidHire(trimmedHire)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Hire.MESSAGE_CONSTRAINTS);
         }
         return new Hire(trimmedHire);
     }
