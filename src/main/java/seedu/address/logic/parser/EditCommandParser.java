@@ -19,6 +19,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    public static final String MESSAGE_INDEX_OUT_OF_BOUNDS =
+        "Error: Index out of bounds! It should be a positive number and less than %d.";
+    public static final String MESSAGE_INDEX_NEGATIVE =
+        "Error: Index cannot be negative! It should be a positive number.";
+    public static final String MESSAGE_INDEX_ZERO =
+        "Error: Index cannot be zero! It should be a positive number starting from 1.";
+    public static final String MESSAGE_INDEX_NOT_A_NUMBER =
+        "Error: Index is not a valid number! Please provide a numeric index.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -30,16 +39,26 @@ public class EditCommandParser implements Parser<EditCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_HIRE);
 
+        String preamble = argMultimap.getPreamble();
+        if (preamble.isEmpty()) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            int parsedIndex = Integer.parseInt(preamble);
+            if (parsedIndex == 0) {
+                throw new ParseException(MESSAGE_INDEX_ZERO);
+            }
+            if (parsedIndex < 0) {
+                throw new ParseException(MESSAGE_INDEX_NEGATIVE);
+            }
+            index = Index.fromOneBased(parsedIndex);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(MESSAGE_INDEX_NOT_A_NUMBER);
         }
-
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                PREFIX_HIRE);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
