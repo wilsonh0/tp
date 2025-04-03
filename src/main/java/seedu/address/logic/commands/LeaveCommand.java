@@ -31,19 +31,19 @@ public class LeaveCommand extends Command {
 
     public static final String ADD_MESSAGE_USAGE = COMMAND_WORD + " add " + ": Adds a leave to a person\n"
             + "Usage: " + COMMAND_WORD + " add [INDEX or NRIC] "
-            + PREFIX_LEAVE_START + "START_DATE "
-            + PREFIX_LEAVE_END + "END_DATE "
-            + PREFIX_REASON + "REASON\n"
+            + PREFIX_LEAVE_START + " START_DATE "
+            + PREFIX_LEAVE_END + " END_DATE "
+            + PREFIX_REASON + " REASON\n"
             + "Example: " + COMMAND_WORD + " add 1 "
-            + PREFIX_LEAVE_START + "2021-10-01 "
-            + PREFIX_LEAVE_END + "2021-10-05 "
-            + PREFIX_REASON + "Annual Leave";
+            + PREFIX_LEAVE_START + " 2025-10-01 "
+            + PREFIX_LEAVE_END + " 2025-10-02 "
+            + PREFIX_REASON + " Annual Leave";
 
     public static final String REMOVE_MESSAGE_USAGE = COMMAND_WORD + " remove " + ": Removes a leave from a person\n"
             + "Usage: " + COMMAND_WORD + " remove [INDEX or NRIC] "
-            + PREFIX_LEAVE_START + "START_DATE\n"
+            + PREFIX_LEAVE_START + " START_DATE\n"
             + "Example: " + COMMAND_WORD + " remove 1 "
-            + PREFIX_LEAVE_START + "2021-10-01";
+            + PREFIX_LEAVE_START + " 2025-10-01";
 
     public static final String MESSAGE_ADD_SUCCESS = "Leave added: %1$s for %2$s";
     public static final String MESSAGE_REMOVE_SUCCESS = "Leave removed: %1$s for %2$s";
@@ -53,6 +53,7 @@ public class LeaveCommand extends Command {
     public static final String MESSAGE_PERSON_NRIC_NOT_FOUND = "Person with NRIC %1$s not found";
     public static final String MESSAGE_PERSON_INDEX_NOT_FOUND = "Person with index %1$s not found";
     public static final String MESSAGE_UNKNOWN_SUBCOMMAND = "Unknown subcommand: %1$s\nUse [add/remove]";
+    public static final String MESSAGE_LEAVE_BEFORE_HIRE = "Leave start date %1$s is before hire date %2$s";
 
     private final String subCommand;
     private final Index index;
@@ -134,6 +135,11 @@ public class LeaveCommand extends Command {
      * Adds a leave to the person's list of leaves.
      */
     private CommandResult processAdd(Person person) throws CommandException {
+        if (leave.getStartDate().isBefore(person.getHire().toLocalDate())) {
+            throw new CommandException(String.format(MESSAGE_LEAVE_BEFORE_HIRE,
+                    leave.getStartDate(), person.getHire()));
+        }
+
         if (person.hasLeave(leave)) {
             throw new CommandException(String.format(MESSAGE_LEAVE_EXISTS, leave.getStartDate()));
         }
