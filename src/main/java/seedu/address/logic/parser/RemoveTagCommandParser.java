@@ -22,23 +22,26 @@ public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
         requireNonNull(args);
         String trimmedArgs = args.trim();
 
+        // If no arguments provided, return usage message
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(RemoveTagCommand.MESSAGE_INVALID_FORMAT);
+            throw new ParseException(RemoveTagCommand.MESSAGE_USAGE);
         }
 
         String[] splitArgs = trimmedArgs.split(" ", 2);
 
+        // Ensure we have both an index and a tag
         if (splitArgs.length < 2 || splitArgs[1].trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagCommand.MESSAGE_USAGE));
+            throw new ParseException(RemoveTagCommand.MESSAGE_INVALID_FORMAT);
         }
 
         try {
             Index index = ParserUtil.parseIndex(splitArgs[0]);
             String tagName = splitArgs[1].trim();
 
-            // Normalize tag by collapsing multiple spaces into a single space
+            // Replace multiple spaces with a single space
             tagName = tagName.replaceAll("\\s+", " ");
 
+            // Ensure tag name is valid
             if (!tagName.matches("[a-zA-Z0-9 ]+")) {
                 throw new ParseException(RemoveTagCommand.MESSAGE_INVALID_TAG);
             }
