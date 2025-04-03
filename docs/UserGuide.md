@@ -140,11 +140,11 @@ help
 - `NAME` refers to the employee's name. Names should only contain alphanumeric characters and spaces.
 - `NRIC` refers to the employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `PHONE` refers to the employee's phone number and it should be at least 3 digits long.
-- `EMAIL` refers to the employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it may not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+- `EMAIL` refers to the employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it should not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 - `ADDRESS` refers to the employee's address. Addresses can take any values.
 - `DATE` refers to the employee's date of hire. Date of hire must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -166,7 +166,7 @@ add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /add
 - `TAG` refers to the tag that we want to add to the target employee. It must be a non-empty string and can only contain letters, numbers, spaces, `'` and `-`.
 - If the employee already has the same tag, an error message will be shown.
 - All parameters are compulsory and error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -194,7 +194,7 @@ Tag "Software Developer" added successfully to John Doe.
 - `TAG` refers to a tag that has been previously added to the target employee. It must be a non-empty string and can only contain letters, numbers, spaces, `'` and `-`.
 - If `TAG` is not a tag that has already been previously added to the target employee, an error message will be shown.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -228,7 +228,7 @@ Tag "Software Developer" removed successfully from John Doe.
 - `REASON` refers to the target employee's reason for taking the leave. It must be a non-empty string and can contain spaces.
 - The period of the leave should not overlap with the period of the target employee's any other leaves. If it overlaps, an error message will be shown.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 <panel type="seamless" header="#### Adding a leave entry `leave add`{.properties}" expanded no-close no-switch>
 
@@ -258,7 +258,7 @@ Leave added: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 - `START_DATE` refers to the starting date of the target employee's leave. It must follow the format `YYYY-MM-DD`.
 - The start date of the leave should match with one of the start date of the target employee's leaves. If no match is found, an error message will be shown.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 </panel>
 
@@ -291,7 +291,7 @@ Leave removed: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 
 **Optional parameters:**
 - `NRIC...` refers to a list of employees' NRIC which represent the employees we want to mark as absent. It should begin with any of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
-- Any parameter added must be in a correct format as described above, if not, an error message will be shown.
+- Any parameter added must be in its valid format as described above, if not, an error message will be shown.
 
 **Behavior:**
 - When no NRIC provided: Marks all employees as **present**
@@ -336,7 +336,7 @@ list
 - `FIELD` refers to the specified field of the employees we want to use for sorting. It must be just one of `name`, `nric`,`phone`,`email`,`address`,`hire`.
 - `DIRECTION` refers to the ordering direction that we want to use for sorting. It must be either `asc` (ascending) or `desc` (descending).
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -362,7 +362,7 @@ sort name asc
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer(e.g., `1`).
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -390,17 +390,17 @@ The details of the **2nd** employee in the list will be displayed on the right p
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer(e.g., `1`).
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 **Optional Parameters:**
 - `NAME` refers to the target employee's name. Names should only contain alphanumeric characters and spaces.
 - `NRIC` refers to the target employee's NRIC and should be unique for each employee. NRIC should begin with any of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `PHONE` refers to the target employee's phone number and it should be at least 3 digits long.
-- `EMAIL` refers to the target employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it may not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+- `EMAIL` refers to the target employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it should not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 - `ADDRESS` refers to the target employee's address. Addresses can take any values.
 - `DATE` refers to the target employee's date of hire. Date of hire must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).
 - At least one of the parameters need to be present and an error message will be shown if none of these parameters is provided.
-- Any parameter added must be in a correct format as described above, if not, an error message will be shown.
+- Any parameter added must be in its respective valid format as described above, if not, an error message will be shown.
 
 **Format:**
 ```properties
@@ -425,11 +425,11 @@ Edited Person: Robert Lee; Nric: T0000001A; Phone: 87438807; Email: alexyeoh@exa
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `KEYWORD` refers to the word that would be used to check whether each employee's name contains it. It should be a non-empty string.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
-- All parameters must be in correct format as described above, if not, an error message will be shown.
+- All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
 **Optional Parameters:**
 - `MORE_KEYWORDS` refers to additional words that would also be used to check whether each employee's name contains it. It should be a non-empty string.
-- Any parameter added must be in a correct format as described above, if not, an error message will be shown.
+- Any parameter added must be in its respective valid format as described above, if not, an error message will be shown.
 
 - **Format:**
 ```properties
