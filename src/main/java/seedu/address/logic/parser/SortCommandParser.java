@@ -15,10 +15,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class SortCommandParser implements Parser<SortCommand> {
 
-    private static final Set<String> VALID_ATTRIBUTES = new HashSet<>(Arrays.asList("name", "nric", "phone", "address",
-        "email", "hire"));
-    private static final Set<String> VALID_DIRECTIONS = new HashSet<>(Arrays.asList("asc", "desc"));
-
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
      * @throws ParseException if the user input does not conform to the expected format
@@ -38,9 +34,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         } else {
             String attribute = parameters[0].toLowerCase();
             String direction = parameters[1].toLowerCase();
-            if (!VALID_ATTRIBUTES.contains(attribute) || !VALID_DIRECTIONS.contains(direction)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-            }
             return new SortCommand(attribute, direction);
         }
     }
