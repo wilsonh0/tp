@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -31,8 +30,14 @@ public class AddTagCommand extends Command {
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Tag \"%1$s\" added successfully to %2$s.";
     public static final String MESSAGE_DUPLICATE_TAG = "Tag \"%1$s\" already exists for %2$s.";
     public static final String MESSAGE_INVALID_INDEX = "Error: Index can only contain numbers.";
-    public static final String MESSAGE_INVALID_TAG = "Error: Tag name can only contain letters, numbers, and spaces.";
+    public static final String MESSAGE_INVALID_TAG = "Error: Tag name can only contain letters, numbers, spaces, and"
+        + " punctuation like hyphens and apostrophes.";
     public static final String MESSAGE_INVALID_FORMAT = "Error: Invalid command format. Usage: addtag [INDEX] [TAG]";
+    public static final String MESSAGE_INDEX_OUT_OF_BOUNDS =
+        "Error: Index out of bounds! It should be a positive number and less than %d.";
+    public static final String MESSAGE_INDEX_NEGATIVE =
+        "Error: Index cannot be negative! It should be a positive number.";
+
 
     private final Index index;
     private final Tag tagToAdd;
@@ -49,13 +54,19 @@ public class AddTagCommand extends Command {
         this.tagToAdd = tagToAdd;
     }
 
+    /**
+     * Executes the command and adds the tag to the person at the specified index.
+     * @param model {@code Model} which the command should operate on.
+     * @return the result of the command execution
+     * @throws CommandException if the command execution fails
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, lastShownList.size() + 1));
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
@@ -74,18 +85,21 @@ public class AddTagCommand extends Command {
         updatedTagsSet.add(normalizedTag);
         TagSet updatedTags = new TagSet(updatedTagsSet);
 
-
-
         Person updatedPerson = new Person(personToEdit.getName(), personToEdit.getNric(),
             personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-            personToEdit.getHire(), updatedTags, personToEdit.getLeaves());
+            personToEdit.getHire(), updatedTags, personToEdit.getLeaves(), personToEdit.getAttendance());
 
         model.setPerson(personToEdit, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, tagToAdd, updatedPerson.getName()),
-                updatedPerson);
+            updatedPerson);
     }
 
+    /**
+     * Checks if the command is equal to another command.
+     * @param other the other command to compare with
+     * @return true if both commands are equal, false otherwise
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {

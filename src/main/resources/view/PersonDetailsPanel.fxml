@@ -10,12 +10,19 @@
       xmlns:fx="http://javafx.com/fxml/1"
       spacing="10"
       style="-fx-padding: 10;">
+
+    <!-- Empty State Label (Appears when no person is selected) -->
+    <Label fx:id="emptyStateLabel"
+           text="No employee selected. Select an employee from the list to view details."
+           style="-fx-font-weight: semibold; -fx-font-size: 20; -fx-padding: 10;"
+           wrapText="true"/>
+
     <!-- Person Card (fixed height) -->
     <StackPane fx:id="personCardPlaceholder"
                style="-fx-max-height: 200;"/>
 
     <!-- Leave Records (takes remaining space) -->
-    <VBox fx:id="leaveSection" VBox.vgrow="ALWAYS" spacing="5">
+    <VBox fx:id="leaveSection" VBox.vgrow="ALWAYS" spacing="5" visible="false">
         <Label text="LEAVE RECORDS" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
         <StackPane fx:id="leaveTablePlaceholder" VBox.vgrow="ALWAYS" visible="false"/>
         <Label fx:id="noLeavesLabel" text="No leave records found!"
@@ -24,7 +31,7 @@
     </VBox>
 
     <!-- Attendance Section (fixed height) -->
-    <VBox fx:id="attendanceSection" spacing="5">
+    <VBox fx:id="attendanceSection" spacing="5" visible="false">
         <Label text="ATTENDANCE RECORDS" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
         <GridPane fx:id="attendanceGrid" hgap="10" vgap="5">
             <columnConstraints>

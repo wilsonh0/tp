@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddTagCommand;
@@ -22,23 +21,33 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         requireNonNull(args);
         String trimmedArgs = args.trim();
 
+        // If no input, show usage message
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(AddTagCommand.MESSAGE_INVALID_FORMAT);
+            throw new ParseException(AddTagCommand.MESSAGE_USAGE);
         }
 
         String[] splitArgs = trimmedArgs.split(" ", 2);
 
+        // Ensure we have at least an index and a tag
         if (splitArgs.length < 2 || splitArgs[1].trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+            throw new ParseException(AddTagCommand.MESSAGE_INVALID_FORMAT);
         }
 
         try {
-            Index index = ParserUtil.parseIndex(splitArgs[0]);
+            // Ensure the index is a valid number
+            int indexValue = Integer.parseInt(splitArgs[0]);
+            if (indexValue <= 0) {
+                throw new ParseException(AddTagCommand.MESSAGE_INDEX_NEGATIVE);
+            }
+
+            Index index = Index.fromOneBased(indexValue);
             String tagName = splitArgs[1].trim();
 
+            // Replace multiple spaces with a single space
             tagName = tagName.replaceAll("\\s+", " ");
 
-            if (!tagName.matches("[a-zA-Z0-9 ]+")) {
+            // Ensure tag name is valid
+            if (!tagName.matches("[a-zA-Z0-9 \\-']+")) {
                 throw new ParseException(AddTagCommand.MESSAGE_INVALID_TAG);
             }
 

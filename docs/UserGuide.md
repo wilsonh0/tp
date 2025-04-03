@@ -163,7 +163,7 @@ add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /add
 
 **Compulsory parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer.
-- `TAG` refers to the tag that we want to add to the target employee. It must be a non-empty string and can only contain letters, numbers, and spaces.
+- `TAG` refers to the tag that we want to add to the target employee. It must be a non-empty string and can only contain letters, numbers, spaces, `'` and `-`.
 - If the employee already has the same tag, an error message will be shown.
 - All parameters are compulsory and error message will be shown if any of the parameters is not provided.
 - All parameters must be in correct format as described above, if not, an error message will be shown.
@@ -191,7 +191,7 @@ Tag "Software Developer" added successfully to John Doe.
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer.
-- `TAG` refers to a tag that has been previously added to the target employee. It must be a non-empty string and can only contain letters, numbers, and spaces.
+- `TAG` refers to a tag that has been previously added to the target employee. It must be a non-empty string and can only contain letters, numbers, spaces, `'` and `-`.
 - If `TAG` is not a tag that has already been previously added to the target employee, an error message will be shown.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
 - All parameters must be in correct format as described above, if not, an error message will be shown.
