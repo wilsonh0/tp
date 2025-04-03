@@ -177,7 +177,7 @@ Tag "Software Developer" added successfully to John Doe.
 
 - `INDEX` refers to the employee's position in the displayed list.
 - `TAG` must be a non-empty string and can contain spaces.
-- If the employee already has the tag, an error message will be shown.
+- If the employee already has the tag, it should be unattached from the employee.
 
 **Format:**
 ```properties
