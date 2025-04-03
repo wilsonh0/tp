@@ -69,7 +69,7 @@ public class RemoveTagCommand extends Command {
             throw new CommandException(MESSAGE_INDEX_NEGATIVE);
         }
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, lastShownList.size()));
+            throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUNDS, lastShownList.size() + 1));
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
