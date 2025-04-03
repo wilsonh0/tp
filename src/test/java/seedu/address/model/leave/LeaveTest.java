@@ -135,4 +135,10 @@ public class LeaveTest {
         assertFalse(Leave.isValidDate("2101-01-01")); // Invalid date after MAX_YEAR
         assertTrue(Leave.isValidDate("2100-12-30")); // Valid date on MAX_YEAR
     }
+
+    @Test
+    public void testDateDuration() {
+        assertTrue(Leave.isValidDuration("2025-01-01", "2025-01-30")); // Valdi duration (30 days)
+        assertFalse(Leave.isValidDuration("2025-01-01", "2025-01-31")); // Invalid duration (30 days)
+    }
 }

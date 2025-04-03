@@ -47,6 +47,14 @@ public class Hire {
         }
     }
 
+    /**
+     * Returns the hire date as a LocalDate object.
+     *
+     * @return LocalDate representation of the hire date.
+     */
+    public LocalDate toLocalDate() {
+        return LocalDate.parse(hire, DATE_FORMATTER);
+    }
 
     @Override
     public String toString() {

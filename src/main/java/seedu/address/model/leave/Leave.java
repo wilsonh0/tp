@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a Leave in the address book.
@@ -13,6 +14,7 @@ import java.time.format.ResolverStyle;
 public class Leave {
     public static final int MIN_YEAR = 1900;
     public static final int MAX_YEAR = 2100;
+    public static final int MAX_LEAVE_DURATION = 30;
 
     public static final String DATE_CONSTRAINTS =
             "Please ensure your dates meet all these requirements:\n"
@@ -22,10 +24,10 @@ public class Leave {
                     + "   - February has 28 days (29 in leap years)\n"
                     + "   - April, June, September, November have 30 days\n"
                     + "   - Other months have 31 days\n"
-                    + "4. DATE ORDER: Start date must be on or before end date";
+                    + "4. DATE ORDER: Start date must be on or before end date\n"
+                    + "5. DURATION: Must be less than or equal to " + MAX_LEAVE_DURATION + " days\n";
 
     public static final String REASON_CONSTRAINTS = "Reason should not be empty.";
-
 
     public static final DateTimeFormatter DATE_FORMATER = DateTimeFormatter
             .ofPattern("uuuu-MM-dd")
@@ -59,7 +61,8 @@ public class Leave {
         return isValidDate(startDate)
                 && isValidDate(endDate)
                 && isValidReason(reason)
-                && isValidOrder(startDate, endDate);
+                && isValidOrder(startDate, endDate)
+                && isValidDuration(startDate, endDate);
     }
 
     /**
@@ -91,6 +94,17 @@ public class Leave {
     public static boolean isValidOrder(String startDate, String endDate) {
         // startDate <= endDate
         return !LocalDate.parse(startDate, DATE_FORMATER).isAfter(LocalDate.parse(endDate, DATE_FORMATER));
+    }
+
+    /**
+     * Returns true if the leave duration is less than or equal to the maximum leave duration.
+     */
+    public static boolean isValidDuration(String startDate, String endDate) {
+        LocalDate start = LocalDate.parse(startDate, DATE_FORMATER);
+        LocalDate end = LocalDate.parse(endDate, DATE_FORMATER);
+        long duration = ChronoUnit.DAYS.between(start, end) + 1;
+
+        return duration <= MAX_LEAVE_DURATION;
     }
 
     /**
