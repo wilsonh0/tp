@@ -37,7 +37,7 @@ public class TypicalPersons {
             .withAddress("123, Jurong West Ave 6, #08-111")
             .withHire("2019-10-10")
             .withTags("friends")
-            .withLeaves(new Leave("2021-10-10", "2021-10-12", "sick"))
+            .withLeaves(new Leave("2021-10-10", "2021-10-12", "Sick Leave"))
             .build();
 
     public static final Person BENSON = new PersonBuilder()
@@ -48,7 +48,7 @@ public class TypicalPersons {
             .withAddress("311, Clementi Ave 2, #02-25")
             .withHire("2022-10-10")
             .withTags("owesMoney", "friends")
-            .withLeaves(new Leave("2022-10-10", "2022-11-10", "paternity"))
+            .withLeaves(new Leave("2022-10-10", "2022-11-01", "Paternity Leave"))
             .build();
 
     public static final Person CARL = new PersonBuilder()
@@ -58,7 +58,7 @@ public class TypicalPersons {
             .withEmail("heinz@example.com")
             .withAddress("wall street")
             .withHire("2020-10-10")
-            .withLeaves(new Leave("2021-10-11", "2021-10-12", "Annual"))
+            .withLeaves(new Leave("2021-10-11", "2021-10-12", "Annual Leave"))
             .withTags("friends")
             .build();
 
