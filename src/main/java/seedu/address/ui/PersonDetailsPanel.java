@@ -25,10 +25,9 @@ import seedu.address.model.person.Person;
 public class PersonDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "PersonDetailsPanel.fxml";
-    private static final String EMPTY_STATE_TEXT = "No employee selected. "
-        + "Select an employee from the list to view details.";
     private static final String ATTENDANCE_EMPTY_TEXT = "No attendance data available";
 
+    @FXML private Label emptyStateLabel;
     @FXML private StackPane personCardPlaceholder;
     @FXML private StackPane leaveTablePlaceholder;
     @FXML private Label noLeavesLabel;
@@ -37,6 +36,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     @FXML private Label attendanceLabel;
     @FXML private GridPane attendanceGrid;
 
+    private boolean isFirstView = true;
     private Person person;
     private PersonCard personCard;
     private TableView<Leave> leaveTable;
@@ -50,7 +50,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     public PersonDetailsPanel() {
         super(FXML);
-        initializeLeaveTable();
+        leaveSection.setVisible(false);
+        attendanceSection.setVisible(false);
     }
 
     /**
@@ -90,6 +91,20 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
         this.person = person;
         clearContent();
+
+        // First-time view setup
+        if (isFirstView) {
+            initializeLeaveTable();
+            isFirstView = false;
+        }
+
+        // Hide empty state message
+        emptyStateLabel.setVisible(false);
+        emptyStateLabel.setManaged(false);
+
+        // Update leave & attendance visibility
+        leaveSection.setVisible(true);
+        attendanceSection.setVisible(true);
 
         // Set up person card
         personCard = new PersonCard(person);
@@ -156,11 +171,6 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     private void showEmptyState() {
         clearContent();
-        Label emptyStateLabel = new Label(EMPTY_STATE_TEXT);
-        emptyStateLabel.setStyle("-fx-font-style: italic; -fx-text-fill: derive(-fx-text-background-color, -30%);");
-        emptyStateLabel.setAlignment(Pos.CENTER);
-        emptyStateLabel.setWrapText(true);
-        personCardPlaceholder.getChildren().add(emptyStateLabel);
     }
 
     /**
