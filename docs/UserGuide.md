@@ -151,7 +151,7 @@ add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /add
 ##### Adds a tag (role or skill) to the specified employee.
 
 - `INDEX` refers to the employee's position in the displayed list.
-- `TAG` must be a non-empty string and can contain spaces.
+- `TAG` must be a non-empty string and can contain spaces. Punctuation like apostrophes and hyphens are allowed.
 - If the employee already has the tag, an error message will be shown.
 
 **Format:**
@@ -176,7 +176,7 @@ Tag "Software Developer" added successfully to John Doe.
 ##### Removes a tag from the specified employee.
 
 - `INDEX` refers to the employee's position in the displayed list.
-- `TAG` must be a non-empty string and can contain spaces.
+- `TAG` must be a non-empty string and can contain spaces. Punctuation like apostrophes and hyphens are allowed.
 - If the employee already has the tag, it should be unattached from the employee.
 
 **Format:**
