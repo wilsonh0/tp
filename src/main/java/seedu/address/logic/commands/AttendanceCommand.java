@@ -20,7 +20,8 @@ public class AttendanceCommand extends Command {
     public static final String COMMAND_WORD = "attendance";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendance for everyone. "
-            + "Duplicated NRIC and NRIC that does not match with any person will be ignored. "
+            + "NRIC that does not match with any person will be ignored. "
+            + "Duplicated NRICs will be regarded as just one NRIC of that particular alphanumerical sequence. "
             + "Parameters: "
             + PREFIX_ATTENDANCE_ABSENT + " LIST OF NRICs separated by at least one whitespace "
             + "(Can contain 0 or more valid NRICs) "
