@@ -208,6 +208,12 @@ public class ParserUtil {
             throw new ParseException(String.format("Invalid date order.\n%s", Leave.DATE_CONSTRAINTS));
         }
 
+        // Check if leave duration is less than or equal to maximum allowed
+        if (!Leave.isValidDuration(leaveStart, leaveEnd)) {
+            throw new ParseException(String.format("Leave duration exceeds maximum allowed (%d days).\n%s",
+                    Leave.MAX_LEAVE_DURATION, Leave.DATE_CONSTRAINTS));
+        }
+
         return new Leave(leaveStart, leaveEnd, reason);
     }
 
