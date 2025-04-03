@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.RemoveTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Tag;
@@ -42,8 +43,8 @@ public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
             tagName = tagName.replaceAll("\\s+", " ");
 
             // Ensure tag name is valid
-            if (!tagName.matches("[a-zA-Z0-9 ]+")) {
-                throw new ParseException(RemoveTagCommand.MESSAGE_INVALID_TAG);
+            if (!tagName.matches("[a-zA-Z0-9 \\-']+")) {
+                throw new ParseException(AddTagCommand.MESSAGE_INVALID_TAG);
             }
 
             return new RemoveTagCommand(index, new Tag(tagName));

@@ -31,7 +31,8 @@ public class RemoveTagCommand extends Command {
     public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Tag \"%1$s\" removed successfully from %2$s.";
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag \"%1$s\" not found for %2$s.";
     public static final String MESSAGE_INVALID_INDEX = "Error: Index can only contain numbers.";
-    public static final String MESSAGE_INVALID_TAG = "Error: Tag name can only contain letters, numbers, and spaces.";
+    public static final String MESSAGE_INVALID_TAG = "Error: Tag name can only contain letters, numbers, spaces, and"
+        + " punctuation like hyphens and apostrophes.";
     public static final String MESSAGE_INVALID_FORMAT = "Error: Invalid command format. Usage: removetag [INDEX] [TAG]";
     public static final String MESSAGE_INDEX_OUT_OF_BOUNDS =
         "Error: Index out of bounds! It should be a positive number and less than %d.";

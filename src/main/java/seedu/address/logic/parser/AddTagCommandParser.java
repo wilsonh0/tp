@@ -47,7 +47,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
             tagName = tagName.replaceAll("\\s+", " ");
 
             // Ensure tag name is valid
-            if (!tagName.matches("[a-zA-Z0-9 ]+")) {
+            if (!tagName.matches("[a-zA-Z0-9 \\-']+")) {
                 throw new ParseException(AddTagCommand.MESSAGE_INVALID_TAG);
             }
 
