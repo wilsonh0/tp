@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -88,7 +87,7 @@ public class AddTagCommand extends Command {
 
         Person updatedPerson = new Person(personToEdit.getName(), personToEdit.getNric(),
             personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-            personToEdit.getHire(), updatedTags, personToEdit.getLeaves());
+            personToEdit.getHire(), updatedTags, personToEdit.getLeaves(), personToEdit.getAttendance());
 
         model.setPerson(personToEdit, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

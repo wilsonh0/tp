@@ -91,7 +91,7 @@ public class RemoveTagCommand extends Command {
 
         Person updatedPerson = new Person(personToEdit.getName(), personToEdit.getNric(),
             personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(),
-            personToEdit.getHire(), updatedTags, personToEdit.getLeaves());
+            personToEdit.getHire(), updatedTags, personToEdit.getLeaves(), personToEdit.getAttendance());
 
         model.setPerson(personToEdit, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
