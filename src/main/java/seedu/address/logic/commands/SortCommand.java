@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -37,6 +37,10 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Sorted all persons by %1$s in %2$s order.";
 
+    private static final Set<String> VALID_ATTRIBUTES = new HashSet<>(Arrays.asList("name", "nric", "phone", "address",
+        "email", "hire"));
+    private static final Set<String> VALID_DIRECTIONS = new HashSet<>(Arrays.asList("asc", "desc"));
+
     private final String attribute;
     private final String direction;
 
@@ -63,7 +67,9 @@ public class SortCommand extends Command {
 
         ArrayList<Person> sortedPersons = new ArrayList<>(originalPersons);
 
-        if (!direction.equals("asc") && !direction.equals("desc")) {
+        if (!VALID_ATTRIBUTES.contains(attribute)) {
+            throw new CommandException(MESSAGE_INVALID_ATTRIBUTE + MESSAGE_USAGE);
+        } else if (!VALID_DIRECTIONS.contains(direction)) {
             throw new CommandException(MESSAGE_INVALID_DIRECTION + MESSAGE_USAGE);
         }
 
