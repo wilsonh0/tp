@@ -406,6 +406,10 @@ The details of the **2nd** employee in the list will be displayed on the right p
 ```properties
 edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADDRESS] [/hire DATE]
 ```
+- Edits the person at the specified INDEX.
+- The index refers to the index number shown in the displayed person list.
+- The index must be a positive integer 1, 2, 3, …​
+- Any parameters specified of the person  will be edited if format is valid
 
 **Examples:**
 - Edit the name of the **1st** employee to be `Robert Lee`:
