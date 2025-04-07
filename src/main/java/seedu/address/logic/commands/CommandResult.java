@@ -23,14 +23,18 @@ public class CommandResult {
     /** The person to view for view command (optional). */
     private final Person personToView;
 
+    /** The details panel should be cleared. */
+    private final boolean clearDetailsPanel;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean clearDetailsPanel) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.personToView = null;
+        this.clearDetailsPanel = clearDetailsPanel;
     }
 
     /**
@@ -38,18 +42,27 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and {@code personToView} for the view command.
      */
-    public CommandResult(String feedbackToUser, Person personToView) {
+    public CommandResult(String feedbackToUser, Person personToView, boolean clearDetailsPanel) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
         this.personToView = requireNonNull(personToView);
+        this.clearDetailsPanel = clearDetailsPanel;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and {@code personToView} for the view command, with default clearDetailsPanel value.
+     */
+    public CommandResult(String feedbackToUser, Person personToView) {
+        this(feedbackToUser, personToView, false);
     }
 
     public String getFeedbackToUser() {
@@ -68,6 +81,10 @@ public class CommandResult {
         return personToView;
     }
 
+    public boolean isClearDetailsPanel() {
+        return clearDetailsPanel;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -83,7 +100,8 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && Objects.equals(personToView, otherCommandResult.personToView);
+                && Objects.equals(personToView, otherCommandResult.personToView)
+                && clearDetailsPanel == otherCommandResult.clearDetailsPanel;
     }
 
     @Override
@@ -98,6 +116,7 @@ public class CommandResult {
                 .add("showHelp", showHelp)
                 .add("exit", exit)
                 .add("personToView", personToView)
+                .add("clearDetailsPanel", clearDetailsPanel)
                 .toString();
     }
 
