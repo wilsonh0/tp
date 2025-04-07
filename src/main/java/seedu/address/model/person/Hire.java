@@ -13,9 +13,17 @@ import java.time.format.ResolverStyle;
  * Guarantees: immutable; is valid as declared in {@link #isValidHire(String)}
  */
 public class Hire {
+    public static final int MIN_YEAR = 1900;
+    public static final int MAX_YEAR = 2099;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Hire date must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).";
+            "Hire date must meet all these requirements:\n"
+                    + "1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28)\n"
+                    + "2. YEAR RANGE: Must be between " + MIN_YEAR + " and " + MAX_YEAR + " (inclusive)\n"
+                    + "3. VALID DATE: Must be a real calendar date\n"
+                    + "   - February has 28 days (29 in leap years)\n"
+                    + "   - April, June, September, November have 30 days\n"
+                    + "   - Other months have 31 days\n";
     private static final LocalDate MIN_DATE = LocalDate.of(1900, 1, 1);
     private static final LocalDate MAX_DATE = LocalDate.of(2099, 12, 31);
 
