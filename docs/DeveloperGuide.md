@@ -287,14 +287,18 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​    | I want to …​                    | So that I can…​                                                              |
+|------|------------|---------------------------------|------------------------------------------------------------------------------|
+| `* * *` | new user   | see usage instructions          | refer to instructions when I forget how to use the App                       |
+| `* * *` | HR admin   | add new employee records        | maintain an up-to-date employee database                                     |
+| `* * *` | HR admin   | edit new employee records       | maintain an up-to-date employee database                                     |
+| `* * *` | HR admin   | delete employee records         | remove terminated employees from the employee database                       |
+| `* * *` | HR admin   | mark attendance for employees   | ensure accurate payroll and monitor employees' productivity                  |
+| `* * *` | HR admin   | add leave entries for employees | ensure all employees do not exceed the number of leaves they are entitled to |
+| `* * *` | HR admin   | clear all employee data         | reset the employee database system for new deployments                       |
+| `* * *` | HR manager | view complete employee details  | evaluate the performance of employees                                        |
+| `* *` | HR admin   | search employees by name        | locate details of employees more efficiently                                 |
+| `*`  | HR admin   | sort persons by name            | locate a person easily                                                       |
 
 *{More to be added}*
 
