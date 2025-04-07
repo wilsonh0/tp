@@ -169,6 +169,16 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void handleClearDetailsPanel(CommandResult commandResult) {
+        if (!commandResult.isClearDetailsPanel()) {
+            return;
+        }
+        Person target = commandResult.getPersonToView();
+        if (target == null || personDetailsPanel.isShowing(target)) {
+            personDetailsPanel.clear();
+        }
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -220,9 +230,15 @@ public class MainWindow extends UiPart<Stage> {
                 rightPane.getChildren().add(personDetailsPanel.getRoot());
             }
 
-            // If the command result contains a person, update the details panel
-            if (commandResult.getPersonToView() != null) {
-                personDetailsPanel.setPerson(commandResult.getPersonToView());
+            if (commandResult.isClearDetailsPanel()) {
+                handleClearDetailsPanel(commandResult);
+            } else {
+                // If the command result contains a person, update the details panel
+                if (commandResult.getPersonToView() != null) {
+                    personDetailsPanel.setPerson(commandResult.getPersonToView());
+                } else {
+                    personDetailsPanel.refresh();
+                }
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
