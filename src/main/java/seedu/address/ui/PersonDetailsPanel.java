@@ -134,7 +134,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
             // Create headers
             Label header1 = new Label("DAYS WORKED");
-            Label header2 = new Label("DAYS SINCE HIRE");
+            Label header2 = new Label("DAYS TRACKED SINCE HIRE");
             Label header3 = new Label("ATTENDANCE RATE");
 
             // Create data labels
