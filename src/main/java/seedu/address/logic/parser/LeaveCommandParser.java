@@ -19,6 +19,7 @@ import seedu.address.model.person.NricMatchesPredicate;
  * Parses input arguments and creates a new LeaveCommand object
  */
 public class LeaveCommandParser implements Parser<LeaveCommand> {
+    public static final String MESSAGE_INVALID_INDEX = "INDEX must be a positive integer.";
     /**
      * Parses the given {@code String} of arguments in the context of the LeaveCommand
      * and returns a LeaveCommand object for execution.
@@ -134,7 +135,12 @@ public class LeaveCommandParser implements Parser<LeaveCommand> {
         try {
             return ParserUtil.parseIndex(cleanIdentifier); // Try parsing as index
         } catch (ParseException e) {
-            return ParserUtil.parseNric(cleanIdentifier.toUpperCase()); // Try parsing as NRIC
+            try {
+                return ParserUtil.parseNric(cleanIdentifier.toUpperCase()); // Try parsing as NRIC
+            } catch (ParseException nricException) {
+                throw new ParseException((String.format("%s\n1. %s\n2. %s", "Invalid INDEX or NRIC",
+                        MESSAGE_INVALID_INDEX, Nric.MESSAGE_CONSTRAINTS)));
+            }
         }
     }
 
