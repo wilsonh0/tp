@@ -5,7 +5,6 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REASON;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.stream.Stream;
 
@@ -20,6 +19,7 @@ import seedu.address.model.person.NricMatchesPredicate;
  * Parses input arguments and creates a new LeaveCommand object
  */
 public class LeaveCommandParser implements Parser<LeaveCommand> {
+    public static final String MESSAGE_INVALID_INDEX = "INDEX must be a positive integer.";
     /**
      * Parses the given {@code String} of arguments in the context of the LeaveCommand
      * and returns a LeaveCommand object for execution.
