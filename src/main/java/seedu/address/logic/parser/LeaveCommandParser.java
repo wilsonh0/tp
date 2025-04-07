@@ -5,6 +5,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REASON;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.stream.Stream;
 
@@ -134,7 +135,12 @@ public class LeaveCommandParser implements Parser<LeaveCommand> {
         try {
             return ParserUtil.parseIndex(cleanIdentifier); // Try parsing as index
         } catch (ParseException e) {
-            return ParserUtil.parseNric(cleanIdentifier.toUpperCase()); // Try parsing as NRIC
+            try {
+                return ParserUtil.parseNric(cleanIdentifier.toUpperCase()); // Try parsing as NRIC
+            } catch (ParseException nricException) {
+                throw new ParseException((String.format("%s\n1. %s\n2. %s", "Invalid INDEX or NRIC",
+                        MESSAGE_INVALID_INDEX, Nric.MESSAGE_CONSTRAINTS)));
+            }
         }
     }
 
