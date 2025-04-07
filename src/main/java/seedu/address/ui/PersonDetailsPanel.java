@@ -157,6 +157,35 @@ public class PersonDetailsPanel extends UiPart<Region> {
     }
 
     /**
+     * Refreshes the panel to show the current state of the person.
+     * This is useful when the person object is updated externally.
+     */
+    public void refresh() {
+        if (person != null) {
+            setPerson(person);
+        }
+    }
+
+    /**
+     * Clears the panel and resets it to its empty state.
+     */
+    public void clear() {
+        this.person = null;
+        clearContent();
+        leaveSection.setVisible(false);
+        attendanceSection.setVisible(false);
+        emptyStateLabel.setVisible(true);
+        emptyStateLabel.setManaged(true);
+    }
+
+    /**
+     * Returns true if the panel is showing the given person.
+     */
+    public boolean isShowing(Person other) {
+        return person != null && person.equals(other);
+    }
+
+    /**
      * Clears the content of the panel.
      */
     private void clearContent() {
