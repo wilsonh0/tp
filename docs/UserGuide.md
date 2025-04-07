@@ -142,7 +142,10 @@ help
 - `PHONE` refers to the employee's phone number and it should be at least 3 digits long.
 - `EMAIL` refers to the employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it should not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 - `ADDRESS` refers to the employee's address. Addresses can take any values.
-- `DATE` refers to the employee's date of hire. Date of hire must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).
+- `DATE` refers to the employee's date of hire. It must meet all these requirements:
+   1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28).
+   2. YEAR RANGE: Must be between 1900 to 2099 (inclusive).
+   3. VALID DATE: Must be a real calendar date. February has 28 days (29 in leap years). April, June, September, November have 30 days each. Other months have 31 days each.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
 - All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
@@ -223,8 +226,14 @@ Tag "Software Developer" removed successfully from John Doe.
 - `IDENTIFIER` can be either:
     - An employee index that should be a non-zero unsigned integer(e.g., `1`), or
     - A valid NRIC that begins with one of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
-- `START_DATE` refers to the starting date of the target employee's leave. It must follow the format `YYYY-MM-DD`.
-- `END_DATE` refers to the ending date of the target employee's leave. It must follow the format `YYYY-MM-DD` and must be later or on the same day as `END_DATE`.
+- `START_DATE` refers to the starting date of the target employee's leave. 
+- `END_DATE` refers to the ending date of the target employee's leave. 
+- `START_DATE` and `END_DATE` must meet all these requirements:
+    1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28).
+    2. YEAR RANGE: Must be between 1900 to 2099 (inclusive).
+    3. VALID DATE: Must be a real calendar date. February has 28 days (29 in leap years). April, June, September, November have 30 days each. Other months have 31 days each.
+    4. DATE ORDER: `START_DATE` must be on or before `END_DATE`.
+    5. DURATION: Must be less than or equal to 30 days.
 - `REASON` refers to the target employee's reason for taking the leave. It must be a non-empty string and can contain spaces.
 - The period of the leave should not overlap with the period of the target employee's any other leaves. If it overlaps, an error message will be shown.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
@@ -255,8 +264,11 @@ Leave added: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 - `IDENTIFIER` can be either:
     - An employee index that should be a non-zero unsigned integer(e.g., `1`), or
     - A valid NRIC that begins with one of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
-- `START_DATE` refers to the starting date of the target employee's leave. It must follow the format `YYYY-MM-DD`.
-- The start date of the leave should match with one of the start date of the target employee's leaves. If no match is found, an error message will be shown.
+- `START_DATE` refers to the starting date of the target employee's leave. It must meet all these requirements:
+    1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28).
+    2. YEAR RANGE: Must be between 1900 to 2099 (inclusive).
+    3. VALID DATE: Must be a real calendar date. February has 28 days (29 in leap years). April, June, September, November have 30 days each. Other months have 31 days each.
+    4. MATCHING: Must match with one of the start dates of the target employee's leaves.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
 - All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
@@ -398,7 +410,10 @@ The details of the **2nd** employee in the list will be displayed on the right p
 - `PHONE` refers to the target employee's phone number and it should be at least 3 digits long.
 - `EMAIL` refers to the target employee's email and it should be in the format of "local-part@domain". The local-part should only contain alphanumeric characters and these special characters `+_.-` and it should not start or end with any special characters. The domain name must end with a domain label at least 2 characters long, have each domain label start and end with alphanumeric characters, and have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 - `ADDRESS` refers to the target employee's address. Addresses can take any values.
-- `DATE` refers to the target employee's date of hire. Date of hire must be in the format of YYYY-MM-DD and must be a valid date (between 1900-2099).
+- `DATE` refers to the target employee's date of hire. It must meet all these requirements:
+    1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28).
+    2. YEAR RANGE: Must be between 1900 to 2099 (inclusive).
+    3. VALID DATE: Must be a real calendar date. February has 28 days (29 in leap years). April, June, September, November have 30 days each. Other months have 31 days each.
 - At least one of the parameters need to be present and an error message will be shown if none of these parameters is provided.
 - Any parameter added must be in its respective valid format as described above, if not, an error message will be shown.
 
