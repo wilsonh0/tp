@@ -18,15 +18,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
-
-    public static final String MESSAGE_INDEX_OUT_OF_BOUNDS =
-        "Error: Index out of bounds! It should be a positive number and less than %d.";
     public static final String MESSAGE_INDEX_NEGATIVE =
         "Error: Index cannot be negative! It should be a positive number.";
     public static final String MESSAGE_INDEX_ZERO =
         "Error: Index cannot be zero! It should be a positive number starting from 1.";
-    public static final String MESSAGE_INDEX_NOT_A_NUMBER =
-        "Error: Index is not a valid number! Please provide a numeric index.";
+    public static final String MESSAGE_INDEX_NOT_A_POSITIVE_INTEGER =
+        "Error: Index is not a valid positive integer! Please provide a positive integer.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -35,6 +32,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_HIRE);
@@ -48,7 +46,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         try {
-            int parsedIndex = Integer.parseInt(preamble);
+            int parsedIndex = Integer.parseInt(preamble.split(" ")[0]);
             if (parsedIndex == 0) {
                 throw new ParseException(MESSAGE_INDEX_ZERO);
             }
@@ -57,7 +55,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
             index = Index.fromOneBased(parsedIndex);
         } catch (NumberFormatException nfe) {
-            throw new ParseException(MESSAGE_INDEX_NOT_A_NUMBER);
+            throw new ParseException(MESSAGE_INDEX_NOT_A_POSITIVE_INTEGER);
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
