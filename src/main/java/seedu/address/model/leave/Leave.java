@@ -18,7 +18,7 @@ public class Leave {
 
     public static final String DATE_CONSTRAINTS =
             "Please ensure your dates meet all these requirements:\n"
-                    + "1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28).\n"
+                    + "1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28)\n"
                     + "2. YEAR RANGE: Must be between " + MIN_YEAR + " and " + MAX_YEAR + " (inclusive)\n"
                     + "3. VALID DATE: Must be a real calendar date\n"
                     + "   - February has 28 days (29 in leap years)\n"
