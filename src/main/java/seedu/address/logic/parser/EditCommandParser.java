@@ -39,14 +39,17 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         String preamble = argMultimap.getPreamble();
         if (preamble.isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
         Index index;
 
         try {
-            int parsedIndex = Integer.parseInt(preamble.split(" ")[0]);
+            String[] PreamableList = preamble.split(" ");
+            if (PreamableList.length > 1) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+            int parsedIndex = Integer.parseInt(PreamableList[0]);
             if (parsedIndex == 0) {
                 throw new ParseException(MESSAGE_INDEX_ZERO);
             }

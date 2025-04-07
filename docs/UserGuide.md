@@ -411,6 +411,10 @@ edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADD
 - The index must be a positive integer 1, 2, 3, …​
 - Any parameters specified of the person  will be edited if format is valid
 
+**Behaviours:**
+- If there are any duplicate fields e.g. `edit 1 /name hans /name bo` then the last duplicate will take effect i.e.
+(name will be edited to 'bo'). All other duplicates will be ignored.
+
 **Examples:**
 - Edit the name of the **1st** employee to be `Robert Lee`:
 ```properties
