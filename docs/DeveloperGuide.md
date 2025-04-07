@@ -304,16 +304,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `HR Nexus` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use Case: Add an employee**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User enters employee details with all required fields.
+2.  HR Nexus validates all fields.
+3.  HR Nexus adds the new employee.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Missing required field.
+
+    * 2a1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+* 2b. Invalid field format.
+
+    * 2b1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+**Use case: Delete an employee**
+
+**MSS**
+
+1.  User requests to list employees.
+2.  HR Nexus shows a list of employees.
+3.  User specifies employee index to delete in the list.
+4.  HR Nexus validates the existence of employee index.
+5.  HR Nexus deletes the employee.
 
     Use case ends.
 
@@ -323,11 +348,250 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. Invalid index.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. HR Nexus shows an error message.
 
-      Use case resumes at step 2.
+        Use case resumes at step 3.
+
+**Use Case: Edit an employee**
+
+**MSS**
+
+1.  User requests to list employees.
+2.  HR Nexus shows a list of employees.
+3.  User specifies employee index and fields to update.
+4.  HR Nexus updates specified fields.
+5.  HR Nexus displays updated employee details in the list.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. Invalid index.
+
+    * 3a1. HR Nexus shows an error message.
+
+        Use case resumes at step 3.
+
+* 3b. No field specified.
+
+    * 3b1. HR Nexus shows an error message.
+
+        Use case resumes at step 3.
+
+**Use case: Add leave entry for employee**
+
+**MSS**
+
+1.  User specifies employee identifier, date range and reason
+2.  HR Nexus validates existence of employee as well as format of date range and reason.
+3.  HR Nexus adds leave entry for specified employee.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Invalid employee identifier.
+
+    * 2a1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+* 2b. Invalid starting date and ending date requirements.
+
+    * 2b1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+* 2c. Invalid reason.
+
+    * 2c1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+**Use case: Remove leave entry for employee**
+
+**MSS**
+
+1.  User specifies employee identifier and leave start date.
+2.  HR Nexus validates existence of leave for specified employee.
+3.  HR Nexus removes leave entry for specified employee.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Invalid employee identifier.
+
+    * 2a1. HR Nexus shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. No matching leave.
+
+    * 2b1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+**Use case: Marks attendance for employee**
+
+1.  User enters attendance command with absent NRICs.
+2.  HR Nexus validates NRIC format.
+3.  HR Nexus marks specified employees as absent.
+4.  All other employees are marked present.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Invalid NRIC format.
+
+    * 2a1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+* 2b. Some NRICs do not match with any existing employee.
+
+    * 2b1. HR Nexus ignores unmatching NRICs.
+
+        Use case resumes at step 3.
+
+* 2c. Duplicated NRICs found.
+
+    * 2c1. HR Nexus keeps only a singular instance of the duplicated NRICs.
+
+        Use case resumes at step 3.
+
+**Use case: Add employee tag**
+
+**MSS**
+
+1.  User specifies employee index and tag.
+2.  HR Nexus validates the existence of employee index and tag, as well as format of tag.
+3.  HR Nexus adds tag on employee's profile.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Tag already exists.
+
+    * 2a1. HR Nexus shows an error message.
+
+        Use case ends.
+
+* 2b. Invalid employee index.
+
+    * 2b1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+* 2c. Invalid tag format.
+
+    * 2c1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+**Use case: Remove employee tag**
+
+**MSS**
+
+1.  User specifies employee index and tag.
+2.  HR Nexus validates the existence of employee and employee tag as well as format of tag.
+3.  HR Nexus adds tag on employee's profile.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Tag does not exist.
+
+    * 2a1. HR Nexus shows an error message.
+
+        Use case ends.
+
+* 2b. Invalid employee index.
+
+    * 2b1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+* 2c. Invalid tag format.
+
+    * 2c1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+**Use case: View employee details**
+
+**MSS**
+
+1.  User specifies employee index.
+2.  HR Nexus validates the existence of employee index.
+3.  HR Nexus displays employee details.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Invalid employee index.
+
+    * 2a1. HR Nexus shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: Find employee by name**
+
+**MSS**
+
+1.  User specifies search keywords.
+2.  HR Nexus displays employees whose names contain any of the specified keywords.
+3.  HR Nexus maintains filtered list of employees until next list/find command.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. No keywords provided.
+
+    * 1a1. HR Nexus shows an error message.
+
+        Use case resumes at step 1.
+
+**Use case: Sort employee**
+
+**MSS**
+
+1.  User specifies which field to be used for sorting and direction of sorting.
+2.  HR Nexus displays employees sorted as specified.
+3.  Sort order persists until next sort command.
+
+    Use case ends.
+
+**Use case: View help**
+
+**MSS**
+
+1.  User enters help command.
+2.  HR Nexus pops a help window with a URL link to User Guide.
+3.  User can browse through available commands.
+
+    Use case ends.
+
+**Use case: Clear all data**
+
+**MSS**
+
+1.  User enters clear command.
+2.  HR Nexus removes all employee records.
+3.  HR Nexus shows empty list.
+
+    Use case ends.
 
 *{More to be added}*
 
