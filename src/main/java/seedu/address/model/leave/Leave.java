@@ -24,8 +24,10 @@ public class Leave {
                     + "   - February has 28 days (29 in leap years)\n"
                     + "   - April, June, September, November have 30 days\n"
                     + "   - Other months have 31 days\n"
-                    + "4. DATE ORDER: Start date must be on or before end date\n"
-                    + "5. DURATION: Must be less than or equal to " + MAX_LEAVE_DURATION + " days\n";
+                    + "4. DATE ORDER: Start date must be on or before end date "
+                    + "and cannot be before employee's date of hire\n"
+                    + "5. DURATION: Must be less than or equal to " + MAX_LEAVE_DURATION + " days\n"
+                    + "6. OTHER RESTRICTION: Start date cannot be before employee's date of hire";
 
     public static final String REASON_CONSTRAINTS = "Reason should not be empty.";
 
