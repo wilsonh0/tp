@@ -24,8 +24,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         "Error: Index cannot be zero! It should be a positive number starting from 1.";
     public static final String MESSAGE_INDEX_NOT_A_POSITIVE_INTEGER =
         "Error: Index is not a valid positive integer! Please provide a positive integer.";
-    public static final String MESSAGE_INVALID_PREFIX =
-        "Invalid prefix or format. Fields to edit must be prefixed with the appropriate prefix (e.g. /name for name)";
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -39,8 +37,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_HIRE);
 
-        System.out.println(argMultimap.getAllValues(PREFIX_HIRE));
-
         String preamble = argMultimap.getPreamble();
         if (preamble.isEmpty()) {
             throw new ParseException(
@@ -50,7 +46,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         try {
-            int parsedIndex = Integer.parseInt(preamble);
+            int parsedIndex = Integer.parseInt(preamble.split(" ")[0]);
             if (parsedIndex == 0) {
                 throw new ParseException(MESSAGE_INDEX_ZERO);
             }

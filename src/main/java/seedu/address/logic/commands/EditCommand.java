@@ -52,7 +52,8 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n" +
+            "Fields to edit must be prefixed with the appropriate prefix (e.g. /name for name).";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_HIRE_AFTER_LEAVE = "Hire date cannot be after any existing leave dates";
     public static final String MESSAGE_INDEX_OUT_OF_BOUNDS =
