@@ -54,7 +54,6 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_HIRE_AFTER_LEAVE = "Hire date cannot be after any existing leave dates";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -71,12 +70,6 @@ public class EditCommand extends Command {
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
-    private boolean isHireBeforeAnyLeave(Person person) {
-        Hire hire = person.getHire();
-        List<Leave> leaves = person.getLeaves();
-        return leaves.stream().anyMatch(leave -> hire.toLocalDate().isAfter(leave.getStartDate()));
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -91,10 +84,6 @@ public class EditCommand extends Command {
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        if (isHireBeforeAnyLeave(editedPerson)) {
-            throw new CommandException("Hire date cannot be after any existing leave dates");
         }
 
         model.setPerson(personToEdit, editedPerson);
