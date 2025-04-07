@@ -37,6 +37,10 @@ public class AddTagCommand extends Command {
         "Error: Index out of bounds! It should be a positive number and less than %d.";
     public static final String MESSAGE_INDEX_NEGATIVE =
         "Error: Index cannot be negative! It should be a positive number.";
+    public static final String MESSAGE_TAG_TOO_LONG =
+        "Error: Tag must not exceed 50 characters!";
+    public static final String MESSAGE_TAG_WARNING =
+        "\nNote: This tag is quite long and may affect display in the UI. Consider using a shorter tag.";
 
 
     private final Index index;
@@ -76,6 +80,11 @@ public class AddTagCommand extends Command {
         String normalizedTagName = tagToAdd.tagName.trim().toLowerCase();
         Tag normalizedTag = new Tag(normalizedTagName);
 
+        if (normalizedTagName.length() > 50) {
+            throw new CommandException(MESSAGE_TAG_TOO_LONG);
+        }
+        boolean tagQuiteLong = normalizedTagName.length() > 30;
+
         if (existingTags.getTags().stream().anyMatch(tag -> tag.tagName.equalsIgnoreCase(normalizedTagName))) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE_TAG, tagToAdd, personToEdit.getName()));
         }
@@ -91,8 +100,10 @@ public class AddTagCommand extends Command {
 
         model.setPerson(personToEdit, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, tagToAdd, updatedPerson.getName()),
-            updatedPerson);
+
+        String resultMessage = String.format(MESSAGE_ADD_TAG_SUCCESS, tagToAdd, updatedPerson.getName());
+        if (tagQuiteLong) resultMessage += MESSAGE_TAG_WARNING;
+        return new CommandResult(resultMessage, updatedPerson);
     }
 
     /**
