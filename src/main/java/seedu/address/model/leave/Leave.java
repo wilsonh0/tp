@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
  */
 public class Leave {
     public static final int MIN_YEAR = 1900;
-    public static final int MAX_YEAR = 2100;
+    public static final int MAX_YEAR = 2099;
     public static final int MAX_LEAVE_DURATION = 30;
 
     public static final String DATE_CONSTRAINTS =
