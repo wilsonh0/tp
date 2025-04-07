@@ -54,11 +54,12 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n" +
             "Fields to edit must be prefixed with the appropriate prefix (e.g. /name for name).";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book." +
+            "\nThe NRIC is the same as another person in the list.";
     public static final String MESSAGE_HIRE_AFTER_LEAVE = "Hire date cannot be after any existing leave dates";
     public static final String MESSAGE_INDEX_OUT_OF_BOUNDS =
-        "Error: Index out of bounds! It should be a positive number and equal to / less than length of the persons list:" +
-                " %d.";
+        "Error: Index out of bounds! It should be a positive number and equal to / less than length of the persons" +
+                " list: %d.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
