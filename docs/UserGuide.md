@@ -14,8 +14,8 @@ With a clean and intuitive interface combining both Command Line (CLI) efficienc
 HR Nexus makes it easy to stay organized without the overhead of a full-fledged HR system. It is a lightweight, practical
 solution to help you lay the foundation for a more efficient HR process in the future.
 
-<div style="border: 1px solid #f07d7e; background-color: #fca8a3; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
-**Warning:**  
+<div style="border: 1px solid #f07d7e; background-color: #fcb8b8; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
+<strong>⚠️ Warning:</strong>
 These boxes indicate warnings about potential negative outcomes.
 </div>
 
@@ -481,6 +481,7 @@ find alex david
 **Output:**
 
 Returns both `Alex Yeoh` and `David Li`
+
 ![result for 'find alex david'](images/findAlexDavidResult.png)
 </panel>
 
@@ -497,8 +498,8 @@ Returns both `Alex Yeoh` and `David Li`
 delete INDEX
 ```
 
-<div style="border: 1px solid #f07d7e; background-color: #fca8a3; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
-**Warning:**  
+<div style="border: 1px solid #f07d7e; background-color: #fcb8b8; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
+<strong>⚠️ Warning:</strong>
 This command will permanently delete data. Use with caution.
 </div>
 
@@ -531,8 +532,8 @@ Format:
 clear
 ```
 
-<div style="border: 1px solid #f07d7e; background-color: #fca8a3; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
-**Warning:**  
+<div style="border: 1px solid #f07d7e; background-color: #fcb8b8; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
+<strong>⚠️ Warning:</strong>
 This command will permanently delete data. Use with caution.
 </div>
 
