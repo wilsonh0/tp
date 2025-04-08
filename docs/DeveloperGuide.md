@@ -13,7 +13,14 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+HR Nexus is built upon the Address Book Level 3 (AB3) project from the SE-EDU initiative. We thank the AB3 team for their work, which helped shape our project.
+
+We also want to acknowledge the following tools and libraries that made HR Nexus possible:
+
+- [AB3 Codebase](https://github.com/se-edu/addressbook-level3)
+- JavaFX
+- JUnit
+- Jackson Library
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -273,36 +280,33 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Product scope
 
 **Target user profile**:
+* Small-to-medium enterprises (SME) with limited or no dedicated HR personnel
+* Need to manage a significant number of contacts efficiently
+* Work with multiple employee records daily
+* Need to track staff availability
+* Prefer keyboard-driven productivity tools
+* Value speed and organization in HR tasks
 
-* Lack dedicated HR staff but need to track employee data (e.g., startups, small businesses).
-
-* Manage 10–100 employees and struggle with disorganized spreadsheets or paper records.
-
-* Prefer efficiency – Fast typists who want CLI shortcuts for quick actions (e.g., add /name John /nric S1234567A).
-
-* Need compliance – Require structured records for attendance, leaves, and NRIC/personal details (e.g., for audits or MOM compliance).
-
-* Desk-bound workflow – Prefer desktop apps over mobile/web for data security and uninterrupted work.
-
-**Value proposition**: Employee-Specific Features, Zero Overhead, Compliance-Ready, Freeware
+**Value proposition**: Manage contacts faster than a typical mouse/GUI driven app
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​    | I want to …​                    | So that I can…​                                                              |
-|------|------------|---------------------------------|------------------------------------------------------------------------------|
-| `* * *` | new user   | see usage instructions          | refer to instructions when I forget how to use the App                       |
-| `* * *` | HR admin   | add new employee records        | maintain an up-to-date employee database                                     |
-| `* * *` | HR admin   | edit new employee records       | maintain an up-to-date employee database                                     |
-| `* * *` | HR admin   | delete employee records         | remove terminated employees from the employee database                       |
-| `* * *` | HR admin   | mark attendance for employees   | ensure accurate payroll and monitor employees' productivity                  |
-| `* * *` | HR admin   | add leave entries for employees | ensure all employees do not exceed the number of leaves they are entitled to |
-| `* * *` | HR admin   | clear all employee data         | reset the employee database system for new deployments                       |
-| `* * *` | HR manager | view complete employee details  | evaluate the performance of employees                                        |
-| `* *` | HR admin   | search employees by name        | locate details of employees more efficiently                                 |
-| `*`  | HR admin   | sort persons by name            | locate a person easily                                                       |
+| Priority | As a …​  | I want to …​                    | So that I can…​                                                              |
+|------|----------|---------------------------------|------------------------------------------------------------------------------|
+| `* * *` | new user | see usage instructions          | refer to instructions when I forget how to use the App                       |
+| `* * *` | HR admin | add new employee records        | maintain an up-to-date employee database                                     |
+| `* * *` | HR admin | edit new employee records       | maintain an up-to-date employee database                                     |
+| `* * *` | HR admin | delete employee records         | remove terminated employees from the employee database                       |
+| `* * *` | HR admin | mark attendance for employees   | ensure accurate payroll and monitor employees' productivity                  |
+| `* * *` | HR admin | add leave entries for employees | ensure all employees do not exceed the number of leaves they are entitled to |
+| `* * *` | HR admin | add tags to employees            | understand skillset of employees and plan for their training and development |
+| `* * *` | HR admin | clear all employee data         | reset the employee database system for new deployments                       |
+| `* * *` | HR admin | view complete employee details  | evaluate the performance of employees                                        |
+| `* *` | HR admin | search employees by name        | locate details of employees more efficiently                                 |
+| `*`  | HR admin | sort persons by name            | locate a person easily                                                       |
 
 *{More to be added}*
 
@@ -607,7 +611,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **SME (Small-to-Medium Enterprise)**: Companies with a limited workforce and resources that benefit from lightweight, efficient tools like HR Nexus for managing HR tasks.
+* **API (Application Programming Interface)**: Defines interactions between different components of the application.
+* **NRIC**: A unique identifier used for employees, following the Singaporean ID format (e.g., S1234567A).
+* **INDEX**: The position of an employee in the currently displayed list, used to reference them in commands.
+* **Tag**: A label added to an employee to indicate their role, skill, or other relevant information.
+* **Leave Entry**: A record of an employee’s time off, including start date, end date, and reason.
+* **Attendance**: A feature that tracks whether employees are present or absent on a specific day.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -696,3 +706,15 @@ testers are expected to do more *exploratory* testing.
    
    1. Launch the Application: `java -jar HRNexus.jar`<br>
       Expected: Shows the GUI with empty contacts. The most recent window size and location is retained.
+
+## **Appendix: Planned Improvements**
+
+1. **Enhanced Input Validation & User Feedback**
+   - We plan to implement stricter input validation with more descriptive error messages to improve user experience. 
+   - Future versions could include real-time input checking (e.g., email format validation as the user types).
+2. **Improved UI/UX for Better Accessibility**
+   - We aim to refine the interface with better color contrast, keyboard navigation, and responsive design.
+   - Future iterations could include dark mode and customizable layouts.
+3. **Security & Privacy Enhancements**
+   - We intend to add optional encryption for sensitive inputs.
+   - Future versions may also include anonymized usage analytics for improvement.
