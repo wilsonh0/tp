@@ -389,7 +389,6 @@ view 2
 
 The details of the **2nd** employee in the list will be displayed on the right panel.
 
-[comment]: <> (Will need to update the image)
 ![list](images/Ui.png)
 </panel>
 
