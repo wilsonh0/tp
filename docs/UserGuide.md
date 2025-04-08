@@ -14,6 +14,11 @@ With a clean and intuitive interface combining both Command Line (CLI) efficienc
 HR Nexus makes it easy to stay organized without the overhead of a full-fledged HR system. It is a lightweight, practical
 solution to help you lay the foundation for a more efficient HR process in the future.
 
+<div style="border: 1px solid #f07d7e; background-color: #fca8a3; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
+**Warning:**  
+These boxes indicate warnings about potential negative outcomes.
+</div>
+
 <!-- * Table of Contents -->
 <page-nav-print />
 
@@ -492,6 +497,11 @@ Returns both `Alex Yeoh` and `David Li`
 delete INDEX
 ```
 
+<div style="border: 1px solid #f07d7e; background-color: #fca8a3; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
+**Warning:**  
+This command will permanently delete data. Use with caution.
+</div>
+
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
@@ -520,6 +530,11 @@ Format:
 ```properties
 clear
 ```
+
+<div style="border: 1px solid #f07d7e; background-color: #fca8a3; color: #a00000; padding: 10px; border-radius: 5px; margin: 10px 0;">
+**Warning:**  
+This command will permanently delete data. Use with caution.
+</div>
 
 **Output:**
 ```
