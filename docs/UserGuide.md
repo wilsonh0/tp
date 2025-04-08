@@ -429,6 +429,7 @@ edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADD
 - The index refers to the index number shown in the displayed person list.
 - The index must be a positive integer 1, 2, 3, …​
 - Any parameters specified of the person  will be edited if format is valid
+- Spacing between prefix and its corresponding field is optional (i.e. `/name john` is the same as `/namejohn`) 
 
 **Behaviours:**
 - If there are any duplicate fields e.g. `edit 1 /name hans /name bo` then the last duplicate will take effect i.e.
