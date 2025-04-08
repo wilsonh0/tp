@@ -120,6 +120,10 @@ command [IDENTIFIER] [/field PARAMETER]...
   - If the command specifies `help 123`, it will be interpreted as `help`.
 <p></p>
 
+* All commands that uses parameter 'INDEX' can only take non-zero unsigned integer from 1 to 2147483647.
+
+* Clicking on the employee profile does not allow the viewing of employee details. Only the `view INDEX` command serves this purpose. This clicking function will only be implemented in the future.
+
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 <br>
@@ -170,7 +174,7 @@ add /name John Doe /nric S1234567A /email johnd@example.com /phone 98765432 /add
 ##### Adds a tag (role or skill) to the specified employee.
 
 **Compulsory parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
-- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer.
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer from 1 to 2147483647.
 - `TAG` refers to the tag that we want to add to the target employee. It must be a non-empty string and can only contain letters, numbers, spaces, `'` and `-`.
 - If the employee already has the same tag, an error message will be shown.
 - All parameters are compulsory and error message will be shown if any of the parameters is not provided.
@@ -198,7 +202,7 @@ Tag "Software Developer" added successfully to John Doe.
 ##### Removes a tag from the specified employee.
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
-- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer.
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer from 1 to 2147483647.
 - `TAG` refers to a tag that has been previously added to the target employee. It must be a non-empty string and can only contain letters, numbers, spaces, `'` and `-`.
 - If `TAG` is not a tag that has already been previously added to the target employee, an error message will be shown.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
@@ -229,7 +233,7 @@ Tag "Software Developer" removed successfully from John Doe.
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `IDENTIFIER` can be either:
-    - An employee index that should be a non-zero unsigned integer(e.g., `1`), or
+    - An employee index that should be a non-zero unsigned integer from 1 to 2147483647, or
     - A valid NRIC that begins with one of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `START_DATE` refers to the starting date of the target employee's leave. 
 - `END_DATE` refers to the ending date of the target employee's leave. 
@@ -237,7 +241,7 @@ Tag "Software Developer" removed successfully from John Doe.
     1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28).
     2. YEAR RANGE: Must be between 1900 to 2099 (inclusive).
     3. VALID DATE: Must be a real calendar date. February has 28 days (29 in leap years). April, June, September, November have 30 days each. Other months have 31 days each.
-    4. DATE ORDER: `START_DATE` must be on or before `END_DATE`.
+    4. DATE ORDER: `START_DATE` must be on or before `END_DATE`. `START_DATE` cannot be before employee's date of hire.
     5. DURATION: Must be less than or equal to 30 days.
 - `REASON` refers to the target employee's reason for taking the leave. It must be a non-empty string and can contain spaces.
 - The period of the leave should not overlap with the period of the target employee's any other leaves. If it overlaps, an error message will be shown.
@@ -267,13 +271,13 @@ Leave added: 2025-03-05 to 2025-03-07 (Sick Leave) for John Doe
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
 - `IDENTIFIER` can be either:
-    - An employee index that should be a non-zero unsigned integer(e.g., `1`), or
+    - An employee index that should be a non-zero unsigned integer from 1 to 2147483647, or
     - A valid NRIC that begins with one of "S"/"T"/"F"/"G"/"M"/"s"/"t"/"f"/"g"/"m", followed by 7 numerical characters, and end with 1 alphabetical character (e.g., S7654321A).
 - `START_DATE` refers to the starting date of the target employee's leave. It must meet all these requirements:
     1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28).
     2. YEAR RANGE: Must be between 1900 to 2099 (inclusive).
     3. VALID DATE: Must be a real calendar date. February has 28 days (29 in leap years). April, June, September, November have 30 days each. Other months have 31 days each.
-    4. MATCHING: Must match with one of the start dates of the target employee's leaves.
+    4. MATCHING: Must match with one of the start dates of the target employee's leaves. 
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
 - All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
@@ -377,7 +381,7 @@ sort name asc
 ##### Displays comprehensive details of the specified employee on the **right** panel.
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
-- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer(e.g., `1`).
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer from 1 to 2147483647.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
 - All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
@@ -404,7 +408,7 @@ The details of the **2nd** employee in the list will be displayed on the right p
 **Optional Fields:** `name`,`nric`,`phone`,`email`,`address`,`hire`
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
-- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer(e.g., `1`).
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer from 1 to 2147483647.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
 - All parameters must be in their respective valid format as described above, if not, an error message will be shown.
 
@@ -418,6 +422,7 @@ The details of the **2nd** employee in the list will be displayed on the right p
     1. FORMAT: Must use yyyy-MM-dd (e.g., 2025-02-28).
     2. YEAR RANGE: Must be between 1900 to 2099 (inclusive).
     3. VALID DATE: Must be a real calendar date. February has 28 days (29 in leap years). April, June, September, November have 30 days each. Other months have 31 days each.
+    4. OTHER RESTRICTION: Must not be after any existing leave dates of target employee.
 - At least one of the parameters need to be present and an error message will be shown if none of these parameters is provided.
 - Any parameter added must be in its respective valid format as described above, if not, an error message will be shown.
 
@@ -428,11 +433,10 @@ edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADD
 - Edits the person at the specified INDEX.
 - The index refers to the index number shown in the displayed person list.
 - The index must be a positive integer 1, 2, 3, …​
-- Any parameters specified of the person  will be edited if format is valid
+- Any parameters specified of the person will be edited if format is valid
 
 **Behaviours:**
-- If there are any duplicate fields e.g. `edit 1 /name hans /name bo` then the last duplicate will take effect i.e.
-(name will be edited to 'bo'). All other duplicates will be ignored.
+- If there are duplicated fields (e.g. `edit 1 /name hans /name bo`), the last duplicate will take effect (i.e. name will be edited to 'bo'). All remaining duplicated fields other than the last one will be ignored.
 
 **Examples:**
 - Edit the name of the **1st** employee to be `Robert Lee`:
@@ -490,7 +494,7 @@ Returns both `Alex Yeoh` and `David Li`
 ##### Deletes the specified person from the HR Nexus system.
 
 **Compulsory Parameters (Should neither be blank nor only contain spaces, if not error will be shown):**
-- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer(e.g., `1`).
+- `INDEX` refers to the target employee's position in the currently displayed list. It should be a non-zero unsigned integer from 1 to 2147483647.
 - All parameters are compulsory and an error message will be shown if any of the parameters is not provided.
 
 **Format:**
@@ -637,7 +641,7 @@ _Details coming soon ..._
 **Legend:**
 - `UPPER_CASE`: Parameters you should replace with actual values
 - `[]`: Optional parameters
-- `INDEX`: Positive integer (1, 2, 3,...)
+- `INDEX`: Non-zero unsigned integer (1, 2, 3,..., 2147483647)
 - `IDENTIFIER`: Employee index or NRIC
 - `DATE`: YYYY-MM-DD format
 - `/field`: Command flag prefix
