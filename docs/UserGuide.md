@@ -342,7 +342,7 @@ Attendance added: 2 person marked as absent.
 list
 ```
 **Output:**
-![list](images/Ui.png)
+![list](images/list.png)
 </panel>
 
 <panel type="seamless" header="### Sorting employees: `sort`{.properties}" expanded no-close no-switch>
