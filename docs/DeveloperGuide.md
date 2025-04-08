@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-HR Nexus is based on the Address Book Level 3 (AB3) project from the SE-EDU initiative. We thank the AB3 team for their work, which helped shape our project.
+HR Nexus is built upon the Address Book Level 3 (AB3) project from the SE-EDU initiative. We thank the AB3 team for their work, which helped shape our project.
 
 We also want to acknowledge the following tools and libraries that made HR Nexus possible:
 
@@ -615,7 +615,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **SME (Small-to-Medium Enterprise)**: Companies with a limited workforce and resources that benefit from lightweight, efficient tools like HR Nexus for managing HR tasks.
+* **API (Application Programming Interface)**: Defines interactions between different components of the application.
+* **NRIC**: A unique identifier used for employees, following the Singaporean ID format (e.g., S1234567A).
+* **INDEX**: The position of an employee in the currently displayed list, used to reference them in commands.
+* **Tag**: A label added to an employee to indicate their role, skill, or other relevant information.
+* **Leave Entry**: A record of an employee’s time off, including start date, end date, and reason.
+* **Attendance**: A feature that tracks whether employees are present or absent on a specific day.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
