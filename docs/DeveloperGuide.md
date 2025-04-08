@@ -273,14 +273,14 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Product scope
 
 **Target user profile**:
+* Small-to-medium enterprises (SME) with limited or no dedicated HR personnel
+* Need to manage a significant number of contacts efficiently
+* Work with multiple employee records daily
+* Need to track staff availability
+* Prefer keyboard-driven productivity tools
+* Value speed and organization in HR tasks
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
-
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Manage contacts faster than a typical mouse/GUI driven app
 
 
 ### User stories
