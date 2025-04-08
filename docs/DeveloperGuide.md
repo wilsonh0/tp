@@ -274,13 +274,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Lack dedicated HR staff but need to track employee data (e.g., startups, small businesses).
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+* Manage 10–100 employees and struggle with disorganized spreadsheets or paper records.
+
+* Prefer efficiency – Fast typists who want CLI shortcuts for quick actions (e.g., add /name John /nric S1234567A).
+
+* Need compliance – Require structured records for attendance, leaves, and NRIC/personal details (e.g., for audits or MOM compliance).
+
+* Desk-bound workflow – Prefer desktop apps over mobile/web for data security and uninterrupted work.
+
+**Value proposition**: Employee-Specific Features, Zero Overhead, Compliance-Ready, Freeware
 
 
 ### User stories
