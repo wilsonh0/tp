@@ -404,7 +404,7 @@ Attendance added: 2 person marked as absent.
 list
 ```
 **Output:**
-![list](images/Ui.png)
+![list](images/list.png)
 </panel>
 
 <panel type="seamless" header="### Sorting employees: `sort`{.properties}" expanded no-close no-switch>
@@ -524,6 +524,15 @@ Employees are **uniquely identified** by their `NRIC`.
 ```properties
 edit INDEX [/name NAME] [/nric NRIC] [/phone PHONE] [/email EMAIL] [/address ADDRESS] [/hire DATE]
 ```
+- Edits the person at the specified INDEX.
+- The index refers to the index number shown in the displayed person list.
+- The index must be a positive integer 1, 2, 3, …​
+- Any parameters specified of the person  will be edited if format is valid
+- Spacing between prefix and its corresponding field is optional (i.e. `/name john` is the same as `/namejohn`) 
+
+**Behaviours:**
+- If there are any duplicate fields e.g. `edit 1 /name hans /name bo` then the last duplicate will take effect i.e.
+(name will be edited to 'bo'). All other duplicates will be ignored.
 
 **Examples:**
 - Edit the name of the **1st** employee to be `Robert Lee`:
