@@ -710,3 +710,15 @@ testers are expected to do more *exploratory* testing.
    
    1. Launch the Application: `java -jar HRNexus.jar`<br>
       Expected: Shows the GUI with empty contacts. The most recent window size and location is retained.
+
+## **Appendix: Planned Improvements**
+
+1. **Enhanced Input Validation & User Feedback**
+   - We plan to implement stricter input validation with more descriptive error messages to improve user experience. 
+   - Future versions could include real-time input checking (e.g., email format validation as the user types).
+2. **Improved UI/UX for Better Accessibility**
+   - We aim to refine the interface with better color contrast, keyboard navigation, and responsive design.
+   - Future iterations could include dark mode and customizable layouts.
+3. **Security & Privacy Enhancements**
+   - We intend to add optional encryption for sensitive inputs.
+   - Future versions may also include anonymized usage analytics for improvement.
